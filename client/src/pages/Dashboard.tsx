@@ -1,5 +1,7 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
+import { BookOpen, ExternalLink } from "lucide-react";
+import { WIKI_PAGES } from "../lib/wikiLinks";
 import {
   Activity, Flame, Moon, Heart, Zap, TrendingUp, TrendingDown,
   Minus, Calendar, Award, AlertCircle, CheckCircle2, BarChart2
@@ -197,6 +199,15 @@ export default function Dashboard() {
             <Activity className="w-4 h-4" />
             Log Today's Symptoms
           </button>
+          <a
+            href={WIKI_PAGES.isThisPerimenopause}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-xs text-[#4a8a72] font-semibold hover:underline"
+          >
+            <BookOpen className="w-3.5 h-3.5" />
+            Is this perimenopause? Read the guide →
+          </a>
         </motion.div>
       </div>
     );
@@ -379,6 +390,25 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+
+      {/* Menopause Wiki nudge */}
+      <a
+        href={WIKI_PAGES.home}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-between ripple-card p-4 hover:bg-[#f5f0ea] transition-colors group no-underline"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-[#eef4f1] rounded-lg flex items-center justify-center shrink-0">
+            <BookOpen className="w-4 h-4 text-[#4a8a72]" />
+          </div>
+          <div>
+            <p className="text-xs font-bold text-[#1a2b22]">Menopause Wiki</p>
+            <p className="text-[10px] text-[#6b7a72]">Clinical references, treatment options, and community knowledge</p>
+          </div>
+        </div>
+        <ExternalLink className="w-3.5 h-3.5 text-[#9a9490] shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+      </a>
 
       {/* Evidence Ready Banner */}
       {isEvidenceReady && (

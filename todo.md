@@ -61,3 +61,14 @@
 - [x] Mobile-responsive hamburger menu
 - [x] Active tab state management via Zustand
 - [x] Toast notification system
+
+## Phase 1 — Menopause Wiki Integration
+- [x] Build wikiLinkMap — symptom-to-wiki-URL mapping for all 40+ topics
+- [x] Update ReverseLookup — add "Learn More on Menopause Wiki" per symptom result
+- [x] Update ReverseLookup — add "Browse All Symptoms" wiki link in header
+- [x] Update EvidenceEngine — add "Clinical References" panel with wiki + NAMS/BMS links
+- [x] Update EvidenceEngine — add treatment reference links in the GP brief footer
+- [x] Add Resources page — curated wiki sections, provider directories, books, podcasts
+- [x] Wire Resources tab into sidebar navigation
+- [x] Add contextual wiki nudge on Dashboard empty state
+- [x] Add "Learn More" wiki link on Symptom Log per symptom slider

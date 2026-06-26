@@ -6,7 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   BarChart2, PlusCircle, Sparkles, Binary, Compass,
-  CreditCard, LogOut, Menu, X, Lock, ShieldCheck, Crown
+  CreditCard, LogOut, Menu, X, Lock, ShieldCheck, Crown, BookOpen
 } from "lucide-react";
 import { useVaultStore, TabId } from "./stores/vaultStore";
 import Onboarding from "./pages/Onboarding";
@@ -17,6 +17,7 @@ import AIDiary from "./pages/AIDiary";
 import EvidenceEngine from "./pages/EvidenceEngine";
 import ReverseLookup from "./pages/ReverseLookup";
 import UpgradeHub from "./pages/UpgradeHub";
+import Resources from "./pages/Resources";
 
 // ─── Ripple Logo ──────────────────────────────────────────────────────────────
 function RippleLogo({ size = 32 }: { size?: number }) {
@@ -74,6 +75,7 @@ const NAV_ITEMS: Array<{ id: TabId; label: string; icon: React.ElementType; tier
   { id: "evidence_engine", label: "Evidence Engine", icon: Binary },
   { id: "reverse_lookup", label: "Symptom Lookup", icon: Compass },
   { id: "upgrade_hub", label: "Upgrade Hub", icon: CreditCard },
+  { id: "resources", label: "Resources", icon: BookOpen },
 ];
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────
@@ -177,6 +179,7 @@ function AppShell() {
       case "evidence_engine": return <EvidenceEngine />;
       case "reverse_lookup": return <ReverseLookup />;
       case "upgrade_hub": return <UpgradeHub />;
+      case "resources": return <Resources />;
       default: return <Dashboard />;
     }
   };

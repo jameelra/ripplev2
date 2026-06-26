@@ -31,6 +31,7 @@ export type TabId =
   | "ai_diary"
   | "cycle_tracker"
   | "upgrade_hub"
+  | "resources"
   | "settings";
 
 export interface ToastNotification {
