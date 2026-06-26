@@ -106,10 +106,22 @@ describe("ai.generateEvidence", () => {
       diaryText: "Feeling tired and foggy today.",
     }));
 
-    const result = await caller.ai.generateEvidence({ logs: mockLogs });
+    const mockCycleEvents = [
+      { id: "ce1", date: "2026-06-01", type: "period_start" as const, createdAt: new Date().toISOString() },
+      { id: "ce2", date: "2026-06-02", type: "period_active" as const, createdAt: new Date().toISOString() },
+      { id: "ce3", date: "2026-06-03", type: "period_active" as const, createdAt: new Date().toISOString() },
+      { id: "ce4", date: "2026-06-15", type: "ovulation" as const, createdAt: new Date().toISOString() },
+      { id: "ce5", date: "2026-05-01", type: "period_start" as const, createdAt: new Date().toISOString() },
+      { id: "ce6", date: "2026-05-10", type: "spotting" as const, createdAt: new Date().toISOString() },
+    ];
+    const result = await caller.ai.generateEvidence({ logs: mockLogs, cycleEvents: mockCycleEvents });
     expect(result.success).toBe(true);
     expect(result.brief).toContain("Greene Climacteric Scale");
     expect(result.brief).toContain("NAMS");
+    expect(result.brief).toContain("Menstrual Cycle Analysis");
+    expect(result.brief).toContain("Period Start Events Logged");
+    expect(result.brief).toContain("Spotting Events");
+    expect(result.brief).toContain("Bleeding Days Logged");
     expect(result.greeneScore).toBeGreaterThan(0);
     expect(result.vasomotorScore).toBeGreaterThan(0);
     expect(result.trackingDays).toBe(5);

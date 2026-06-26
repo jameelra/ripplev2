@@ -294,9 +294,17 @@ export const appRouter = router({
           response: z.string(),
           wasResolved: z.boolean(),
         })).optional(),
+        cycleEvents: z.array(z.object({
+          id: z.string(),
+          date: z.string(),
+          type: z.enum(["period_start", "period_active", "period_end", "ovulation", "spotting", "predicted_period", "predicted_ovulation"]),
+          flowIntensity: z.enum(["light", "medium", "heavy", "spotting"]).optional(),
+          notes: z.string().optional(),
+          createdAt: z.string(),
+        })).optional(),
       }))
       .mutation(async ({ input }) => {
-        const { logs, dismissals = [] } = input;
+        const { logs, dismissals = [], cycleEvents = [] } = input;
         if (logs.length === 0) throw new Error("No logs to generate evidence from");
 
         // Calculate Greene Climacteric Scale scores
@@ -378,11 +386,64 @@ The following symptoms showed the highest sustained severity over the tracking p
 
 ---
 
-## 4. Cycle Pattern Summary
+## 4. Menstrual Cycle Analysis
 
-${logs.filter((l) => l.cycle.cycleActive).length > 0
-  ? `Menstrual activity was recorded on ${logs.filter((l) => l.cycle.cycleActive).length} of ${count} tracked days. ${logs.filter((l) => l.cycle.spotting).length > 0 ? `Spotting was reported on ${logs.filter((l) => l.cycle.spotting).length} days, which may indicate anovulatory cycles consistent with perimenopause.` : ""}`
-  : "No active menstrual periods were recorded during the tracking period."}
+${(() => {
+  const periodStarts = cycleEvents.filter((e) => e.type === "period_start").sort((a, b) => a.date.localeCompare(b.date));
+  const ovulationEvents = cycleEvents.filter((e) => e.type === "ovulation");
+  const spottingEvents = cycleEvents.filter((e) => e.type === "spotting");
+  const activeEvents = cycleEvents.filter((e) => e.type === "period_active" || e.type === "period_start");
+  const bleedingDays = activeEvents.length;
+
+  if (periodStarts.length === 0 && cycleEvents.length === 0) {
+    return "No cycle data has been logged in the Ripple Cycle Calendar for this tracking period. The patient may wish to begin logging cycle events to provide additional clinical context.";
+  }
+
+  // Compute cycle lengths
+  const cycleLengths: number[] = [];
+  for (let i = 0; i < periodStarts.length - 1; i++) {
+    const a = new Date(periodStarts[i].date).getTime();
+    const b = new Date(periodStarts[i + 1].date).getTime();
+    const len = Math.round((b - a) / (1000 * 60 * 60 * 24));
+    if (len >= 14 && len <= 90) cycleLengths.push(len);
+  }
+
+  const avgCycleLen = cycleLengths.length > 0
+    ? Math.round(cycleLengths.reduce((a, b) => a + b, 0) / cycleLengths.length)
+    : null;
+
+  const maxLen = cycleLengths.length > 0 ? Math.max(...cycleLengths) : 0;
+  const minLen = cycleLengths.length > 0 ? Math.min(...cycleLengths) : 0;
+  const variabilityRange = maxLen - minLen;
+  const variabilityLabel = variabilityRange <= 3 ? "Regular (±3 days)" :
+    variabilityRange <= 7 ? "Slightly Irregular (±7 days)" :
+    variabilityRange <= 14 ? "Irregular (±14 days) — consistent with perimenopause" :
+    `Highly Irregular (±${variabilityRange} days) — strongly suggestive of perimenopausal transition`;
+
+  const lines: string[] = [];
+
+  lines.push(`| Metric | Value | Clinical Note |`);
+  lines.push(`|---|---|---|`);
+  lines.push(`| Period Start Events Logged | **${periodStarts.length}** | ${periodStarts.length >= 2 ? "Sufficient for cycle analysis" : "Insufficient for prediction — log more cycles"} |`);
+  if (avgCycleLen) lines.push(`| Average Cycle Length | **${avgCycleLen} days** | Normal range: 21–35 days |`);
+  if (cycleLengths.length >= 2) lines.push(`| Cycle Variability | **${variabilityLabel}** | ${variabilityRange > 7 ? "⚠ Clinically significant irregularity" : "Within acceptable range"} |`);
+  lines.push(`| Ovulation Events Logged | **${ovulationEvents.length}** | ${ovulationEvents.length === 0 ? "No confirmed ovulation logged" : "Ovulation confirmed on tracked days"} |`);
+  if (bleedingDays > 0) lines.push(`| Bleeding Days Logged | **${bleedingDays} day${bleedingDays !== 1 ? "s" : ""}** | ${bleedingDays > 7 ? "⚠ Prolonged bleeding — may warrant investigation" : bleedingDays < 2 ? "Short bleeding duration logged" : "Within typical range (2–7 days)"} |`);
+  lines.push(`| Spotting Events | **${spottingEvents.length}** | ${spottingEvents.length > 0 ? "⚠ Intermenstrual spotting noted — may indicate anovulatory cycles" : "No spotting reported"} |`);
+
+  let narrative = "\n\n";
+  if (variabilityRange > 7 && cycleLengths.length >= 2) {
+    narrative += `**Clinical Note:** This patient's cycle data shows ${variabilityLabel.toLowerCase()}. According to NAMS guidelines, cycle irregularity is one of the earliest and most reliable clinical markers of the perimenopausal transition. The Stages of Reproductive Aging Workshop (STRAW+10) criteria define the early menopausal transition as cycles varying by ≥7 days from the previous cycle. This patient's data meets or exceeds this threshold.\n\n`;
+  }
+  if (spottingEvents.length > 0) {
+    narrative += `**Intermenstrual Spotting:** ${spottingEvents.length} spotting event(s) were recorded. Intermenstrual bleeding in perimenopausal women may indicate anovulatory cycles, endometrial changes, or polyps. Clinical investigation is recommended if spotting is persistent.\n\n`;
+  }
+  if (periodStarts.length >= 2 && avgCycleLen && (avgCycleLen < 21 || avgCycleLen > 35)) {
+    narrative += `**Cycle Length Deviation:** The average cycle length of ${avgCycleLen} days falls outside the normal range of 21–35 days, which is consistent with hormonal dysregulation during perimenopause.\n\n`;
+  }
+
+  return lines.join("\n") + narrative;
+})()}
 
 ---
 

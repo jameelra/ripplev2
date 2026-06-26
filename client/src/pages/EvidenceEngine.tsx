@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   FileText, Printer, Copy, CheckCircle2, RefreshCw, Lock,
   AlertCircle, BarChart2, ExternalLink, BookOpen, GraduationCap,
-  Stethoscope, Globe
+  Stethoscope, Globe, CalendarDays
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
@@ -56,7 +56,7 @@ function WikiResourceLink({
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function EvidenceEngine() {
-  const { logs, dismissals, licenseTier, setActiveTab } = useVaultStore();
+  const { logs, dismissals, cycleEvents, licenseTier, setActiveTab } = useVaultStore();
   const [brief, setBrief] = useState<string | null>(null);
   const [scores, setScores] = useState<{
     greeneScore: number;
@@ -98,6 +98,14 @@ export default function EvidenceEngine() {
         symptomsReported: d.symptomsReported,
         response: d.response,
         wasResolved: d.wasResolved,
+      })),
+      cycleEvents: cycleEvents.map((e) => ({
+        id: e.id,
+        date: e.date,
+        type: e.type as "period_start" | "period_active" | "period_end" | "ovulation" | "spotting" | "predicted_period" | "predicted_ovulation",
+        flowIntensity: e.flowIntensity as "light" | "medium" | "heavy" | "spotting" | undefined,
+        notes: e.notes,
+        createdAt: e.createdAt,
       })),
       logs: logs.map((l) => ({
         id: l.id,
@@ -200,6 +208,41 @@ export default function EvidenceEngine() {
           </Button>
         </div>
       )}
+
+      {/* Cycle data preview card */}
+      {hasEnoughData && (() => {
+        const periodStarts = cycleEvents.filter((e) => e.type === "period_start");
+        const spottingCount = cycleEvents.filter((e) => e.type === "spotting").length;
+        return (
+          <div className={`ripple-card p-4 flex items-start gap-3 ${
+            cycleEvents.length > 0 ? "border-[#c8d8d0] bg-[#eef4f1]" : "border-[#e0d5c8]"
+          }`}>
+            <CalendarDays className={`w-5 h-5 shrink-0 mt-0.5 ${
+              cycleEvents.length > 0 ? "text-[#4a8a72]" : "text-[#9a9490]"
+            }`} />
+            <div className="flex-1">
+              <p className="text-sm font-bold text-[#1a2b22]">
+                Cycle Data: {cycleEvents.length > 0 ? `${cycleEvents.length} events logged` : "No cycle events logged"}
+              </p>
+              <p className="text-xs text-[#6b7a72] mt-0.5 leading-relaxed">
+                {cycleEvents.length > 0
+                  ? `${periodStarts.length} period start${periodStarts.length !== 1 ? "s" : ""}${
+                      spottingCount > 0 ? `, ${spottingCount} spotting event${spottingCount !== 1 ? "s" : ""}` : ""
+                    } — cycle analysis will be included in Section 4 of your GP brief.`
+                  : "Log cycle events in the Cycle Calendar to include a menstrual cycle analysis in your GP brief."}
+              </p>
+            </div>
+            {cycleEvents.length === 0 && (
+              <button
+                onClick={() => setActiveTab("cycle_calendar")}
+                className="text-xs font-mono font-bold text-[#4a8a72] hover:underline shrink-0"
+              >
+                Log →
+              </button>
+            )}
+          </div>
+        );
+      })()}
 
       {/* Generate button */}
       {hasEnoughData && (

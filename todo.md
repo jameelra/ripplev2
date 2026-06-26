@@ -106,3 +106,11 @@
 - [x] Add hover/touch tooltip showing exact values per date
 - [x] Embed BiologicalCorrelations in Dashboard (below trend chart)
 - [x] Add BiologicalCorrelations as standalone page accessible from sidebar
+
+## Phase 4 — Cycle Data in Evidence Engine Brief
+- [x] Extend generateEvidence tRPC input schema to accept cycleEvents array
+- [x] Compute clinical cycle summary on server: avg length, variability, bleeding days, irregular flags
+- [x] Embed cycle summary as Section 4 in the GP brief markdown (renumbered)
+- [x] Update EvidenceEngine.tsx to pass cycleEvents from vaultStore to the mutation
+- [x] Add cycle summary preview card in the Evidence Engine UI (before generating)
+- [x] Update existing Evidence Engine test to include cycle data and verify cycle section in brief
