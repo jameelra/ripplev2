@@ -32,6 +32,8 @@ export type TabId =
   | "cycle_tracker"
   | "upgrade_hub"
   | "resources"
+  | "clinical_kb"
+  | "dismissal_tracker"
   | "settings";
 
 export interface ToastNotification {
@@ -79,6 +81,9 @@ interface VaultState {
   loadVaultData: (key: CryptoKey) => Promise<void>;
   resetVault: () => void;
   getLogForToday: () => DayLog | undefined;
+  addDismissal: (record: DismissalRecord) => Promise<void>;
+  updateDismissal: (record: DismissalRecord) => Promise<void>;
+  removeDismissal: (id: string) => Promise<void>;
 }
 
 const TODAY = () => new Date().toISOString().split("T")[0];
@@ -257,4 +262,29 @@ export const useVaultStore = create<VaultState>((set, get) => ({
     const today = TODAY();
     return get().logs.find((l) => l.id === today);
   },
+
+  addDismissal: async (record: DismissalRecord) => {
+    const { sessionKey, dismissals } = get();
+    if (!sessionKey) return;
+    const updated = [...dismissals, record];
+    await encryptAndSave("ripple_dismissals", JSON.stringify(updated), sessionKey);
+    set({ dismissals: updated });
+  },
+
+  updateDismissal: async (record: DismissalRecord) => {
+    const { sessionKey, dismissals } = get();
+    if (!sessionKey) return;
+    const updated = dismissals.map((d: DismissalRecord) => d.id === record.id ? record : d);
+    await encryptAndSave("ripple_dismissals", JSON.stringify(updated), sessionKey);
+    set({ dismissals: updated });
+  },
+
+  removeDismissal: async (id: string) => {
+    const { sessionKey, dismissals } = get();
+    if (!sessionKey) return;
+    const updated = dismissals.filter((d: DismissalRecord) => d.id !== id);
+    await encryptAndSave("ripple_dismissals", JSON.stringify(updated), sessionKey);
+    set({ dismissals: updated });
+  },
 }));
+

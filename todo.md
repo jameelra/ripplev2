@@ -72,3 +72,19 @@
 - [x] Wire Resources tab into sidebar navigation
 - [x] Add contextual wiki nudge on Dashboard empty state
 - [x] Add "Learn More" wiki link on Symptom Log per symptom slider
+
+## Phase 2 — Clinical Knowledge Base & Dismissal Tracker
+
+### Clinical Knowledge Base
+- [x] Write 10 original symptom entries (hot flashes, night sweats, brain fog, joint pain, sleep disruption, anxiety, fatigue, heart palpitations, vaginal atrophy, weight gain)
+- [x] Build clinicalKnowledgeBase.ts — structured TypeScript data file with all entries
+- [x] Build ClinicalKnowledgeBase page — searchable, filterable symptom encyclopedia
+- [x] Wire ClinicalKnowledgeBase into sidebar navigation
+- [x] Add "Learn More" deep-links from Symptom Log sliders to CKB entries
+
+### Dismissal Record Tracker
+- [x] Add dismissals array to vaultStore — encrypted storage
+- [x] Build DismissalTracker page — form to log a new dismissal record
+- [x] Build dismissal record list with edit/delete
+- [x] Wire dismissal records into Evidence Engine GP brief
+- [x] Add Dismissal Tracker to sidebar navigation

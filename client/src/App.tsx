@@ -6,7 +6,8 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   BarChart2, PlusCircle, Sparkles, Binary, Compass,
-  CreditCard, LogOut, Menu, X, Lock, ShieldCheck, Crown, BookOpen
+  CreditCard, LogOut, Menu, X, Lock, ShieldCheck, Crown, BookOpen,
+  FlaskConical, ShieldAlert
 } from "lucide-react";
 import { useVaultStore, TabId } from "./stores/vaultStore";
 import Onboarding from "./pages/Onboarding";
@@ -18,6 +19,8 @@ import EvidenceEngine from "./pages/EvidenceEngine";
 import ReverseLookup from "./pages/ReverseLookup";
 import UpgradeHub from "./pages/UpgradeHub";
 import Resources from "./pages/Resources";
+import ClinicalKnowledgeBase from "./pages/ClinicalKnowledgeBase";
+import DismissalTracker from "./pages/DismissalTracker";
 
 // ─── Ripple Logo ──────────────────────────────────────────────────────────────
 function RippleLogo({ size = 32 }: { size?: number }) {
@@ -74,6 +77,8 @@ const NAV_ITEMS: Array<{ id: TabId; label: string; icon: React.ElementType; tier
   { id: "ai_diary", label: "AI Diary", icon: Sparkles, tier: "Pro" },
   { id: "evidence_engine", label: "Evidence Engine", icon: Binary },
   { id: "reverse_lookup", label: "Symptom Lookup", icon: Compass },
+  { id: "clinical_kb", label: "Symptom Library", icon: FlaskConical },
+  { id: "dismissal_tracker", label: "Dismissal Tracker", icon: ShieldAlert },
   { id: "upgrade_hub", label: "Upgrade Hub", icon: CreditCard },
   { id: "resources", label: "Resources", icon: BookOpen },
 ];
@@ -180,6 +185,8 @@ function AppShell() {
       case "reverse_lookup": return <ReverseLookup />;
       case "upgrade_hub": return <UpgradeHub />;
       case "resources": return <Resources />;
+      case "clinical_kb": return <ClinicalKnowledgeBase />;
+      case "dismissal_tracker": return <DismissalTracker />;
       default: return <Dashboard />;
     }
   };

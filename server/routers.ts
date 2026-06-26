@@ -289,7 +289,7 @@ export const appRouter = router({
           id: z.string(),
           date: z.string(),
           clinicName: z.string(),
-          clinicianName: z.string(),
+          clinicianName: z.string().optional().default(""),
           symptomsReported: z.array(z.string()),
           response: z.string(),
           wasResolved: z.boolean(),

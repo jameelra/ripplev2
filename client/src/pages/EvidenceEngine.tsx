@@ -56,7 +56,7 @@ function WikiResourceLink({
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function EvidenceEngine() {
-  const { logs, licenseTier, setActiveTab } = useVaultStore();
+  const { logs, dismissals, licenseTier, setActiveTab } = useVaultStore();
   const [brief, setBrief] = useState<string | null>(null);
   const [scores, setScores] = useState<{
     greeneScore: number;
@@ -90,6 +90,15 @@ export default function EvidenceEngine() {
     setIsGenerating(true);
     setBrief(null);
     generateMutation.mutate({
+      dismissals: dismissals.map((d) => ({
+        id: d.id,
+        date: d.date,
+        clinicName: d.clinicName,
+        clinicianName: d.clinicianName ?? "",
+        symptomsReported: d.symptomsReported,
+        response: d.response,
+        wasResolved: d.wasResolved,
+      })),
       logs: logs.map((l) => ({
         id: l.id,
         date: l.date,
