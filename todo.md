@@ -88,3 +88,21 @@
 - [x] Build dismissal record list with edit/delete
 - [x] Wire dismissal records into Evidence Engine GP brief
 - [x] Add Dismissal Tracker to sidebar navigation
+
+## Phase 3 — Cycle Calendar & Biological Correlations
+
+### Cycle Calendar
+- [x] Extend vaultStore with cycleEvents array (period start/end, ovulation, spotting) and encrypted storage
+- [x] Build cycle intelligence engine — predict ovulation window, next period, flag irregular cycles
+- [x] Build CycleCalendar page — interactive monthly calendar with colour-coded markers
+- [x] Add Reproductive Window Intelligence banner with analysis status
+- [x] Add Log History Trace panel (right side) showing recent cycle events
+- [x] Add quick-log buttons: Period Began, Active Day, Ovulation, Spotting
+- [x] Wire CycleCalendar into sidebar navigation
+
+### Biological Correlations Chart
+- [x] Build BiologicalCorrelations component — dual-axis time-series chart using Recharts
+- [x] Implement metric switcher: Sleep & HRV | Aches & Flashes | Mood & Sleep
+- [x] Add hover/touch tooltip showing exact values per date
+- [x] Embed BiologicalCorrelations in Dashboard (below trend chart)
+- [x] Add BiologicalCorrelations as standalone page accessible from sidebar

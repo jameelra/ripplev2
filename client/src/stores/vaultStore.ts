@@ -7,6 +7,7 @@ import {
   DEFAULT_SIGNALS,
   DEFAULT_CYCLE,
 } from "../../../shared/types";
+import { CycleEvent } from "../lib/cycleIntelligence";
 import {
   deriveKey,
   encryptData,
@@ -34,6 +35,8 @@ export type TabId =
   | "resources"
   | "clinical_kb"
   | "dismissal_tracker"
+  | "cycle_calendar"
+  | "correlations"
   | "settings";
 
 export interface ToastNotification {
@@ -53,6 +56,7 @@ interface VaultState {
   // App state
   logs: DayLog[];
   dismissals: DismissalRecord[];
+  cycleEvents: CycleEvent[];
   licenseTier: LicenseTier;
   activeTab: TabId;
   toastNotification: ToastNotification | null;
@@ -66,6 +70,9 @@ interface VaultState {
   setIsLegalAccepted: (v: boolean) => void;
   setLogs: (logs: DayLog[]) => void;
   setDismissals: (d: DismissalRecord[]) => void;
+  setCycleEvents: (events: CycleEvent[]) => void;
+  addCycleEvent: (event: CycleEvent) => Promise<void>;
+  removeCycleEvent: (id: string) => Promise<void>;
   setLicenseTier: (t: LicenseTier) => void;
   setActiveTab: (tab: TabId) => void;
   setToastNotification: (n: ToastNotification | null) => void;
@@ -97,6 +104,7 @@ export const useVaultStore = create<VaultState>((set, get) => ({
   isLegalAccepted: localStorage.getItem(LEGAL_ACCEPTED_KEY) === "true",
   logs: [],
   dismissals: [],
+  cycleEvents: [],
   licenseTier: (localStorage.getItem("ripple_license_tier") as LicenseTier) || "Free",
   activeTab: "dashboard",
   toastNotification: null,
@@ -122,6 +130,7 @@ export const useVaultStore = create<VaultState>((set, get) => ({
   },
   setLogs: (logs) => set({ logs }),
   setDismissals: (d) => set({ dismissals: d }),
+  setCycleEvents: (events) => set({ cycleEvents: events }),
   setLicenseTier: (t) => {
     localStorage.setItem("ripple_license_tier", t);
     set({ licenseTier: t });
@@ -218,9 +227,31 @@ export const useVaultStore = create<VaultState>((set, get) => ({
   loadVaultData: async (key: CryptoKey) => {
     const logsRaw = await loadAndDecrypt("ripple_day_logs", key);
     const dismissalsRaw = await loadAndDecrypt("ripple_dismissals", key);
+    const cycleEventsRaw = await loadAndDecrypt("ripple_cycle_events", key);
     const logs: DayLog[] = logsRaw ? JSON.parse(logsRaw) : [];
     const dismissals: DismissalRecord[] = dismissalsRaw ? JSON.parse(dismissalsRaw) : [];
-    set({ logs, dismissals });
+    const cycleEvents: CycleEvent[] = cycleEventsRaw ? JSON.parse(cycleEventsRaw) : [];
+    set({ logs, dismissals, cycleEvents });
+  },
+
+  addCycleEvent: async (event: CycleEvent) => {
+    const { sessionKey, cycleEvents } = get();
+    if (!sessionKey) return;
+    // Remove any existing event of the same type on the same date (idempotent)
+    const filtered = cycleEvents.filter(
+      (e: CycleEvent) => !(e.date === event.date && e.type === event.type)
+    );
+    const updated = [...filtered, event].sort((a, b) => a.date.localeCompare(b.date));
+    await encryptAndSave("ripple_cycle_events", JSON.stringify(updated), sessionKey);
+    set({ cycleEvents: updated });
+  },
+
+  removeCycleEvent: async (id: string) => {
+    const { sessionKey, cycleEvents } = get();
+    if (!sessionKey) return;
+    const updated = cycleEvents.filter((e: CycleEvent) => e.id !== id);
+    await encryptAndSave("ripple_cycle_events", JSON.stringify(updated), sessionKey);
+    set({ cycleEvents: updated });
   },
 
   saveLog: async (log: DayLog) => {
@@ -245,6 +276,7 @@ export const useVaultStore = create<VaultState>((set, get) => ({
       ONBOARDING_KEY,
       LEGAL_ACCEPTED_KEY,
       "ripple_license_tier",
+      "ripple_cycle_events",
     ].forEach((k: string) => localStorage.removeItem(k));
     set({
       sessionKey: null,

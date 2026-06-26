@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, ExternalLink } from "lucide-react";
 import { WIKI_PAGES } from "../lib/wikiLinks";
+import BiologicalCorrelations from "../components/BiologicalCorrelations";
 import {
   Activity, Flame, Moon, Heart, Zap, TrendingUp, TrendingDown,
   Minus, Calendar, Award, AlertCircle, CheckCircle2, BarChart2
@@ -390,6 +391,9 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+
+      {/* Biological Correlations Chart */}
+      {logs.length >= 2 && <BiologicalCorrelations compact />}
 
       {/* Menopause Wiki nudge */}
       <a
