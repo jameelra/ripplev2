@@ -42,6 +42,8 @@ export interface DayLog {
   aiInsight?: string;
   hormonePrediction?: string;
   timestamp: string;
+  triggers?: TriggerLog;       // NEW: trigger log for this day
+  quickLogOnly?: boolean;      // NEW: true if logged via Quick Log mode (minimal entry)
 }
 
 export interface DismissalRecord {
@@ -125,4 +127,183 @@ export const DEFAULT_SIGNALS: BiologicalSignals = {
 export const DEFAULT_CYCLE: CycleLog = {
   cycleActive: false,
   spotting: false,
+};
+
+// ─── HRT Tracker Types ────────────────────────────────────────────────────────
+
+export type HRTDeliveryMethod =
+  | "gel"            // Daily topical gel (oestradiol, testosterone)
+  | "patch"          // Transdermal patch (twice-weekly or every-3-4 days)
+  | "tablet"         // Oral tablet
+  | "capsule"        // Oral capsule (e.g. micronised progesterone)
+  | "spray"          // Nasal or skin spray
+  | "vaginal_cream"  // Vaginal oestrogen cream
+  | "vaginal_pessary" // Vaginal pessary or ring
+  | "injection"      // Injectable
+  | "implant"        // Subcutaneous implant
+  | "supplement"     // Supplement (magnesium, vitamin D, etc.)
+  | "other";
+
+export type HRTScheduleType =
+  | "daily"          // Every day
+  | "every_n_days"   // Every N days (e.g. patch every 3.5 days)
+  | "days_of_week"   // Specific days of the week (e.g. Mon & Thu)
+  | "cycle_days"     // Days X–Y of the menstrual cycle (e.g. Days 15–28)
+  | "as_needed";     // PRN / as needed
+
+export type ApplicationSite =
+  | "left_arm" | "right_arm"
+  | "left_abdomen" | "right_abdomen"
+  | "left_thigh" | "right_thigh"
+  | "buttock_left" | "buttock_right"
+  | "other";
+
+export interface HRTMedication {
+  id: string;
+  name: string;                       // e.g. "Oestrogel", "Utrogestan 200mg"
+  activeIngredient: string;           // e.g. "Oestradiol", "Progesterone"
+  deliveryMethod: HRTDeliveryMethod;
+  dose: string;                       // e.g. "1.5mg", "2 pumps", "200mg"
+  scheduleType: HRTScheduleType;
+  intervalDays?: number;              // for every_n_days: e.g. 3.5
+  daysOfWeek?: number[];              // for days_of_week: 0=Sun...6=Sat
+  cycleDayStart?: number;             // for cycle_days: e.g. 15
+  cycleDayEnd?: number;               // for cycle_days: e.g. 28
+  timesOfDay?: string[];              // e.g. ["08:00"] or ["08:00", "20:00"]
+  rotationSites?: ApplicationSite[];  // for patches/gels
+  startDate: string;                  // YYYY-MM-DD — critical for treatment response
+  endDate?: string;                   // YYYY-MM-DD — if discontinued
+  isActive: boolean;
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface HRTDoseLog {
+  id: string;
+  medicationId: string;               // FK → HRTMedication.id
+  scheduledDate: string;              // YYYY-MM-DD — the date it was due
+  takenAt: string;                    // ISO timestamp — when actually taken/applied
+  skipped: boolean;                   // true if user explicitly marked as skipped
+  applicationSite?: ApplicationSite;  // for patches/gels
+  doseAdjustment?: string;            // if user took a different dose than usual
+  notes?: string;
+}
+
+// ─── Trigger Tracker Types ────────────────────────────────────────────────────
+
+export type TriggerCategory =
+  | "dietary"
+  | "lifestyle"
+  | "environmental"
+  | "hormonal"
+  | "social"
+  | "custom";
+
+export interface TriggerEntry {
+  id: string;                         // e.g. "alcohol", "caffeine", or UUID for custom
+  name: string;
+  category: TriggerCategory;
+  isCustom: boolean;
+  intensity?: 0 | 1 | 2;             // 0=mild, 1=moderate, 2=high (optional)
+}
+
+export interface TriggerLog {
+  date: string;                       // YYYY-MM-DD
+  triggers: TriggerEntry[];
+  previousDayTriggers?: TriggerEntry[]; // for next-day effect analysis
+}
+
+export interface TriggerCorrelation {
+  triggerId: string;
+  triggerName: string;
+  symptomKey: keyof SymptomLog;
+  symptomLabel: string;
+  avgSeverityWithTrigger: number;
+  avgSeverityWithoutTrigger: number;
+  sameDayDifference: number;          // positive = trigger worsens symptom
+  nextDayAvgWithTrigger: number;
+  nextDayAvgWithoutTrigger: number;
+  nextDayDifference: number;
+  combinedEffect: number;             // weighted average of same + next day
+  occurrenceCount: number;
+  confidence: "strong" | "moderate" | "possible" | "insufficient_data";
+  computedAt: string;
+}
+
+export interface TriggerAnalysis {
+  correlations: TriggerCorrelation[];
+  topTriggers: TriggerCorrelation[];  // top 3 by |combinedEffect|
+  dataPointsAnalysed: number;
+  minimumDataMet: boolean;            // true if ≥14 days of co-logged data
+  lastComputedAt: string;
+}
+
+export interface TreatmentResponseSummary {
+  medicationId: string;
+  medicationName: string;
+  startDate: string;
+  beforePSS: number;
+  afterPSS: number;
+  pssChangePercent: number;           // negative = improvement
+  beforeDays: number;
+  afterDays: number;
+  topImprovedSymptoms: Array<{ key: keyof SymptomLog; label: string; change: number }>;
+  topWorsenedSymptoms: Array<{ key: keyof SymptomLog; label: string; change: number }>;
+  insufficientData: boolean;
+}
+
+// ─── Pre-set Trigger Definitions ─────────────────────────────────────────────
+
+export const PRESET_TRIGGERS: TriggerEntry[] = [
+  // Dietary
+  { id: "alcohol",       name: "Alcohol",           category: "dietary",     isCustom: false },
+  { id: "caffeine",      name: "Caffeine",           category: "dietary",     isCustom: false },
+  { id: "spicy_food",    name: "Spicy Food",         category: "dietary",     isCustom: false },
+  { id: "sugar",         name: "Sugar / Refined Carbs", category: "dietary",  isCustom: false },
+  { id: "dairy",         name: "Dairy",              category: "dietary",     isCustom: false },
+  { id: "late_meal",     name: "Large Late Meal",    category: "dietary",     isCustom: false },
+  // Lifestyle
+  { id: "poor_sleep",    name: "Poor Sleep (<6hrs)", category: "lifestyle",   isCustom: false },
+  { id: "high_stress",   name: "High Stress",        category: "lifestyle",   isCustom: false },
+  { id: "vigorous_exercise", name: "Vigorous Exercise", category: "lifestyle", isCustom: false },
+  { id: "dehydration",   name: "Dehydration",        category: "lifestyle",   isCustom: false },
+  // Environmental
+  { id: "hot_weather",   name: "Hot Weather",        category: "environmental", isCustom: false },
+  { id: "air_con",       name: "Air Conditioning",   category: "environmental", isCustom: false },
+  // Social
+  { id: "work_stress",   name: "Work Stress",        category: "social",      isCustom: false },
+  { id: "conflict",      name: "Argument / Conflict", category: "social",     isCustom: false },
+  { id: "social_event",  name: "Social Event",       category: "social",      isCustom: false },
+];
+
+export const TRIGGER_CATEGORY_LABELS: Record<TriggerCategory, string> = {
+  dietary:       "Dietary",
+  lifestyle:     "Lifestyle",
+  environmental: "Environmental",
+  hormonal:      "Hormonal",
+  social:        "Social",
+  custom:        "Custom",
+};
+
+export const HRT_DELIVERY_LABELS: Record<HRTDeliveryMethod, string> = {
+  gel:              "Gel (topical)",
+  patch:            "Patch (transdermal)",
+  tablet:           "Tablet (oral)",
+  capsule:          "Capsule (oral)",
+  spray:            "Spray",
+  vaginal_cream:    "Vaginal Cream",
+  vaginal_pessary:  "Vaginal Pessary / Ring",
+  injection:        "Injection",
+  implant:          "Implant",
+  supplement:       "Supplement",
+  other:            "Other",
+};
+
+export const HRT_SCHEDULE_LABELS: Record<HRTScheduleType, string> = {
+  daily:         "Daily",
+  every_n_days:  "Every N days",
+  days_of_week:  "Specific days of the week",
+  cycle_days:    "Specific days of the cycle",
+  as_needed:     "As needed",
 };

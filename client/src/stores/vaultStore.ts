@@ -3,11 +3,15 @@ import {
   DayLog,
   DismissalRecord,
   LicenseTier,
+  HRTMedication,
+  HRTDoseLog,
+  TriggerAnalysis,
   DEFAULT_SYMPTOMS,
   DEFAULT_SIGNALS,
   DEFAULT_CYCLE,
 } from "../../../shared/types";
 import { CycleEvent } from "../lib/cycleIntelligence";
+import { computeTriggerCorrelations } from "../lib/hrtEngine";
 import {
   deriveKey,
   encryptData,
@@ -37,6 +41,9 @@ export type TabId =
   | "dismissal_tracker"
   | "cycle_calendar"
   | "correlations"
+  | "hrt_tracker"
+  | "trigger_tracker"
+  | "quick_log"
   | "settings";
 
 export interface ToastNotification {
@@ -57,6 +64,9 @@ interface VaultState {
   logs: DayLog[];
   dismissals: DismissalRecord[];
   cycleEvents: CycleEvent[];
+  hrtMedications: HRTMedication[];
+  hrtDoseLogs: HRTDoseLog[];
+  triggerAnalysis: TriggerAnalysis | null;
   licenseTier: LicenseTier;
   activeTab: TabId;
   toastNotification: ToastNotification | null;
@@ -73,6 +83,12 @@ interface VaultState {
   setCycleEvents: (events: CycleEvent[]) => void;
   addCycleEvent: (event: CycleEvent) => Promise<void>;
   removeCycleEvent: (id: string) => Promise<void>;
+  // HRT actions
+  addHRTMedication: (med: HRTMedication) => Promise<void>;
+  updateHRTMedication: (med: HRTMedication) => Promise<void>;
+  removeHRTMedication: (id: string) => Promise<void>;
+  logHRTDose: (doseLog: HRTDoseLog) => Promise<void>;
+  updateTriggerAnalysis: () => void;
   setLicenseTier: (t: LicenseTier) => void;
   setActiveTab: (tab: TabId) => void;
   setToastNotification: (n: ToastNotification | null) => void;
@@ -105,6 +121,9 @@ export const useVaultStore = create<VaultState>((set, get) => ({
   logs: [],
   dismissals: [],
   cycleEvents: [],
+  hrtMedications: [],
+  hrtDoseLogs: [],
+  triggerAnalysis: null,
   licenseTier: (localStorage.getItem("ripple_license_tier") as LicenseTier) || "Free",
   activeTab: "dashboard",
   toastNotification: null,
@@ -220,7 +239,15 @@ export const useVaultStore = create<VaultState>((set, get) => ({
   },
 
   lockVault: () => {
-    set({ sessionKey: null, logs: [], dismissals: [] });
+    set({
+      sessionKey: null,
+      logs: [],
+      dismissals: [],
+      cycleEvents: [],
+      hrtMedications: [],
+      hrtDoseLogs: [],
+      triggerAnalysis: null,
+    });
   },
 
   // ── Data Operations ───────────────────────────────────────────────────────
@@ -228,10 +255,16 @@ export const useVaultStore = create<VaultState>((set, get) => ({
     const logsRaw = await loadAndDecrypt("ripple_day_logs", key);
     const dismissalsRaw = await loadAndDecrypt("ripple_dismissals", key);
     const cycleEventsRaw = await loadAndDecrypt("ripple_cycle_events", key);
+    const hrtMedsRaw = await loadAndDecrypt("ripple_hrt_medications", key);
+    const hrtDoseLogsRaw = await loadAndDecrypt("ripple_hrt_dose_logs", key);
     const logs: DayLog[] = logsRaw ? JSON.parse(logsRaw) : [];
     const dismissals: DismissalRecord[] = dismissalsRaw ? JSON.parse(dismissalsRaw) : [];
     const cycleEvents: CycleEvent[] = cycleEventsRaw ? JSON.parse(cycleEventsRaw) : [];
-    set({ logs, dismissals, cycleEvents });
+    const hrtMedications: HRTMedication[] = hrtMedsRaw ? JSON.parse(hrtMedsRaw) : [];
+    const hrtDoseLogs: HRTDoseLog[] = hrtDoseLogsRaw ? JSON.parse(hrtDoseLogsRaw) : [];
+    // Compute trigger analysis from loaded logs
+    const triggerAnalysis = computeTriggerCorrelations(logs);
+    set({ logs, dismissals, cycleEvents, hrtMedications, hrtDoseLogs, triggerAnalysis });
   },
 
   addCycleEvent: async (event: CycleEvent) => {
@@ -263,6 +296,9 @@ export const useVaultStore = create<VaultState>((set, get) => ({
       : [...logs, log];
     await encryptAndSave("ripple_day_logs", JSON.stringify(updated), sessionKey);
     set({ logs: updated });
+    // Recompute trigger analysis after every log save
+    const triggerAnalysis = computeTriggerCorrelations(updated);
+    set({ triggerAnalysis });
   },
 
   resetVault: () => {
@@ -277,6 +313,8 @@ export const useVaultStore = create<VaultState>((set, get) => ({
       LEGAL_ACCEPTED_KEY,
       "ripple_license_tier",
       "ripple_cycle_events",
+      "ripple_hrt_medications",
+      "ripple_hrt_dose_logs",
     ].forEach((k: string) => localStorage.removeItem(k));
     set({
       sessionKey: null,
@@ -286,6 +324,10 @@ export const useVaultStore = create<VaultState>((set, get) => ({
       isLegalAccepted: false,
       logs: [],
       dismissals: [],
+      cycleEvents: [],
+      hrtMedications: [],
+      hrtDoseLogs: [],
+      triggerAnalysis: null,
       licenseTier: "Free",
     });
   },
@@ -293,6 +335,49 @@ export const useVaultStore = create<VaultState>((set, get) => ({
   getLogForToday: () => {
     const today = TODAY();
     return get().logs.find((l) => l.id === today);
+  },
+
+  // ── HRT & Trigger Actions ────────────────────────────────────────────────
+  addHRTMedication: async (med: HRTMedication) => {
+    const { sessionKey, hrtMedications } = get();
+    if (!sessionKey) return;
+    const updated = [...hrtMedications, med];
+    await encryptAndSave("ripple_hrt_medications", JSON.stringify(updated), sessionKey);
+    set({ hrtMedications: updated });
+  },
+
+  updateHRTMedication: async (med: HRTMedication) => {
+    const { sessionKey, hrtMedications } = get();
+    if (!sessionKey) return;
+    const updated = hrtMedications.map((m: HRTMedication) => m.id === med.id ? med : m);
+    await encryptAndSave("ripple_hrt_medications", JSON.stringify(updated), sessionKey);
+    set({ hrtMedications: updated });
+  },
+
+  removeHRTMedication: async (id: string) => {
+    const { sessionKey, hrtMedications } = get();
+    if (!sessionKey) return;
+    const updated = hrtMedications.filter((m: HRTMedication) => m.id !== id);
+    await encryptAndSave("ripple_hrt_medications", JSON.stringify(updated), sessionKey);
+    set({ hrtMedications: updated });
+  },
+
+  logHRTDose: async (doseLog: HRTDoseLog) => {
+    const { sessionKey, hrtDoseLogs } = get();
+    if (!sessionKey) return;
+    // Replace any existing log for the same medication on the same day
+    const filtered = hrtDoseLogs.filter(
+      (d: HRTDoseLog) => !(d.medicationId === doseLog.medicationId && d.scheduledDate === doseLog.scheduledDate)
+    );
+    const updated = [...filtered, doseLog].sort((a, b) => a.scheduledDate.localeCompare(b.scheduledDate));
+    await encryptAndSave("ripple_hrt_dose_logs", JSON.stringify(updated), sessionKey);
+    set({ hrtDoseLogs: updated });
+  },
+
+  updateTriggerAnalysis: () => {
+    const { logs } = get();
+    const analysis = computeTriggerCorrelations(logs);
+    set({ triggerAnalysis: analysis });
   },
 
   addDismissal: async (record: DismissalRecord) => {

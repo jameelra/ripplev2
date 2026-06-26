@@ -114,3 +114,17 @@
 - [x] Update EvidenceEngine.tsx to pass cycleEvents from vaultStore to the mutation
 - [x] Add cycle summary preview card in the Evidence Engine UI (before generating)
 - [x] Update existing Evidence Engine test to include cycle data and verify cycle section in brief
+
+## Sprint 1 — HRT & Trigger Data Foundation
+- [x] Add HRT types to shared/types.ts (HRTMedication, HRTDoseLog, HRTDeliveryMethod, HRTScheduleType, ApplicationSite)
+- [x] Add Trigger types to shared/types.ts (TriggerEntry, TriggerLog, TriggerCorrelation, TriggerAnalysis, TreatmentResponseSummary)
+- [x] Extend DayLog with triggers and quickLogOnly fields
+- [x] Build hrtEngine.ts — correlation engine + treatment response algorithm
+- [x] Build hrtMedications.ts — pre-set medication database (30 entries)
+- [x] Extend vaultStore with hrtMedications, hrtDoseLogs, triggerAnalysis state
+- [x] Add addHRTMedication, updateHRTMedication, removeHRTMedication, logHRTDose actions
+- [x] Add updateTriggerAnalysis action (auto-runs after every saveLog) (runs correlation engine)
+- [x] Add hrt_tracker, trigger_tracker, quick_log to TabId union
+- [x] Extend loadVaultData to load HRT data from encrypted storage
+- [x] Extend resetVault to clear HRT storage keys
+- [x] Write unit tests for correlation engine and treatment response algorithm (16 tests, all passing)
