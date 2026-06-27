@@ -187,3 +187,13 @@
 - [x] Build Settings.tsx page — vault management, menopause mode, notifications, data export
 - [x] Wire Settings into sidebar navigation (settings tab)
 - [x] Add data export (JSON download of all vault data)
+
+## Sprint 8 — Stripe Integration
+- [x] Add Stripe feature via webdev_add_feature
+- [x] Configure STRIPE_SECRET_KEY and STRIPE_WEBHOOK_SECRET secrets (auto-injected)
+- [x] Add subscriptions table and stripe_customers table to database schema
+- [x] Build billing router — getPlans, createCheckout, getSubscription, createPortalSession
+- [x] Build Stripe webhook handler — checkout.session.completed, subscription updated/deleted, invoice.paid/failed
+- [x] Update UpgradeHub.tsx to call real tRPC checkout endpoints with loading states
+- [x] Add Manage Subscription portal link to Upgrade Hub
+- [x] Write billing tests (9 tests: getPlans, getSubscription, createCheckout error cases, createPortalSession)

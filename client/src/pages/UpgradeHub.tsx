@@ -2,20 +2,16 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   CheckCircle2, Crown, Sparkles, Pill, Lock,
-  ShieldCheck, Info, ChevronDown, ChevronUp
+  ShieldCheck, Info, ChevronDown, ChevronUp, ExternalLink,
+  Loader2, AlertCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useVaultStore } from "../stores/vaultStore";
-
-// ─── Pricing rationale (based on Adapty SOIS 2026 + competitor research) ─────
-// Stabilize HRT: $49.99/yr ($4.17/mo) — basic, iOS only, no GP brief
-// Crest (FemHQ): Free — HRT tracking only, no clinical tools
-// Balance app: Free — education only, no clinical tools
-// Ripple Pro at $59.99/yr ($5.00/mo) is significantly more valuable than all above
-// Ripple Premier at $99.99/yr ($8.33/mo) includes HRT Tracker (unique in market)
-// HRT Add-on at $39.99/yr ($3.33/mo) for users who want just medication tracking
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
 
 type BillingCycle = "monthly" | "annual";
+type PlanId = "Pro" | "Premier" | "HRT_Addon";
 
 const PLANS = [
   {
@@ -34,6 +30,7 @@ const PLANS = [
       { text: "Perimenopause Severity Score (PSS)", on: true },
       { text: "14-day trend chart & streak tracker", on: true },
       { text: "Quick Log (30-second entry)", on: true },
+      { text: "Symptom Heatmap Calendar", on: true },
       { text: "Symptom Library (10 clinical entries)", on: true },
       { text: "Menopause Wiki deep-links", on: true },
       { text: "Zero-knowledge AES-GCM encryption", on: true },
@@ -46,7 +43,7 @@ const PLANS = [
     ctaClass: "bg-[#f5f0ea] text-[#9a9490] border border-[#e0d5c8] cursor-not-allowed",
   },
   {
-    id: "Pro",
+    id: "Pro" as PlanId,
     name: "Pro",
     tagline: "Walk into every appointment prepared",
     monthlyPrice: 7.99,
@@ -74,7 +71,7 @@ const PLANS = [
     ctaClass: "bg-[#4a8a72] hover:bg-[#3a7060] text-white",
   },
   {
-    id: "Premier",
+    id: "Premier" as PlanId,
     name: "Premier",
     tagline: "The complete clinical companion",
     monthlyPrice: 12.99,
@@ -101,25 +98,59 @@ const PLANS = [
 ] as const;
 
 export default function UpgradeHub() {
-  const { licenseTier, setToastNotification } = useVaultStore();
+  const { licenseTier } = useVaultStore();
   const [billing, setBilling] = useState<BillingCycle>("annual");
   const [showAddon, setShowAddon] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
-  const handleSelect = (planId: string) => {
-    if (planId === licenseTier || planId === "Free") return;
-    setToastNotification({
-      type: "info",
-      title: "Stripe Coming Soon",
-      description: "Payments are being configured. All features are available to explore now.",
-    });
+  const createCheckout = trpc.billing.createCheckout.useMutation({
+    onSuccess: (data) => {
+      if (data.checkoutUrl) {
+        window.open(data.checkoutUrl, "_blank");
+        toast.success("Redirecting to checkout…", {
+          description: "A new tab has opened with the Stripe checkout page.",
+        });
+      }
+      setLoadingPlan(null);
+    },
+    onError: (err) => {
+      toast.error("Checkout failed", { description: err.message });
+      setLoadingPlan(null);
+    },
+  });
+
+  const createPortal = trpc.billing.createPortalSession.useMutation({
+    onSuccess: (data) => {
+      if (data.portalUrl) window.open(data.portalUrl, "_blank");
+    },
+    onError: (err) => {
+      toast.error("Portal failed", { description: err.message });
+    },
+  });
+
+  const { data: subscriptionData } = trpc.billing.getSubscription.useQuery(undefined, {
+    retry: false,
+  });
+
+  const handleSelect = async (planId: PlanId) => {
+    setLoadingPlan(planId + billing);
+    createCheckout.mutate({ planId, billingCycle: billing });
   };
+
+  const handleAddonSelect = async (cycle: BillingCycle) => {
+    setLoadingPlan("HRT_Addon" + cycle);
+    createCheckout.mutate({ planId: "HRT_Addon", billingCycle: cycle });
+  };
+
+  const hasActiveSubscription = subscriptionData && subscriptionData.activePlans.length > 0;
 
   const faqs = [
     { q: "Will I lose my data if I downgrade?", a: "Never. Your encrypted health data belongs to you and is always accessible, regardless of your plan. Downgrading removes access to premium features, not your own data." },
     { q: "Is there really a free trial?", a: "Yes — Pro and Premier include a 7-day free trial. No credit card required to start. You will only be charged if you choose to continue after the trial." },
     { q: "Why is the HRT Tracker in Premier and not Pro?", a: "The HRT Tracker is a sophisticated feature (80+ medications, patch countdowns, treatment response analysis) that took significant clinical research to build. It is also available as a standalone add-on for $3.33/mo if you just want the medication tracking." },
     { q: "What is the HRT Add-on?", a: "The HRT Add-on gives you just the HRT Tracker without the full Premier tier. It is designed for women who already use another symptom tracker and just want Ripple's medication tracking. At $3.33/mo (annual), it is the most affordable dedicated HRT tracker on the market." },
+    { q: "How do I cancel?", a: "Click 'Manage Subscription' below to access the Stripe customer portal, where you can cancel, change plans, or update payment details at any time." },
     { q: "Is this app a medical device?", a: "No. Ripple is a general wellness tracking application for informational purposes only. It is not a medical device and does not provide medical diagnoses or treatment recommendations." },
   ];
 
@@ -137,7 +168,7 @@ export default function UpgradeHub() {
       <div className="bg-[#eef4f1] border border-[#c8d8d0] rounded-xl p-4 flex items-start gap-3">
         <ShieldCheck className="w-4 h-4 text-[#4a8a72] shrink-0 mt-0.5" />
         <p className="text-xs text-[#4a4a42] leading-relaxed">
-          <strong>Our Ethical Freemium Promise:</strong> Free users always own their data. No time limits. No data selling. No cutting off access to your own health history. We charge for features, not for the right to see your data.
+          <strong>Our Ethical Freemium Promise:</strong> Free users always own their data. No time limits. No data selling. No cutting off access to your own health history.
         </p>
       </div>
 
@@ -147,7 +178,16 @@ export default function UpgradeHub() {
           <div className="w-2 h-2 rounded-full bg-[#4a8a72]" />
           <p className="text-xs font-bold text-[#1a2b22]">Current Plan: <span className="text-[#4a8a72]">{licenseTier}</span></p>
         </div>
-        <p className="text-[10px] text-[#9a9490] font-mono">● Vault Encrypted</p>
+        {hasActiveSubscription && (
+          <button
+            onClick={() => createPortal.mutate()}
+            disabled={createPortal.isPending}
+            className="text-[10px] font-mono text-[#4a8a72] hover:underline flex items-center gap-1"
+          >
+            {createPortal.isPending ? <Loader2 className="w-3 h-3 animate-spin" /> : <ExternalLink className="w-3 h-3" />}
+            Manage Subscription
+          </button>
+        )}
       </div>
 
       {/* Billing toggle */}
@@ -173,6 +213,7 @@ export default function UpgradeHub() {
           const Icon = plan.icon;
           const isCurrent = licenseTier === plan.id;
           const price = billing === "annual" ? plan.annualEquiv : plan.monthlyPrice;
+          const isLoading = loadingPlan === (plan.id + billing);
 
           return (
             <motion.div
@@ -229,11 +270,13 @@ export default function UpgradeHub() {
               </div>
 
               <Button
-                onClick={() => handleSelect(plan.id)}
-                disabled={isCurrent || plan.id === "Free"}
+                onClick={() => plan.id !== "Free" && handleSelect(plan.id as PlanId)}
+                disabled={isCurrent || plan.id === "Free" || isLoading}
                 className={`w-full font-mono text-xs font-bold py-3 rounded-xl ${plan.ctaClass} disabled:opacity-60`}
               >
-                {isCurrent ? "Current Plan" : plan.cta}
+                {isLoading ? (
+                  <span className="flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" />Opening checkout…</span>
+                ) : isCurrent ? "Current Plan" : plan.cta}
               </Button>
             </motion.div>
           );
@@ -282,26 +325,47 @@ export default function UpgradeHub() {
               </div>
             </div>
             <p className="text-xs text-[#4a4a42] leading-relaxed">
-              Full HRT Tracker with 80+ medications, dose logging, patch change countdowns, application site rotation, adherence tracking, and treatment response analysis. Adds directly to your Free or Pro plan.
+              Full HRT Tracker with 80+ medications, dose logging, patch change countdowns, application site rotation, adherence tracking, and treatment response analysis.
             </p>
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-start gap-2">
               <Info className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
               <p className="text-[10px] text-amber-800 leading-relaxed">
-                <strong>Value tip:</strong> Pro + HRT Add-on = $12.98/mo. Premier = $12.99/mo. Premier is the better value — it includes everything plus Cycle Calendar and priority support.
+                <strong>Value tip:</strong> Pro + HRT Add-on = $12.98/mo. Premier = $12.99/mo. Premier is the better value.
               </p>
             </div>
-            <Button
-              onClick={() => setToastNotification({ type: "info", title: "Coming Soon", description: "HRT Add-on payments are being configured." })}
-              className="w-full bg-purple-700 hover:bg-purple-800 text-white font-mono text-xs font-bold py-3 rounded-xl"
-            >
-              <Pill className="w-3.5 h-3.5 mr-1.5" />
-              Add HRT Tracker — ${billing === "annual" ? "39.99/yr" : "4.99/mo"}
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                onClick={() => handleAddonSelect("monthly")}
+                disabled={loadingPlan === "HRT_Addonmonthly"}
+                variant="outline"
+                className="flex-1 text-xs font-mono border-purple-200 text-purple-700 hover:bg-purple-50"
+              >
+                {loadingPlan === "HRT_Addonmonthly" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : "$4.99/mo"}
+              </Button>
+              <Button
+                onClick={() => handleAddonSelect("annual")}
+                disabled={loadingPlan === "HRT_Addonannual"}
+                className="flex-1 bg-purple-700 hover:bg-purple-800 text-white font-mono text-xs font-bold rounded-xl"
+              >
+                {loadingPlan === "HRT_Addonannual" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <><Pill className="w-3.5 h-3.5 mr-1.5" />$39.99/yr — Best Value</>}
+              </Button>
+            </div>
           </motion.div>
         )}
       </div>
 
-      {/* Pricing context */}
+      {/* Test card info */}
+      <div className="bg-[#eef4f1] border border-[#c8d8d0] rounded-xl p-4 flex items-start gap-2.5">
+        <Info className="w-4 h-4 text-[#4a8a72] shrink-0 mt-0.5" />
+        <div>
+          <p className="text-xs font-bold text-[#1a2b22]">Test payments</p>
+          <p className="text-[10px] text-[#6b7a72] leading-relaxed mt-0.5">
+            Use card number <strong className="font-mono">4242 4242 4242 4242</strong> with any future expiry and any CVC to test checkout. Real payments require claiming your Stripe sandbox in Settings → Payment.
+          </p>
+        </div>
+      </div>
+
+      {/* Pricing comparison */}
       <div className="ripple-card p-5 space-y-3">
         <p className="ripple-label">How we compare</p>
         <div className="space-y-2">
@@ -342,17 +406,6 @@ export default function UpgradeHub() {
             )}
           </div>
         ))}
-      </div>
-
-      {/* Stripe note */}
-      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-2.5">
-        <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-        <div>
-          <p className="text-xs font-bold text-amber-800">Payments coming soon</p>
-          <p className="text-[10px] text-amber-700 leading-relaxed mt-0.5">
-            Stripe integration is being configured. All features are currently available to explore. You will be notified when subscriptions go live.
-          </p>
-        </div>
       </div>
     </div>
   );
