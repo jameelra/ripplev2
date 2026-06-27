@@ -117,7 +117,26 @@ function CustomTooltip({ active, payload, label }: any) {
 
 // ─── Dashboard ────────────────────────────────────────────────────────────────
 export default function Dashboard() {
-  const { logs, setActiveTab } = useVaultStore();
+  const { logs, hrtMedications, hrtDoseLogs, setActiveTab } = useVaultStore();
+  const todayStr = new Date().toISOString().split("T")[0];
+  const todayDayOfWeek = new Date().getDay();
+
+  const hrtDueToday = hrtMedications.filter((med) => {
+    if (!med.isActive) return false;
+    const takenToday = hrtDoseLogs.some((d) => d.medicationId === med.id && d.scheduledDate === todayStr && !d.skipped);
+    if (takenToday) return false;
+    switch (med.scheduleType) {
+      case "daily": return true;
+      case "days_of_week": return med.daysOfWeek?.includes(todayDayOfWeek) ?? false;
+      case "every_n_days": {
+        if (!med.intervalDays) return false;
+        const start = new Date(med.startDate + "T12:00:00");
+        const diff = Math.round((new Date().getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+        return diff % Math.round(med.intervalDays) === 0;
+      }
+      default: return false;
+    }
+  });
 
   const pssScore = useMemo(() => calculatePSS(logs), [logs]);
   const pssInfo = getPSSLabel(pssScore);
@@ -390,6 +409,31 @@ export default function Dashboard() {
             ))}
           </div>
         </div>
+      )}
+
+      {/* HRT Reminder Card */}
+      {hrtDueToday.length > 0 && (
+        <motion.button
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          onClick={() => setActiveTab("hrt_tracker")}
+          className="w-full flex items-center justify-between ripple-card p-4 bg-[#faf5f3] border-[#e8d8d0] hover:bg-[#f5ede9] transition-colors group text-left"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-[#c07060]/10 rounded-xl flex items-center justify-center text-lg shrink-0">💊</div>
+            <div>
+              <p className="text-sm font-bold text-[#1a2b22]">
+                {hrtDueToday.length === 1
+                  ? `${hrtDueToday[0].name} due today`
+                  : `${hrtDueToday.length} medications due today`}
+              </p>
+              <p className="text-[10px] text-[#9a9490]">
+                {hrtDueToday.map((m) => m.name).join(" · ")}
+              </p>
+            </div>
+          </div>
+          <span className="text-xs font-mono font-bold text-[#c07060] group-hover:underline shrink-0">Mark taken →</span>
+        </motion.button>
       )}
 
       {/* Biological Correlations Chart */}

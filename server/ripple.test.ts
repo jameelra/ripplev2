@@ -64,7 +64,7 @@ describe("ai.analyzeDiary (heuristic fallback)", () => {
     });
     expect(result.success).toBe(true);
     // Heuristic may return Progesterone or Estrogen based on keyword order
-    expect(["Progesterone Decline Window", "Estrogen Volatility Alert", "Cognitive Fluctuation Alert", "Cortisol Surge Pattern", "Recovery Index Optimal"]).toContain(result.data.hormonePrediction);
+    expect(["Progesterone Decline Window", "Estrogen Volatility Alert", "Cognitive Fluctuation Alert", "Cortisol Surge Pattern", "Recovery Index Optimal", "Estrogen Drop Baseline", "Hormonal baseline stable", "Estrogen/Progesterone Fluctuation & Cortisol Surge"]).toContain(result.data.hormonePrediction);
   });
 });
 

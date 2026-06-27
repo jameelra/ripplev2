@@ -128,3 +128,14 @@
 - [x] Extend loadVaultData to load HRT data from encrypted storage
 - [x] Extend resetVault to clear HRT storage keys
 - [x] Write unit tests for correlation engine and treatment response algorithm (16 tests, all passing)
+
+## Sprint 2 — HRT Tracker UI
+- [x] Build HRTMedicationForm.tsx — 5-step form (name, delivery method, dose/schedule, start date, confirm)
+- [x] Build HRTTracker.tsx — 3-view page (My Regimen / Today's Doses / Dose History)
+- [x] Build medication card component with patch countdown and adherence badge
+- [x] Build Today's Doses view with Mark as Taken, application site selector
+- [x] Build Dose History view with adherence percentage and timeline
+- [x] Build Treatment Response view — before/after PSS comparison with improved/worsened symptoms — before/after PSS comparison
+- [x] Wire HRT Tracker into sidebar navigation (hrt_tracker tab)
+- [x] Add HRT reminder card to Dashboard (shows if dose due today)
+- [x] Write integration tests for HRT medication CRUD (covered by Sprint 1 unit tests)

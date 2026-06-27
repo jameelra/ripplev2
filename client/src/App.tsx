@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   BarChart2, PlusCircle, Sparkles, Binary, Compass,
   CreditCard, LogOut, Menu, X, Lock, ShieldCheck, Crown, BookOpen,
-  FlaskConical, ShieldAlert, CalendarDays, TrendingUp
+  FlaskConical, ShieldAlert, CalendarDays, TrendingUp, Pill
 } from "lucide-react";
 import { useVaultStore, TabId } from "./stores/vaultStore";
 import Onboarding from "./pages/Onboarding";
@@ -23,6 +23,7 @@ import ClinicalKnowledgeBase from "./pages/ClinicalKnowledgeBase";
 import DismissalTracker from "./pages/DismissalTracker";
 import CycleCalendar from "./pages/CycleCalendar";
 import CorrelationsPage from "./pages/CorrelationsPage";
+import HRTTracker from "./pages/HRTTracker";
 
 // ─── Ripple Logo ──────────────────────────────────────────────────────────────
 function RippleLogo({ size = 32 }: { size?: number }) {
@@ -79,6 +80,7 @@ const NAV_ITEMS: Array<{ id: TabId; label: string; icon: React.ElementType; tier
   { id: "ai_diary", label: "AI Diary", icon: Sparkles, tier: "Pro" },
   { id: "evidence_engine", label: "Evidence Engine", icon: Binary },
   { id: "reverse_lookup", label: "Symptom Lookup", icon: Compass },
+  { id: "hrt_tracker", label: "HRT Tracker", icon: Pill },
   { id: "cycle_calendar", label: "Cycle Calendar", icon: CalendarDays },
   { id: "correlations", label: "Correlations", icon: TrendingUp },
   { id: "clinical_kb", label: "Symptom Library", icon: FlaskConical },
@@ -189,6 +191,7 @@ function AppShell() {
       case "reverse_lookup": return <ReverseLookup />;
       case "upgrade_hub": return <UpgradeHub />;
       case "resources": return <Resources />;
+      case "hrt_tracker": return <HRTTracker />;
       case "cycle_calendar": return <CycleCalendar />;
       case "correlations": return <CorrelationsPage />;
       case "clinical_kb": return <ClinicalKnowledgeBase />;
