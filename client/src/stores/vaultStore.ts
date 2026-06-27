@@ -332,6 +332,10 @@ export const useVaultStore = create<VaultState>((set, get) => ({
       "ripple_hrt_medications",
       "ripple_hrt_dose_logs",
       "ripple_trigger_experiments",
+      "ripple_menopause_mode",
+      "ripple_surgery_date",
+      "ripple_notifications",
+      "ripple_reminder_time",
     ].forEach((k: string) => localStorage.removeItem(k));
     set({
       sessionKey: null,

@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   BarChart2, PlusCircle, Sparkles, Binary, Compass,
   CreditCard, LogOut, Menu, X, Lock, ShieldCheck, Crown, BookOpen,
-  FlaskConical, ShieldAlert, CalendarDays, TrendingUp, Pill, Zap, ClipboardList, Heart, ChevronDown
+  FlaskConical, ShieldAlert, CalendarDays, TrendingUp, Pill, Zap, ClipboardList, Heart, ChevronDown, Settings as SettingsIcon
 } from "lucide-react";
 import { useVaultStore, TabId } from "./stores/vaultStore";
 import Onboarding from "./pages/Onboarding";
@@ -28,6 +28,7 @@ import TriggerTracker from "./pages/TriggerTracker";
 import { QuickLogFAB, QuickLogModal } from "./components/QuickLog";
 import AppointmentPrep from "./pages/AppointmentPrep";
 import MenopauseMode from "./pages/MenopauseMode";
+import Settings from "./pages/Settings";
 
 // ─── Ripple Logo ──────────────────────────────────────────────────────────────
 function RippleLogo({ size = 32 }: { size?: number }) {
@@ -116,6 +117,7 @@ const NAV_GROUPS: NavGroup[] = [
     label: "Settings & More",
     defaultOpen: false,
     items: [
+      { id: "settings",       label: "Settings",        icon: SettingsIcon },
       { id: "menopause_mode", label: "My Journey Mode", icon: Heart },
       { id: "upgrade_hub",    label: "Plans & Pricing", icon: CreditCard },
       { id: "resources",      label: "Resources",       icon: BookOpen },
@@ -268,6 +270,7 @@ function AppShell() {
       case "upgrade_hub": return <UpgradeHub />;
       case "resources": return <Resources />;
       case "appointment_prep": return <AppointmentPrep />;
+      case "settings": return <Settings />;
       case "menopause_mode": return <MenopauseMode />;
       case "hrt_tracker": return <HRTTracker />;
       case "trigger_tracker": return <TriggerTracker />;

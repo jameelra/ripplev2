@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { BookOpen, ExternalLink } from "lucide-react";
 import { WIKI_PAGES } from "../lib/wikiLinks";
 import BiologicalCorrelations from "../components/BiologicalCorrelations";
+import SymptomHeatmap from "../components/SymptomHeatmap";
 import {
   Activity, Flame, Moon, Heart, Zap, TrendingUp, TrendingDown,
   Minus, Calendar, Award, AlertCircle, CheckCircle2, BarChart2
@@ -489,6 +490,9 @@ export default function Dashboard() {
           <span className="text-xs font-mono font-bold text-[#c07060] group-hover:underline shrink-0">Mark taken →</span>
         </motion.button>
       )}
+
+      {/* Symptom Heatmap Calendar */}
+      {logs.length >= 1 && <SymptomHeatmap />}
 
       {/* Biological Correlations Chart */}
       {logs.length >= 2 && <BiologicalCorrelations compact />}

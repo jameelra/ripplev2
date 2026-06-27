@@ -180,3 +180,10 @@
 - [x] Build 3-screen onboarding walkthrough (What is Ripple / Why encryption / 30-day promise)
 - [x] Redesign Upgrade Hub with new pricing and HRT add-on tier
 - [x] Checkpoint and deliver Stripe connection guidance
+
+## Sprint 7 — Heatmap Calendar & Settings
+- [x] Build SymptomHeatmap.tsx component — monthly calendar with PSS colour coding
+- [x] Embed SymptomHeatmap in Dashboard (below trend chart) (below trend chart)
+- [x] Build Settings.tsx page — vault management, menopause mode, notifications, data export
+- [x] Wire Settings into sidebar navigation (settings tab)
+- [x] Add data export (JSON download of all vault data)
