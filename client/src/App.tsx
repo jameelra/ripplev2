@@ -25,6 +25,7 @@ import CycleCalendar from "./pages/CycleCalendar";
 import CorrelationsPage from "./pages/CorrelationsPage";
 import HRTTracker from "./pages/HRTTracker";
 import TriggerTracker from "./pages/TriggerTracker";
+import { QuickLogFAB, QuickLogModal } from "./components/QuickLog";
 
 // ─── Ripple Logo ──────────────────────────────────────────────────────────────
 function RippleLogo({ size = 32 }: { size?: number }) {
@@ -183,6 +184,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
 // ─── Main App Shell ───────────────────────────────────────────────────────────
 function AppShell() {
   const { activeTab, isMobileMenuOpen, setIsMobileMenuOpen } = useVaultStore();
+  const [quickLogOpen, setQuickLogOpen] = React.useState(false);
 
   const renderPage = () => {
     switch (activeTab) {
@@ -271,6 +273,10 @@ function AppShell() {
           </>
         )}
       </AnimatePresence>
+
+      {/* Quick Log FAB + Modal */}
+      <QuickLogFAB onOpen={() => setQuickLogOpen(true)} />
+      <QuickLogModal isOpen={quickLogOpen} onClose={() => setQuickLogOpen(false)} />
 
       {/* Toast */}
       <ToastNotification />

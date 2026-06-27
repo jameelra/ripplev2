@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   FileText, Printer, Copy, CheckCircle2, RefreshCw, Lock,
   AlertCircle, BarChart2, ExternalLink, BookOpen, GraduationCap,
-  Stethoscope, Globe, CalendarDays
+  Stethoscope, Globe, CalendarDays, Zap
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
@@ -56,7 +56,7 @@ function WikiResourceLink({
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function EvidenceEngine() {
-  const { logs, dismissals, cycleEvents, licenseTier, setActiveTab } = useVaultStore();
+  const { logs, dismissals, cycleEvents, hrtMedications, triggerAnalysis, licenseTier, setActiveTab } = useVaultStore();
   const [brief, setBrief] = useState<string | null>(null);
   const [scores, setScores] = useState<{
     greeneScore: number;
@@ -107,6 +107,31 @@ export default function EvidenceEngine() {
         notes: e.notes,
         createdAt: e.createdAt,
       })),
+      hrtMedications: hrtMedications.map((m) => ({
+        id: m.id,
+        name: m.name,
+        activeIngredient: m.activeIngredient,
+        deliveryMethod: m.deliveryMethod,
+        dose: m.dose,
+        scheduleType: m.scheduleType,
+        startDate: m.startDate,
+        endDate: m.endDate,
+        isActive: m.isActive,
+        notes: m.notes,
+      })),
+      triggerAnalysis: triggerAnalysis?.minimumDataMet ? {
+        topTriggers: triggerAnalysis.topTriggers.map((t) => ({
+          triggerName: t.triggerName,
+          symptomLabel: t.symptomLabel,
+          sameDayDifference: t.sameDayDifference,
+          nextDayDifference: t.nextDayDifference,
+          combinedEffect: t.combinedEffect,
+          confidence: t.confidence,
+          occurrenceCount: t.occurrenceCount,
+        })),
+        minimumDataMet: true,
+        dataPointsAnalysed: triggerAnalysis.dataPointsAnalysed,
+      } : undefined,
       logs: logs.map((l) => ({
         id: l.id,
         date: l.date,
@@ -206,6 +231,54 @@ export default function EvidenceEngine() {
           >
             Upgrade to Pro — $9.99/mo
           </Button>
+        </div>
+      )}
+
+      {/* HRT data preview card */}
+      {hasEnoughData && (
+        <div className={`ripple-card p-4 flex items-start gap-3 ${
+          hrtMedications.filter((m) => m.isActive).length > 0 ? "border-[#c8d8d0] bg-[#eef4f1]" : "border-[#e0d5c8]"
+        }`}>
+          <span className="text-lg shrink-0 mt-0.5">💊</span>
+          <div className="flex-1">
+            <p className="text-sm font-bold text-[#1a2b22]">
+              HRT Regimen: {hrtMedications.filter((m) => m.isActive).length > 0
+                ? `${hrtMedications.filter((m) => m.isActive).length} active medication${hrtMedications.filter((m) => m.isActive).length !== 1 ? "s" : ""}`
+                : "No medications logged"}
+            </p>
+            <p className="text-xs text-[#6b7a72] mt-0.5 leading-relaxed">
+              {hrtMedications.filter((m) => m.isActive).length > 0
+                ? `${hrtMedications.filter((m) => m.isActive).map((m) => m.name).join(", ")} — will appear in Section 4 of your GP brief.`
+                : "Add your medications in the HRT Tracker to include your treatment regimen in the GP brief."}
+            </p>
+          </div>
+          {hrtMedications.filter((m) => m.isActive).length === 0 && (
+            <button onClick={() => setActiveTab("hrt_tracker")} className="text-xs font-mono font-bold text-[#4a8a72] hover:underline shrink-0">Add →</button>
+          )}
+        </div>
+      )}
+
+      {/* Trigger data preview card */}
+      {hasEnoughData && (
+        <div className={`ripple-card p-4 flex items-start gap-3 ${
+          triggerAnalysis?.minimumDataMet ? "border-[#c8d8d0] bg-[#eef4f1]" : "border-[#e0d5c8]"
+        }`}>
+          <Zap className={`w-5 h-5 shrink-0 mt-0.5 ${triggerAnalysis?.minimumDataMet ? "text-[#4a8a72]" : "text-[#9a9490]"}`} />
+          <div className="flex-1">
+            <p className="text-sm font-bold text-[#1a2b22]">
+              Trigger Analysis: {triggerAnalysis?.minimumDataMet
+                ? `${triggerAnalysis.topTriggers.length} correlation${triggerAnalysis.topTriggers.length !== 1 ? "s" : ""} identified`
+                : "Not yet available"}
+            </p>
+            <p className="text-xs text-[#6b7a72] mt-0.5 leading-relaxed">
+              {triggerAnalysis?.minimumDataMet
+                ? `${triggerAnalysis.dataPointsAnalysed} days analysed — trigger correlations will appear in Section 5 of your GP brief.`
+                : "Log triggers alongside symptoms for 14 days to unlock trigger analysis in your GP brief."}
+            </p>
+          </div>
+          {!triggerAnalysis?.minimumDataMet && (
+            <button onClick={() => setActiveTab("trigger_tracker")} className="text-xs font-mono font-bold text-[#4a8a72] hover:underline shrink-0">Log →</button>
+          )}
         </div>
       )}
 

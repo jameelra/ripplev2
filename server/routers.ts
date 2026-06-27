@@ -302,9 +302,34 @@ export const appRouter = router({
           notes: z.string().optional(),
           createdAt: z.string(),
         })).optional(),
+        hrtMedications: z.array(z.object({
+          id: z.string(),
+          name: z.string(),
+          activeIngredient: z.string(),
+          deliveryMethod: z.string(),
+          dose: z.string(),
+          scheduleType: z.string(),
+          startDate: z.string(),
+          endDate: z.string().optional(),
+          isActive: z.boolean(),
+          notes: z.string().optional(),
+        })).optional(),
+        triggerAnalysis: z.object({
+          topTriggers: z.array(z.object({
+            triggerName: z.string(),
+            symptomLabel: z.string(),
+            sameDayDifference: z.number(),
+            nextDayDifference: z.number(),
+            combinedEffect: z.number(),
+            confidence: z.enum(["strong", "moderate", "possible", "insufficient_data"]),
+            occurrenceCount: z.number(),
+          })),
+          minimumDataMet: z.boolean(),
+          dataPointsAnalysed: z.number(),
+        }).optional(),
       }))
       .mutation(async ({ input }) => {
-        const { logs, dismissals = [], cycleEvents = [] } = input;
+        const { logs, dismissals = [], cycleEvents = [], hrtMedications = [], triggerAnalysis } = input;
         if (logs.length === 0) throw new Error("No logs to generate evidence from");
 
         // Calculate Greene Climacteric Scale scores
@@ -386,7 +411,34 @@ The following symptoms showed the highest sustained severity over the tracking p
 
 ---
 
-## 4. Menstrual Cycle Analysis
+## 4. Current Treatment Regimen
+
+${hrtMedications.length > 0 ? `
+This patient is currently managing the following hormone therapy regimen. This information is provided to support clinical review and dosage assessment.
+
+| Medication | Active Ingredient | Delivery | Dose | Schedule | Started |
+|---|---|---|---|---|---|
+${hrtMedications.filter((m) => m.isActive).map((m) => `| **${m.name}** | ${m.activeIngredient} | ${m.deliveryMethod} | ${m.dose} | ${m.scheduleType} | ${m.startDate} |`).join("\n")}
+${hrtMedications.filter((m) => !m.isActive && m.endDate).length > 0 ? `\n**Previously Discontinued:**\n${hrtMedications.filter((m) => !m.isActive).map((m) => `- ${m.name} (${m.activeIngredient}, ${m.dose}) — discontinued ${m.endDate ?? "date unknown"}`).join("\n")}` : ""}
+` : "No hormone therapy or medications have been logged in the Ripple HRT Tracker. The patient may wish to add their current medications to provide a complete clinical picture."}
+
+---
+
+## 5. Identified Symptom Triggers
+
+${triggerAnalysis?.minimumDataMet && triggerAnalysis.topTriggers.length > 0 ? `
+Pattern analysis across ${triggerAnalysis.dataPointsAnalysed} logged days has identified the following symptom triggers with statistical significance:
+
+| Trigger | Most Affected Symptom | Same-Day Effect | Next-Day Effect | Confidence | Observations |
+|---|---|---|---|---|---|
+${triggerAnalysis.topTriggers.map((t) => `| **${t.triggerName}** | ${t.symptomLabel} | ${t.sameDayDifference > 0 ? "+" : ""}${t.sameDayDifference.toFixed(1)} pts | ${t.nextDayDifference > 0 ? "+" : ""}${t.nextDayDifference.toFixed(1)} pts | ${t.confidence.charAt(0).toUpperCase() + t.confidence.slice(1)} | ${t.occurrenceCount} days |`).join("\n")}
+
+**Clinical Note:** A positive effect value indicates the trigger worsens the symptom on the same day or the following day (24-hour lag). These correlations are observational and derived from the patient's own tracking data. They should be interpreted alongside clinical assessment and are not diagnostic. However, they may inform lifestyle modification recommendations.
+` : "Insufficient trigger data for correlation analysis. The patient requires at least 14 days of co-logged trigger and symptom data to generate reliable patterns. Trigger tracking is available in the Ripple Trigger Tracker."}
+
+---
+
+## 6. Menstrual Cycle Analysis
 
 ${(() => {
   const periodStarts = cycleEvents.filter((e) => e.type === "period_start").sort((a, b) => a.date.localeCompare(b.date));
@@ -447,7 +499,7 @@ ${(() => {
 
 ---
 
-## 5. Prior Clinical Interaction Record
+## 7. Prior Clinical Interaction Record
 
 ${dismissals.length > 0
   ? `**Alert for Physician:** This patient reports ${dismissals.length} instance(s) of clinical dismissal in their health record. Concerns were primarily focused on symptoms not being evaluated as endocrine transition. Rigorous diagnostic evaluation is respectfully requested.\n\n${dismissals.map((d) => `- **${d.date}** at ${d.clinicName}: "${d.response}"`).join("\n")}`
@@ -455,7 +507,7 @@ ${dismissals.length > 0
 
 ---
 
-## 6. Peer-Reviewed Clinical Evidence
+## 8. Peer-Reviewed Clinical Evidence
 
 The following guidelines support evaluation of the symptoms described in this report:
 

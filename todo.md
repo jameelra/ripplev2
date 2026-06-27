@@ -150,3 +150,15 @@
 - [x] Wire TriggerTracker into sidebar navigation (trigger_tracker tab)
 - [x] Add trigger insight card to Dashboard (shows top trigger after 14 days) (shows top trigger after 14 days)
 - [x] Wire trigger logs into Today's Log (triggers stored in DayLog via saveLog) (SymptomLog.tsx) via quick-add
+
+## Sprint 4 — Evidence Engine Integration & Quick Log
+- [x] Extend generateEvidence tRPC input schema with hrtMedications and triggerAnalysis
+- [x] Write Section 4 (Current Treatment Regimen) in GP brief markdown
+- [x] Write Section 5 (Identified Symptom Triggers) in GP brief markdown
+- [x] Renumber existing sections 4-8 (Cycle=6, Dismissal=7, Evidence=8)
+- [x] Update EvidenceEngine.tsx to pass hrtMedications and triggerAnalysis to mutation
+- [x] Add HRT and trigger preview cards to Evidence Engine UI
+- [x] Update Evidence Engine tests — 7 new assertions (Treatment Regimen, Oestrogel, Utrogestan, Triggers, Alcohol, Hot Flashes)
+- [x] Build QuickLog.tsx modal component (3 questions, 30 seconds)
+- [x] Add floating Quick Log FAB to AppShell (globally available inside the app)
+- [x] Wire Quick Log save to vaultStore.saveLog with quickLogOnly flag

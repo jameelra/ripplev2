@@ -114,7 +114,49 @@ describe("ai.generateEvidence", () => {
       { id: "ce5", date: "2026-05-01", type: "period_start" as const, createdAt: new Date().toISOString() },
       { id: "ce6", date: "2026-05-10", type: "spotting" as const, createdAt: new Date().toISOString() },
     ];
-    const result = await caller.ai.generateEvidence({ logs: mockLogs, cycleEvents: mockCycleEvents });
+    const mockHRTMedications = [
+      {
+        id: "med_001",
+        name: "Oestrogel",
+        activeIngredient: "Oestradiol",
+        deliveryMethod: "gel",
+        dose: "1.5mg",
+        scheduleType: "daily",
+        startDate: "2026-06-01",
+        isActive: true,
+      },
+      {
+        id: "med_002",
+        name: "Utrogestan 200mg",
+        activeIngredient: "Progesterone",
+        deliveryMethod: "capsule",
+        dose: "200mg",
+        scheduleType: "cycle_days",
+        startDate: "2026-06-01",
+        isActive: true,
+      },
+    ];
+    const mockTriggerAnalysis = {
+      topTriggers: [
+        {
+          triggerName: "Alcohol",
+          symptomLabel: "Hot Flashes",
+          sameDayDifference: 1.8,
+          nextDayDifference: 2.1,
+          combinedEffect: 1.92,
+          confidence: "strong" as const,
+          occurrenceCount: 12,
+        },
+      ],
+      minimumDataMet: true,
+      dataPointsAnalysed: 20,
+    };
+    const result = await caller.ai.generateEvidence({
+      logs: mockLogs,
+      cycleEvents: mockCycleEvents,
+      hrtMedications: mockHRTMedications,
+      triggerAnalysis: mockTriggerAnalysis,
+    });
     expect(result.success).toBe(true);
     expect(result.brief).toContain("Greene Climacteric Scale");
     expect(result.brief).toContain("NAMS");
@@ -122,6 +164,12 @@ describe("ai.generateEvidence", () => {
     expect(result.brief).toContain("Period Start Events Logged");
     expect(result.brief).toContain("Spotting Events");
     expect(result.brief).toContain("Bleeding Days Logged");
+    expect(result.brief).toContain("Current Treatment Regimen");
+    expect(result.brief).toContain("Oestrogel");
+    expect(result.brief).toContain("Utrogestan 200mg");
+    expect(result.brief).toContain("Identified Symptom Triggers");
+    expect(result.brief).toContain("Alcohol");
+    expect(result.brief).toContain("Hot Flashes");
     expect(result.greeneScore).toBeGreaterThan(0);
     expect(result.vasomotorScore).toBeGreaterThan(0);
     expect(result.trackingDays).toBe(5);
