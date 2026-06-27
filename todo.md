@@ -162,3 +162,14 @@
 - [x] Build QuickLog.tsx modal component (3 questions, 30 seconds)
 - [x] Add floating Quick Log FAB to AppShell (globally available inside the app)
 - [x] Wire Quick Log save to vaultStore.saveLog with quickLogOnly flag
+
+## Sprint 5 — Appointment Prep & Surgical Menopause Mode
+- [x] Build AppointmentPrep.tsx — guided pre-appointment checklist page
+- [x] Wire AppointmentPrep into sidebar navigation
+- [x] Add menopauseMode to vaultStore (natural | surgical | early) (natural | surgical | early)
+- [x] Add surgeryDate field to vaultStore for surgical mode
+- [x] Add menopause mode selection as standalone My Journey Mode page in sidebar
+- [x] Conditionally replace Cycle Calendar with MenopauseMode in surgical mode
+- [x] Build MenopauseMode.tsx with Days Since Surgery counter and mode selector — days since surgery counter + symptom focus
+- [x] Replace Cycle Calendar with MenopauseMode in surgical mode routing
+- [x] Add Days Since Surgery card to Dashboard in surgical mode

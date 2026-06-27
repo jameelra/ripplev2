@@ -117,7 +117,7 @@ function CustomTooltip({ active, payload, label }: any) {
 
 // ─── Dashboard ────────────────────────────────────────────────────────────────
 export default function Dashboard() {
-  const { logs, hrtMedications, hrtDoseLogs, triggerAnalysis, setActiveTab } = useVaultStore();
+  const { logs, hrtMedications, hrtDoseLogs, triggerAnalysis, menopauseMode, surgeryDate, setActiveTab } = useVaultStore();
   const todayStr = new Date().toISOString().split("T")[0];
   const todayDayOfWeek = new Date().getDay();
 
@@ -410,6 +410,28 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+
+      {/* Surgical Menopause Banner */}
+      {menopauseMode === "surgical" && surgeryDate && (() => {
+        const days = Math.max(0, Math.floor((new Date().getTime() - new Date(surgeryDate + "T12:00:00").getTime()) / (1000 * 60 * 60 * 24)));
+        return (
+          <motion.button
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            onClick={() => setActiveTab("menopause_mode")}
+            className="w-full flex items-center justify-between ripple-card p-4 bg-[#faf5f3] border-[#e8d8d0] hover:bg-[#f5ede9] transition-colors group text-left"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 bg-[#c07060]/10 rounded-xl flex items-center justify-center text-lg shrink-0">🏥</div>
+              <div>
+                <p className="text-sm font-bold text-[#1a2b22]">Day {days} since surgery</p>
+                <p className="text-[10px] text-[#9a9490]">Surgical menopause mode active</p>
+              </div>
+            </div>
+            <span className="text-xs font-mono font-bold text-[#c07060] group-hover:underline shrink-0">View →</span>
+          </motion.button>
+        );
+      })()}
 
       {/* Trigger Insight Card */}
       {triggerAnalysis?.minimumDataMet && triggerAnalysis.topTriggers.length > 0 && (() => {

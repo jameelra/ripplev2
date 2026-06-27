@@ -45,6 +45,8 @@ export type TabId =
   | "hrt_tracker"
   | "trigger_tracker"
   | "quick_log"
+  | "appointment_prep"
+  | "menopause_mode"
   | "settings";
 
 export interface ToastNotification {
@@ -69,6 +71,8 @@ interface VaultState {
   hrtDoseLogs: HRTDoseLog[];
   triggerAnalysis: TriggerAnalysis | null;
   triggerExperiments: TriggerExperiment[];
+  menopauseMode: "natural" | "surgical" | "early";
+  surgeryDate: string | null;
   licenseTier: LicenseTier;
   activeTab: TabId;
   toastNotification: ToastNotification | null;
@@ -94,6 +98,7 @@ interface VaultState {
   addTriggerExperiment: (exp: TriggerExperiment) => Promise<void>;
   updateTriggerExperiment: (exp: TriggerExperiment) => Promise<void>;
   removeTriggerExperiment: (id: string) => Promise<void>;
+  setMenopauseMode: (mode: "natural" | "surgical" | "early", surgeryDate?: string) => void;
   setLicenseTier: (t: LicenseTier) => void;
   setActiveTab: (tab: TabId) => void;
   setToastNotification: (n: ToastNotification | null) => void;
@@ -130,6 +135,8 @@ export const useVaultStore = create<VaultState>((set, get) => ({
   hrtDoseLogs: [],
   triggerAnalysis: null,
   triggerExperiments: [],
+  menopauseMode: (localStorage.getItem("ripple_menopause_mode") as "natural" | "surgical" | "early") || "natural",
+  surgeryDate: localStorage.getItem("ripple_surgery_date") || null,
   licenseTier: (localStorage.getItem("ripple_license_tier") as LicenseTier) || "Free",
   activeTab: "dashboard",
   toastNotification: null,
@@ -413,6 +420,13 @@ export const useVaultStore = create<VaultState>((set, get) => ({
     const updated = triggerExperiments.filter((e: TriggerExperiment) => e.id !== id);
     await encryptAndSave("ripple_trigger_experiments", JSON.stringify(updated), sessionKey);
     set({ triggerExperiments: updated });
+  },
+
+  setMenopauseMode: (mode, surgeryDate) => {
+    localStorage.setItem("ripple_menopause_mode", mode);
+    if (surgeryDate) localStorage.setItem("ripple_surgery_date", surgeryDate);
+    else localStorage.removeItem("ripple_surgery_date");
+    set({ menopauseMode: mode, surgeryDate: surgeryDate ?? null });
   },
 
   addDismissal: async (record: DismissalRecord) => {

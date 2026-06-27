@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   BarChart2, PlusCircle, Sparkles, Binary, Compass,
   CreditCard, LogOut, Menu, X, Lock, ShieldCheck, Crown, BookOpen,
-  FlaskConical, ShieldAlert, CalendarDays, TrendingUp, Pill, Zap
+  FlaskConical, ShieldAlert, CalendarDays, TrendingUp, Pill, Zap, ClipboardList, Heart
 } from "lucide-react";
 import { useVaultStore, TabId } from "./stores/vaultStore";
 import Onboarding from "./pages/Onboarding";
@@ -26,6 +26,8 @@ import CorrelationsPage from "./pages/CorrelationsPage";
 import HRTTracker from "./pages/HRTTracker";
 import TriggerTracker from "./pages/TriggerTracker";
 import { QuickLogFAB, QuickLogModal } from "./components/QuickLog";
+import AppointmentPrep from "./pages/AppointmentPrep";
+import MenopauseMode from "./pages/MenopauseMode";
 
 // ─── Ripple Logo ──────────────────────────────────────────────────────────────
 function RippleLogo({ size = 32 }: { size?: number }) {
@@ -82,6 +84,8 @@ const NAV_ITEMS: Array<{ id: TabId; label: string; icon: React.ElementType; tier
   { id: "ai_diary", label: "AI Diary", icon: Sparkles, tier: "Pro" },
   { id: "evidence_engine", label: "Evidence Engine", icon: Binary },
   { id: "reverse_lookup", label: "Symptom Lookup", icon: Compass },
+  { id: "appointment_prep", label: "Appointment Prep", icon: ClipboardList },
+  { id: "menopause_mode", label: "My Journey Mode", icon: Heart },
   { id: "hrt_tracker", label: "HRT Tracker", icon: Pill },
   { id: "trigger_tracker", label: "Trigger Tracker", icon: Zap },
   { id: "cycle_calendar", label: "Cycle Calendar", icon: CalendarDays },
@@ -183,8 +187,9 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
 
 // ─── Main App Shell ───────────────────────────────────────────────────────────
 function AppShell() {
-  const { activeTab, isMobileMenuOpen, setIsMobileMenuOpen } = useVaultStore();
+  const { activeTab, isMobileMenuOpen, setIsMobileMenuOpen, menopauseMode } = useVaultStore();
   const [quickLogOpen, setQuickLogOpen] = React.useState(false);
+  const isSurgical = menopauseMode === "surgical";
 
   const renderPage = () => {
     switch (activeTab) {
@@ -195,9 +200,11 @@ function AppShell() {
       case "reverse_lookup": return <ReverseLookup />;
       case "upgrade_hub": return <UpgradeHub />;
       case "resources": return <Resources />;
+      case "appointment_prep": return <AppointmentPrep />;
+      case "menopause_mode": return <MenopauseMode />;
       case "hrt_tracker": return <HRTTracker />;
       case "trigger_tracker": return <TriggerTracker />;
-      case "cycle_calendar": return <CycleCalendar />;
+      case "cycle_calendar": return isSurgical ? <MenopauseMode /> : <CycleCalendar />;
       case "correlations": return <CorrelationsPage />;
       case "clinical_kb": return <ClinicalKnowledgeBase />;
       case "dismissal_tracker": return <DismissalTracker />;

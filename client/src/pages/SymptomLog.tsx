@@ -92,7 +92,8 @@ function SymptomSlider({
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function SymptomLog() {
-  const { logs, saveLog, setToastNotification, getLogForToday } = useVaultStore();
+  const { logs, saveLog, setToastNotification, getLogForToday, menopauseMode } = useVaultStore();
+  const isSurgical = menopauseMode === "surgical";
   const today = new Date().toISOString().split("T")[0];
   const existingLog = getLogForToday();
 
@@ -151,8 +152,8 @@ export default function SymptomLog() {
   const tabs = [
     { id: "symptoms" as const, label: "Symptoms", count: `${totalSeverity}/36` },
     { id: "signals" as const, label: "Biometrics", count: null },
-    { id: "cycle" as const, label: "Cycle", count: cycle.cycleActive ? "Active" : null },
-  ];
+    ...(!isSurgical ? [{ id: "cycle" as const, label: "Cycle", count: cycle.cycleActive ? "Active" : null }] : []),
+  ] as Array<{ id: "symptoms" | "signals" | "cycle"; label: string; count: string | null }>;
 
   return (
     <div className="space-y-5">
