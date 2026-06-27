@@ -300,6 +300,29 @@ export const HRT_DELIVERY_LABELS: Record<HRTDeliveryMethod, string> = {
   other:            "Other",
 };
 
+// ─── Trigger Experiment ──────────────────────────────────────────────────────
+
+export interface TriggerExperiment {
+  id: string;
+  triggerId: string;
+  triggerName: string;
+  hypothesis: string;            // e.g. "Eliminating alcohol will reduce hot flashes"
+  targetSymptomKey: keyof SymptomLog;
+  targetSymptomLabel: string;
+  startDate: string;             // YYYY-MM-DD
+  durationDays: number;          // typically 14
+  endDate: string;               // YYYY-MM-DD (computed: startDate + durationDays)
+  status: "active" | "completed" | "abandoned";
+  // Baseline (before experiment)
+  baselineAvgSeverity?: number;
+  // Results (after experiment)
+  experimentAvgSeverity?: number;
+  changePercent?: number;        // negative = improvement
+  conclusion?: string;           // auto-generated summary
+  createdAt: string;
+  completedAt?: string;
+}
+
 export const HRT_SCHEDULE_LABELS: Record<HRTScheduleType, string> = {
   daily:         "Daily",
   every_n_days:  "Every N days",

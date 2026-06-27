@@ -6,6 +6,7 @@ import {
   HRTMedication,
   HRTDoseLog,
   TriggerAnalysis,
+  TriggerExperiment,
   DEFAULT_SYMPTOMS,
   DEFAULT_SIGNALS,
   DEFAULT_CYCLE,
@@ -67,6 +68,7 @@ interface VaultState {
   hrtMedications: HRTMedication[];
   hrtDoseLogs: HRTDoseLog[];
   triggerAnalysis: TriggerAnalysis | null;
+  triggerExperiments: TriggerExperiment[];
   licenseTier: LicenseTier;
   activeTab: TabId;
   toastNotification: ToastNotification | null;
@@ -89,6 +91,9 @@ interface VaultState {
   removeHRTMedication: (id: string) => Promise<void>;
   logHRTDose: (doseLog: HRTDoseLog) => Promise<void>;
   updateTriggerAnalysis: () => void;
+  addTriggerExperiment: (exp: TriggerExperiment) => Promise<void>;
+  updateTriggerExperiment: (exp: TriggerExperiment) => Promise<void>;
+  removeTriggerExperiment: (id: string) => Promise<void>;
   setLicenseTier: (t: LicenseTier) => void;
   setActiveTab: (tab: TabId) => void;
   setToastNotification: (n: ToastNotification | null) => void;
@@ -124,6 +129,7 @@ export const useVaultStore = create<VaultState>((set, get) => ({
   hrtMedications: [],
   hrtDoseLogs: [],
   triggerAnalysis: null,
+  triggerExperiments: [],
   licenseTier: (localStorage.getItem("ripple_license_tier") as LicenseTier) || "Free",
   activeTab: "dashboard",
   toastNotification: null,
@@ -247,6 +253,7 @@ export const useVaultStore = create<VaultState>((set, get) => ({
       hrtMedications: [],
       hrtDoseLogs: [],
       triggerAnalysis: null,
+      triggerExperiments: [],
     });
   },
 
@@ -263,8 +270,10 @@ export const useVaultStore = create<VaultState>((set, get) => ({
     const hrtMedications: HRTMedication[] = hrtMedsRaw ? JSON.parse(hrtMedsRaw) : [];
     const hrtDoseLogs: HRTDoseLog[] = hrtDoseLogsRaw ? JSON.parse(hrtDoseLogsRaw) : [];
     // Compute trigger analysis from loaded logs
+    const triggerExperimentsRaw = await loadAndDecrypt("ripple_trigger_experiments", key);
+    const triggerExperiments: TriggerExperiment[] = triggerExperimentsRaw ? JSON.parse(triggerExperimentsRaw) : [];
     const triggerAnalysis = computeTriggerCorrelations(logs);
-    set({ logs, dismissals, cycleEvents, hrtMedications, hrtDoseLogs, triggerAnalysis });
+    set({ logs, dismissals, cycleEvents, hrtMedications, hrtDoseLogs, triggerAnalysis, triggerExperiments });
   },
 
   addCycleEvent: async (event: CycleEvent) => {
@@ -315,6 +324,7 @@ export const useVaultStore = create<VaultState>((set, get) => ({
       "ripple_cycle_events",
       "ripple_hrt_medications",
       "ripple_hrt_dose_logs",
+      "ripple_trigger_experiments",
     ].forEach((k: string) => localStorage.removeItem(k));
     set({
       sessionKey: null,
@@ -328,6 +338,7 @@ export const useVaultStore = create<VaultState>((set, get) => ({
       hrtMedications: [],
       hrtDoseLogs: [],
       triggerAnalysis: null,
+      triggerExperiments: [],
       licenseTier: "Free",
     });
   },
@@ -378,6 +389,30 @@ export const useVaultStore = create<VaultState>((set, get) => ({
     const { logs } = get();
     const analysis = computeTriggerCorrelations(logs);
     set({ triggerAnalysis: analysis });
+  },
+
+  addTriggerExperiment: async (exp: TriggerExperiment) => {
+    const { sessionKey, triggerExperiments } = get();
+    if (!sessionKey) return;
+    const updated = [...triggerExperiments, exp];
+    await encryptAndSave("ripple_trigger_experiments", JSON.stringify(updated), sessionKey);
+    set({ triggerExperiments: updated });
+  },
+
+  updateTriggerExperiment: async (exp: TriggerExperiment) => {
+    const { sessionKey, triggerExperiments } = get();
+    if (!sessionKey) return;
+    const updated = triggerExperiments.map((e: TriggerExperiment) => e.id === exp.id ? exp : e);
+    await encryptAndSave("ripple_trigger_experiments", JSON.stringify(updated), sessionKey);
+    set({ triggerExperiments: updated });
+  },
+
+  removeTriggerExperiment: async (id: string) => {
+    const { sessionKey, triggerExperiments } = get();
+    if (!sessionKey) return;
+    const updated = triggerExperiments.filter((e: TriggerExperiment) => e.id !== id);
+    await encryptAndSave("ripple_trigger_experiments", JSON.stringify(updated), sessionKey);
+    set({ triggerExperiments: updated });
   },
 
   addDismissal: async (record: DismissalRecord) => {

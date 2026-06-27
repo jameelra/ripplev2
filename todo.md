@@ -139,3 +139,14 @@
 - [x] Wire HRT Tracker into sidebar navigation (hrt_tracker tab)
 - [x] Add HRT reminder card to Dashboard (shows if dose due today)
 - [x] Write integration tests for HRT medication CRUD (covered by Sprint 1 unit tests)
+
+## Sprint 3 — Trigger Tracker UI
+- [x] Add TriggerExperiment type to shared/types.ts
+- [x] Extend vaultStore with triggerExperiments state and CRUD actions
+- [x] Build TriggerTracker.tsx — 3-view page (Today / Insights / Experiments)
+- [x] Build Today view — one-tap trigger chip grid, intensity selector, previous-day triggers
+- [x] Build Insights view — correlation cards with same-day + next-day effect bars
+- [x] Build Experiments view — start/track/complete experiment flow
+- [x] Wire TriggerTracker into sidebar navigation (trigger_tracker tab)
+- [x] Add trigger insight card to Dashboard (shows top trigger after 14 days) (shows top trigger after 14 days)
+- [x] Wire trigger logs into Today's Log (triggers stored in DayLog via saveLog) (SymptomLog.tsx) via quick-add

@@ -117,7 +117,7 @@ function CustomTooltip({ active, payload, label }: any) {
 
 // ─── Dashboard ────────────────────────────────────────────────────────────────
 export default function Dashboard() {
-  const { logs, hrtMedications, hrtDoseLogs, setActiveTab } = useVaultStore();
+  const { logs, hrtMedications, hrtDoseLogs, triggerAnalysis, setActiveTab } = useVaultStore();
   const todayStr = new Date().toISOString().split("T")[0];
   const todayDayOfWeek = new Date().getDay();
 
@@ -410,6 +410,38 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+
+      {/* Trigger Insight Card */}
+      {triggerAnalysis?.minimumDataMet && triggerAnalysis.topTriggers.length > 0 && (() => {
+        const top = triggerAnalysis.topTriggers[0];
+        const isHarmful = top.combinedEffect > 0;
+        return (
+          <motion.button
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            onClick={() => setActiveTab("trigger_tracker")}
+            className="w-full flex items-center justify-between ripple-card p-4 bg-[#eef4f1] border-[#c8d8d0] hover:bg-[#ddeee7] transition-colors group text-left"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 bg-[#4a8a72]/10 rounded-xl flex items-center justify-center shrink-0">
+                <Zap className="w-4.5 h-4.5 text-[#4a8a72]" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-[#1a2b22]">
+                  Top trigger: {top.triggerName}
+                </p>
+                <p className="text-[10px] text-[#6b7a72]">
+                  {isHarmful
+                    ? `${top.symptomLabel} ${top.sameDayDifference > 0 ? (top.sameDayDifference * 100 / 3).toFixed(0) + "% higher" : "affected"} on ${top.triggerName.toLowerCase()} days`
+                    : `${top.symptomLabel} lower on ${top.triggerName.toLowerCase()} days`
+                  }
+                </p>
+              </div>
+            </div>
+            <span className="text-xs font-mono font-bold text-[#4a8a72] group-hover:underline shrink-0">See insights →</span>
+          </motion.button>
+        );
+      })()}
 
       {/* HRT Reminder Card */}
       {hrtDueToday.length > 0 && (

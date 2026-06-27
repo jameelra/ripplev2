@@ -9,6 +9,7 @@ import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useVaultStore } from "../stores/vaultStore";
+import { PRESET_TRIGGERS } from "../../../shared/types";
 import {
   SymptomLog as SymptomLogType,
   BiologicalSignals,
@@ -366,6 +367,42 @@ export default function SymptomLog() {
           className="w-full bg-[#f5f0ea] border border-[#e0d5c8] rounded-xl p-3.5 text-sm text-[#1a2b22] placeholder-[#9a9490] resize-none focus:outline-none focus:border-[#4a8a72]/50 leading-relaxed"
         />
       </div>
+
+      {/* Trigger Quick-Log shortcut */}
+      {(() => {
+        const todayLog = logs.find((l) => l.id === today);
+        const todayTriggers = todayLog?.triggers?.triggers ?? [];
+        const { setActiveTab } = useVaultStore.getState();
+        return (
+          <div className="ripple-card p-4 space-y-2">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="ripple-label mb-0.5">Today's Triggers</p>
+                <p className="text-xs text-[#6b7a72]">
+                  {todayTriggers.length > 0
+                    ? `${todayTriggers.length} trigger${todayTriggers.length !== 1 ? "s" : ""} logged: ${todayTriggers.map((t) => t.name).join(", ")}`
+                    : "Log what may be affecting your symptoms today"}
+                </p>
+              </div>
+              <button
+                onClick={() => setActiveTab("trigger_tracker")}
+                className="text-xs font-mono font-bold text-[#4a8a72] hover:underline shrink-0"
+              >
+                {todayTriggers.length > 0 ? "Edit →" : "Log →"}
+              </button>
+            </div>
+            {todayTriggers.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {todayTriggers.map((t) => (
+                  <span key={t.id} className="text-[10px] bg-[#eef4f1] border border-[#c8d8d0] text-[#4a8a72] px-2.5 py-1 rounded-full font-semibold">
+                    {t.name}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })()}
 
       {/* Save Button */}
       <Button
