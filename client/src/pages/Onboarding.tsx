@@ -163,7 +163,118 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
   };
 
   const steps = [
-    // Step 0: Welcome
+    // ─── Walkthrough Screen 1: What is Ripple? ────────────────────────────────
+    <div key="walk1" className="space-y-6 text-center">
+      <div className="flex justify-center">
+        <div className="w-20 h-20 bg-[#eef4f1] rounded-3xl flex items-center justify-center text-4xl">📊</div>
+      </div>
+      <div className="space-y-3">
+        <p className="text-[10px] font-mono uppercase tracking-widest text-[#c07060] font-bold">1 of 3</p>
+        <h1 className="font-serif text-2xl font-bold text-[#1a2b22]">Your body is telling you something.</h1>
+        <p className="text-sm text-[#6b7a72] leading-relaxed max-w-sm mx-auto">
+          Ripple helps you track perimenopause symptoms, understand your biology, and walk into GP appointments with clinical-grade evidence — not just a feeling.
+        </p>
+      </div>
+      <div className="space-y-2.5 text-left">
+        {[
+          { emoji: "📈", title: "12 symptom sliders", desc: "Log hot flashes, brain fog, joint pain and more in under 60 seconds" },
+          { emoji: "📊", title: "Greene Climacteric Scale", desc: "A validated clinical score your doctor will recognise" },
+          { emoji: "💊", title: "HRT Tracker", desc: "Log your medications, track adherence, see what's working" },
+          { emoji: "🧹", title: "Trigger Tracker", desc: "Discover what makes your symptoms better or worse" },
+        ].map(({ emoji, title, desc }) => (
+          <div key={title} className="flex items-start gap-3 bg-[#f5f0ea] rounded-xl p-3">
+            <span className="text-xl shrink-0">{emoji}</span>
+            <div>
+              <p className="text-xs font-bold text-[#1a2b22]">{title}</p>
+              <p className="text-[10px] text-[#6b7a72] leading-relaxed">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <Button onClick={() => setStep(1)} className="w-full bg-[#4a8a72] hover:bg-[#3a7060] text-white font-mono text-xs font-bold py-3.5 rounded-xl">
+        Next <ArrowRight className="w-4 h-4 ml-2" />
+      </Button>
+    </div>,
+
+    // ─── Walkthrough Screen 2: Why encryption matters ─────────────────────────
+    <div key="walk2" className="space-y-6 text-center">
+      <div className="flex justify-center">
+        <div className="w-20 h-20 bg-[#faf5f3] rounded-3xl flex items-center justify-center text-4xl">🔒</div>
+      </div>
+      <div className="space-y-3">
+        <p className="text-[10px] font-mono uppercase tracking-widest text-[#c07060] font-bold">2 of 3</p>
+        <h1 className="font-serif text-2xl font-bold text-[#1a2b22]">Your health data belongs to you. Only you.</h1>
+        <p className="text-sm text-[#6b7a72] leading-relaxed max-w-sm mx-auto">
+          In a world where period tracking data has been used against women, Ripple takes a different approach.
+        </p>
+      </div>
+      <div className="bg-[#1a2b22] rounded-2xl p-5 text-left space-y-3">
+        <p className="text-[10px] font-mono uppercase tracking-widest text-[#4a8a72] font-bold">Zero-Knowledge Architecture</p>
+        <p className="text-sm text-white/90 leading-relaxed">
+          Your symptoms are encrypted in your browser using <strong className="text-white">AES-GCM</strong> before they leave your device. We store only the encrypted ciphertext.
+        </p>
+        <p className="text-xs text-white/60 leading-relaxed">
+          This means: even if our servers were hacked, your health data would be unreadable. Even we cannot read it.
+        </p>
+        <div className="border-t border-white/10 pt-3 space-y-1.5">
+          {[
+            "✓ No data selling, ever",
+            "✓ No third-party sharing",
+            "✓ No time limits on your data",
+            "✓ Full deletion on request",
+          ].map((item) => (
+            <p key={item} className="text-xs text-[#4a8a72] font-mono font-bold">{item}</p>
+          ))}
+        </div>
+      </div>
+      <div className="flex gap-2">
+        <Button variant="outline" onClick={() => setStep(0)} className="flex-1 text-xs border-[#e0d5c8] text-[#6b7a72]">Back</Button>
+        <Button onClick={() => setStep(2)} className="flex-1 bg-[#4a8a72] hover:bg-[#3a7060] text-white font-mono text-xs font-bold py-3.5 rounded-xl">
+          Next <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
+      </div>
+    </div>,
+
+    // ─── Walkthrough Screen 3: The 30-day promise ─────────────────────────────
+    <div key="walk3" className="space-y-6 text-center">
+      <div className="flex justify-center">
+        <div className="w-20 h-20 bg-[#eef4f1] rounded-3xl flex items-center justify-center text-4xl">🏆</div>
+      </div>
+      <div className="space-y-3">
+        <p className="text-[10px] font-mono uppercase tracking-widest text-[#c07060] font-bold">3 of 3</p>
+        <h1 className="font-serif text-2xl font-bold text-[#1a2b22]">30 days changes everything.</h1>
+        <p className="text-sm text-[#6b7a72] leading-relaxed max-w-sm mx-auto">
+          After 30 days of logging, Ripple transforms from a tracker into a clinical advocate.
+        </p>
+      </div>
+      <div className="space-y-3">
+        {[
+          { days: "Day 1",  icon: "📝", title: "Start logging",              desc: "Your first symptom log takes 60 seconds" },
+          { days: "Day 7",  icon: "📈", title: "Patterns emerge",            desc: "Your PSS score and trend charts come alive" },
+          { days: "Day 14", icon: "⚡",    title: "Triggers identified",        desc: "Discover what's making your symptoms worse" },
+          { days: "Day 30", icon: "🏥", title: "GP brief ready",             desc: "Walk in with a clinical-grade 8-section evidence report" },
+        ].map(({ days, icon, title, desc }) => (
+          <div key={days} className="flex items-center gap-4 bg-[#f5f0ea] rounded-xl p-3.5 text-left">
+            <div className="text-center shrink-0 w-10">
+              <p className="text-[9px] font-mono font-bold text-[#c07060] uppercase tracking-wider">{days}</p>
+              <span className="text-xl">{icon}</span>
+            </div>
+            <div>
+              <p className="text-xs font-bold text-[#1a2b22]">{title}</p>
+              <p className="text-[10px] text-[#6b7a72] leading-relaxed">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="flex gap-2">
+        <Button variant="outline" onClick={() => setStep(1)} className="flex-1 text-xs border-[#e0d5c8] text-[#6b7a72]">Back</Button>
+        <Button onClick={() => setStep(3)} className="flex-1 bg-[#4a8a72] hover:bg-[#3a7060] text-white font-mono text-xs font-bold py-3.5 rounded-xl">
+          Get Started <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
+      </div>
+    </div>,
+
+    // Step 3: Welcome (was Step 0)
     <div key="welcome" className="space-y-6 text-center">
       <div className="flex justify-center">
         <RippleLogo size={72} />
@@ -193,17 +304,17 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
         ))}
       </div>
       <Button
-        onClick={() => setStep(1)}
+        onClick={() => setStep(3)}
         className="w-full bg-[#4a8a72] hover:bg-[#3a7060] text-white font-mono text-xs font-bold py-3.5 rounded-xl"
       >
         Get Started <ArrowRight className="w-4 h-4 ml-2" />
       </Button>
     </div>,
 
-    // Step 1: Medical Disclaimer
+    // Step 4: Medical Disclaimer (was Step 1)
     <LegalStep
       key="disclaimer"
-      step={1}
+      step={4}
       title="Medical Disclaimer"
       subtitle="Please read carefully before proceeding."
       content={
@@ -222,13 +333,13 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
       checkLabel="I have read and understand the Medical Disclaimer. I acknowledge that Ripple is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment."
       checked={disclaimerChecked}
       onCheck={setDisclaimerChecked}
-      onNext={() => setStep(2)}
+      onNext={() => setStep(5)}
     />,
 
-    // Step 2: Privacy Policy
+    // Step 5: Privacy Policy (was Step 2)
     <LegalStep
       key="privacy"
-      step={2}
+      step={5}
       title="Privacy Policy"
       subtitle="How Ripple protects your health data."
       content={
@@ -244,13 +355,13 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
       checkLabel="I have read and agree to the Privacy Policy. I understand how my data is collected, stored, and protected."
       checked={privacyChecked}
       onCheck={setPrivacyChecked}
-      onNext={() => setStep(3)}
+      onNext={() => setStep(6)}
     />,
 
-    // Step 3: Terms of Service
+    // Step 6: Terms of Service (was Step 3)
     <LegalStep
       key="tos"
-      step={3}
+      step={6}
       title="Terms of Service"
       subtitle="The rules that govern your use of Ripple."
       content={
@@ -267,14 +378,14 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
       checkLabel="I have read and agree to the Terms of Service. I am 18 years of age or older."
       checked={tosChecked}
       onCheck={setTosChecked}
-      onNext={() => setStep(4)}
+      onNext={() => setStep(7)}
     />,
 
-    // Step 4: Vault Setup
+    // Step 7: Vault Setup (was Step 4)
     <div key="vault" className="space-y-5">
       <div className="space-y-1">
         <p className="text-[10px] font-mono uppercase tracking-widest text-[#c07060] font-bold">
-          Step 4 of 5 — Security Vault
+          Step 7 of 8 — Security Vault
         </p>
         <h2 className="font-serif text-2xl font-bold text-[#1a2b22]">Protect Your Health Data</h2>
         <p className="text-sm text-[#6b7a72] leading-relaxed">
@@ -408,7 +519,7 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
             <RippleLogo size={28} />
             <span className="text-sm font-bold text-[#1a2b22] font-serif">Ripple</span>
           </div>
-          <StepIndicator current={step} total={5} />
+          <StepIndicator current={step} total={8} />
         </div>
 
         <AnimatePresence mode="wait">

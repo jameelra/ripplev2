@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   BarChart2, PlusCircle, Sparkles, Binary, Compass,
   CreditCard, LogOut, Menu, X, Lock, ShieldCheck, Crown, BookOpen,
-  FlaskConical, ShieldAlert, CalendarDays, TrendingUp, Pill, Zap, ClipboardList, Heart
+  FlaskConical, ShieldAlert, CalendarDays, TrendingUp, Pill, Zap, ClipboardList, Heart, ChevronDown
 } from "lucide-react";
 import { useVaultStore, TabId } from "./stores/vaultStore";
 import Onboarding from "./pages/Onboarding";
@@ -78,25 +78,124 @@ function ToastNotification() {
 }
 
 // ─── Navigation Config ────────────────────────────────────────────────────────
-const NAV_ITEMS: Array<{ id: TabId; label: string; icon: React.ElementType; tier?: "Pro" | "Premier" }> = [
-  { id: "dashboard", label: "My Dashboard", icon: BarChart2 },
-  { id: "log_signals", label: "Today's Log", icon: PlusCircle },
-  { id: "ai_diary", label: "AI Diary", icon: Sparkles, tier: "Pro" },
-  { id: "evidence_engine", label: "Evidence Engine", icon: Binary },
-  { id: "reverse_lookup", label: "Symptom Lookup", icon: Compass },
-  { id: "appointment_prep", label: "Appointment Prep", icon: ClipboardList },
-  { id: "menopause_mode", label: "My Journey Mode", icon: Heart },
-  { id: "hrt_tracker", label: "HRT Tracker", icon: Pill },
-  { id: "trigger_tracker", label: "Trigger Tracker", icon: Zap },
-  { id: "cycle_calendar", label: "Cycle Calendar", icon: CalendarDays },
-  { id: "correlations", label: "Correlations", icon: TrendingUp },
-  { id: "clinical_kb", label: "Symptom Library", icon: FlaskConical },
-  { id: "dismissal_tracker", label: "Dismissal Tracker", icon: ShieldAlert },
-  { id: "upgrade_hub", label: "Upgrade Hub", icon: CreditCard },
-  { id: "resources", label: "Resources", icon: BookOpen },
+type NavItem = { id: TabId; label: string; icon: React.ElementType; tier?: "Pro" | "Premier" | "HRT" };
+type NavGroup = { label: string; items: NavItem[]; defaultOpen?: boolean };
+
+const NAV_GROUPS: NavGroup[] = [
+  {
+    label: "Core",
+    defaultOpen: true,
+    items: [
+      { id: "dashboard",      label: "My Dashboard",    icon: BarChart2 },
+      { id: "log_signals",    label: "Today's Log",     icon: PlusCircle },
+      { id: "ai_diary",       label: "AI Diary",        icon: Sparkles,    tier: "Pro" },
+    ],
+  },
+  {
+    label: "Clinical Tools",
+    defaultOpen: true,
+    items: [
+      { id: "evidence_engine",  label: "Evidence Engine",    icon: Binary },
+      { id: "appointment_prep", label: "Appointment Prep",   icon: ClipboardList },
+      { id: "reverse_lookup",   label: "Symptom Lookup",     icon: Compass },
+      { id: "dismissal_tracker",label: "Dismissal Tracker",  icon: ShieldAlert },
+      { id: "clinical_kb",      label: "Symptom Library",    icon: FlaskConical },
+    ],
+  },
+  {
+    label: "Trackers",
+    defaultOpen: true,
+    items: [
+      { id: "hrt_tracker",     label: "HRT Tracker",     icon: Pill,         tier: "HRT" },
+      { id: "trigger_tracker", label: "Trigger Tracker", icon: Zap },
+      { id: "cycle_calendar",  label: "Cycle Calendar",  icon: CalendarDays },
+      { id: "correlations",    label: "Correlations",    icon: TrendingUp },
+    ],
+  },
+  {
+    label: "Settings & More",
+    defaultOpen: false,
+    items: [
+      { id: "menopause_mode", label: "My Journey Mode", icon: Heart },
+      { id: "upgrade_hub",    label: "Plans & Pricing", icon: CreditCard },
+      { id: "resources",      label: "Resources",       icon: BookOpen },
+    ],
+  },
 ];
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────
+// ─── NavGroupSection ───────────────────────────────────────────────────────────────────────────────
+function NavGroupSection({
+  group,
+  activeTab,
+  onNav,
+}: {
+  group: NavGroup;
+  activeTab: TabId;
+  onNav: (tab: TabId) => void;
+}) {
+  const [open, setOpen] = React.useState(group.defaultOpen ?? true);
+  const hasActive = group.items.some((i) => i.id === activeTab);
+
+  const tierBadgeClass = (tier: NavItem["tier"]) => {
+    if (tier === "HRT") return "bg-purple-50 text-purple-700 border-purple-200";
+    if (tier === "Premier") return "bg-[#faf5f3] text-[#c07060] border-[#e8d8d0]";
+    return "bg-[#eef4f1] text-[#4a8a72] border-[#c8d8d0]";
+  };
+
+  return (
+    <div className="space-y-0.5">
+      <button
+        onClick={() => setOpen(!open)}
+        className={`w-full flex items-center justify-between px-2 py-1.5 rounded-lg transition-colors ${
+          hasActive ? "text-[#1a2b22]" : "text-[#9a9490] hover:text-[#6b7a72]"
+        }`}
+      >
+        <span className="text-[9px] font-mono uppercase tracking-widest font-bold">{group.label}</span>
+        <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+            className="overflow-hidden space-y-0.5"
+          >
+            {group.items.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+              const isUpgrade = item.id === "upgrade_hub";
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => onNav(item.id)}
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all text-left border ${
+                    isActive
+                      ? isUpgrade ? "bg-[#faf5f3] border-[#e8d8d0] text-[#c07060]" : "bg-[#eef4f1] border-[#c8d8d0] text-[#1a2b22]"
+                      : isUpgrade ? "border-dashed border-[#e0d5c8] text-[#c07060] hover:bg-[#faf5f3]" : "border-transparent text-[#6b7a72] hover:text-[#1a2b22] hover:bg-[#f5f0ea]"
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? (isUpgrade ? "text-[#c07060]" : "text-[#4a8a72]") : "text-[#9a9490]"}`} />
+                    <span className="truncate">{item.label}</span>
+                  </div>
+                  {item.tier && !isActive && (
+                    <span className={`text-[8px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border font-bold shrink-0 ml-1 ${tierBadgeClass(item.tier)}`}>
+                      {item.tier}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function Sidebar({ onClose }: { onClose?: () => void }) {
   const { activeTab, setActiveTab, licenseTier, lockVault } = useVaultStore();
 
@@ -124,47 +223,15 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-        <p className="text-[9px] font-mono uppercase tracking-widest text-[#9a9490] font-bold px-2 mb-2">Navigation</p>
-        {NAV_ITEMS.map((item) => {
-          const Icon = item.icon;
-          const isActive = activeTab === item.id;
-          const isUpgrade = item.id === "upgrade_hub";
-          return (
-            <button
-              key={item.id}
-              onClick={() => handleNav(item.id)}
-              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all text-left border ${
-                isActive
-                  ? isUpgrade
-                    ? "bg-[#faf5f3] border-[#e8d8d0] text-[#c07060]"
-                    : "bg-[#eef4f1] border-[#c8d8d0] text-[#1a2b22]"
-                  : isUpgrade
-                    ? "border-dashed border-[#e0d5c8] text-[#c07060] hover:bg-[#faf5f3]"
-                    : "border-transparent text-[#6b7a72] hover:text-[#1a2b22] hover:bg-[#f5f0ea]"
-              }`}
-            >
-              <div className="flex items-center gap-2.5">
-                <Icon className={`w-4 h-4 ${isActive ? isUpgrade ? "text-[#c07060]" : "text-[#4a8a72]" : "text-[#9a9490]"}`} />
-                <span>{item.label}</span>
-              </div>
-              {item.tier && !isActive && (
-                <span className={`text-[8px] font-mono uppercase tracking-wider px-1.5 py-0.5 rounded border font-bold ${
-                  item.tier === "Premier"
-                    ? "bg-[#faf5f3] text-[#c07060] border-[#e8d8d0]"
-                    : "bg-[#eef4f1] text-[#4a8a72] border-[#c8d8d0]"
-                }`}>
-                  {item.tier}
-                </span>
-              )}
-              {isUpgrade && !isActive && (
-                <span className="text-[8px] font-mono uppercase tracking-wider bg-[#faf5f3] text-[#c07060] border border-[#e8d8d0] px-1.5 py-0.5 rounded font-bold">
-                  Plans
-                </span>
-              )}
-            </button>
-          );
-        })}
+      <nav className="flex-1 px-3 py-3 overflow-y-auto space-y-1">
+        {NAV_GROUPS.map((group) => (
+          <NavGroupSection
+            key={group.label}
+            group={group}
+            activeTab={activeTab}
+            onNav={handleNav}
+          />
+        ))}
       </nav>
 
       {/* Footer */}

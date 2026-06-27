@@ -173,3 +173,10 @@
 - [x] Build MenopauseMode.tsx with Days Since Surgery counter and mode selector — days since surgery counter + symptom focus
 - [x] Replace Cycle Calendar with MenopauseMode in surgical mode routing
 - [x] Add Days Since Surgery card to Dashboard in surgical mode
+
+## Sprint 6 — Navigation, Onboarding & Pricing
+- [x] Research health app pricing benchmarks and HRT add-on strategy
+- [x] Reorganise sidebar into collapsible groups (Core / Clinical Tools / Trackers / Settings)
+- [x] Build 3-screen onboarding walkthrough (What is Ripple / Why encryption / 30-day promise)
+- [x] Redesign Upgrade Hub with new pricing and HRT add-on tier
+- [x] Checkpoint and deliver Stripe connection guidance
