@@ -1,0 +1,145 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ─── Ripple v2 Design Tokens ─────────────────────────────────────────────── */
+@theme inline {
+  /* Warm neutral palette — calm, clinical, trustworthy */
+  --color-background: oklch(0.98 0.005 60);
+  --color-foreground: oklch(0.22 0.02 50);
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.22 0.02 50);
+  --color-popover: oklch(1 0 0);
+  --color-popover-foreground: oklch(0.22 0.02 50);
+  --color-primary: oklch(0.42 0.08 155);       /* Sage green */
+  --color-primary-foreground: oklch(0.98 0.005 155);
+  --color-secondary: oklch(0.94 0.01 60);
+  --color-secondary-foreground: oklch(0.35 0.03 50);
+  --color-muted: oklch(0.95 0.008 60);
+  --color-muted-foreground: oklch(0.55 0.02 50);
+  --color-accent: oklch(0.65 0.12 35);         /* Terracotta accent */
+  --color-accent-foreground: oklch(0.98 0.005 35);
+  --color-destructive: oklch(0.55 0.18 25);
+  --color-destructive-foreground: oklch(0.98 0 0);
+  --color-border: oklch(0.88 0.01 60);
+  --color-input: oklch(0.88 0.01 60);
+  --color-ring: oklch(0.42 0.08 155);
+  --color-chart-1: oklch(0.65 0.12 35);
+  --color-chart-2: oklch(0.42 0.08 155);
+  --color-chart-3: oklch(0.72 0.09 200);
+  --color-chart-4: oklch(0.78 0.11 80);
+  --color-chart-5: oklch(0.60 0.14 320);
+  --radius: 0.75rem;
+
+  /* Ripple brand tokens */
+  --color-ripple-sage: oklch(0.42 0.08 155);
+  --color-ripple-sage-light: oklch(0.88 0.04 155);
+  --color-ripple-terracotta: oklch(0.65 0.12 35);
+  --color-ripple-terracotta-light: oklch(0.93 0.04 35);
+  --color-ripple-cream: oklch(0.98 0.005 60);
+  --color-ripple-stone: oklch(0.55 0.02 50);
+  --color-ripple-warm-white: oklch(1 0 0);
+
+  /* Severity colors */
+  --color-severity-none: oklch(0.65 0.01 60);
+  --color-severity-mild: oklch(0.72 0.13 80);
+  --color-severity-moderate: oklch(0.65 0.14 45);
+  --color-severity-severe: oklch(0.55 0.18 25);
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* ─── Base Styles ─────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3 {
+    @apply font-serif;
+  }
+
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .flex {
+    min-width: 0;
+    min-height: 0;
+  }
+}
+
+/* ─── Ripple Custom Utilities ─────────────────────────────────────────────── */
+@layer utilities {
+  .font-serif {
+    font-family: "Playfair Display", Georgia, serif;
+  }
+
+  .ripple-card {
+    @apply bg-card border border-border rounded-2xl shadow-sm;
+  }
+
+  .ripple-section-title {
+    @apply font-serif text-xl font-bold text-foreground tracking-tight;
+  }
+
+  .ripple-label {
+    @apply text-xs font-semibold uppercase tracking-widest text-muted-foreground font-mono;
+  }
+
+  /* Severity badge styles */
+  .severity-none {
+    @apply bg-gray-100 text-gray-500;
+  }
+  .severity-mild {
+    @apply bg-amber-100 text-amber-700;
+  }
+  .severity-moderate {
+    @apply bg-orange-100 text-orange-700;
+  }
+  .severity-severe {
+    @apply bg-red-100 text-red-700;
+  }
+
+  /* Tier badge styles */
+  .tier-free {
+    @apply bg-muted text-muted-foreground;
+  }
+  .tier-pro {
+    @apply bg-ripple-sage-light text-ripple-sage;
+  }
+  .tier-premier {
+    @apply bg-ripple-terracotta-light text-ripple-terracotta;
+  }
+
+  /* Scrollbar styling */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.88 0.01 60) transparent;
+  }
+}
+
+/* ─── Animations ──────────────────────────────────────────────────────────── */
+@keyframes ripple-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+.animate-ripple {
+  animation: ripple-pulse 2s ease-in-out infinite;
+}
+
+/* ─── Print Styles (for Evidence Engine brief) ────────────────────────────── */
+@media print {
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  body { background: white; }
+  .ripple-card { box-shadow: none; border: 1px solid #ccc; }
+}
