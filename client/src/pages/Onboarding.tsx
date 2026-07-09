@@ -304,7 +304,7 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
         ))}
       </div>
       <Button
-        onClick={() => setStep(3)}
+        onClick={() => setStep(4)}
         className="w-full bg-[#4a8a72] hover:bg-[#3a7060] text-white font-mono text-xs font-bold py-3.5 rounded-xl"
       >
         Get Started <ArrowRight className="w-4 h-4 ml-2" />
