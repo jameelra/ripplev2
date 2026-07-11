@@ -1,8 +1,9 @@
 // ─── Ripple v2 — Billing tRPC Router ─────────────────────────────────────────
 import Stripe from "stripe";
 import { z } from "zod";
-import { protectedProcedure, router } from "../_core/trpc";
+import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { TRPCError } from "@trpc/server";
+import { ENV } from "../_core/env";
 import {
   getPriceConfig,
   getPriceConfigByPriceId,
@@ -30,6 +31,9 @@ function getStripe(): Stripe | null {
 
 // ─── Billing Router ───────────────────────────────────────────────────────────
 export const billingRouter = router({
+  // ── Whether checkout is live (Stripe keys are placeholders during beta) ───
+  paymentsEnabled: publicProcedure.query(() => ENV.paymentsEnabled),
+
   // ── Get available plans ────────────────────────────────────────────────────
   getPlans: protectedProcedure.query(() => {
     return PRICES.map((p) => ({
@@ -67,6 +71,12 @@ export const billingRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      if (!ENV.paymentsEnabled) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message: "Payments are coming soon — enjoy the free tier during the beta.",
+        });
+      }
       const stripe = getStripe();
       if (!stripe) {
         throw new TRPCError({
@@ -133,6 +143,12 @@ export const billingRouter = router({
 
   // ── Create Customer Portal Session (manage/cancel) ─────────────────────────
   createPortalSession: protectedProcedure.mutation(async ({ ctx }) => {
+    if (!ENV.paymentsEnabled) {
+      throw new TRPCError({
+        code: "PRECONDITION_FAILED",
+        message: "Payments are coming soon — enjoy the free tier during the beta.",
+      });
+    }
     const stripe = getStripe();
     if (!stripe) {
       throw new TRPCError({ code: "PRECONDITION_FAILED", message: "Stripe is not configured." });

@@ -136,7 +136,20 @@ export default function UpgradeHub() {
     enabled: !!user,
   });
 
+  const { data: paymentsEnabledData } = trpc.billing.paymentsEnabled.useQuery();
+  const paymentsEnabled = paymentsEnabledData ?? false;
+
+  const showComingSoon = () => {
+    toast.info("Payments coming soon", {
+      description: "We're still finishing checkout — enjoy full access to the free tier during the beta.",
+    });
+  };
+
   const handleSelect = async (planId: PlanId) => {
+    if (!paymentsEnabled) {
+      showComingSoon();
+      return;
+    }
     if (!user) {
       openAuthModal();
       return;
@@ -146,6 +159,10 @@ export default function UpgradeHub() {
   };
 
   const handleAddonSelect = async (cycle: BillingCycle) => {
+    if (!paymentsEnabled) {
+      showComingSoon();
+      return;
+    }
     if (!user) {
       openAuthModal();
       return;
@@ -287,7 +304,13 @@ export default function UpgradeHub() {
               >
                 {isLoading ? (
                   <span className="flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" />Opening checkout…</span>
-                ) : isCurrent ? "Current Plan" : plan.cta}
+                ) : isCurrent ? (
+                  "Current Plan"
+                ) : !paymentsEnabled && plan.id !== "Free" ? (
+                  "Coming Soon — Enjoy Free Tier"
+                ) : (
+                  plan.cta
+                )}
               </Button>
             </motion.div>
           );
@@ -351,30 +374,48 @@ export default function UpgradeHub() {
                 variant="outline"
                 className="flex-1 text-xs font-mono border-purple-200 text-purple-700 hover:bg-purple-50"
               >
-                {loadingPlan === "HRT_Addonmonthly" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : "$4.99/mo"}
+                {loadingPlan === "HRT_Addonmonthly" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : !paymentsEnabled ? "Coming Soon" : "$4.99/mo"}
               </Button>
               <Button
                 onClick={() => handleAddonSelect("annual")}
                 disabled={loadingPlan === "HRT_Addonannual"}
                 className="flex-1 bg-purple-700 hover:bg-purple-800 text-white font-mono text-xs font-bold rounded-xl"
               >
-                {loadingPlan === "HRT_Addonannual" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <><Pill className="w-3.5 h-3.5 mr-1.5" />$39.99/yr — Best Value</>}
+                {loadingPlan === "HRT_Addonannual" ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                ) : !paymentsEnabled ? (
+                  "Coming Soon"
+                ) : (
+                  <><Pill className="w-3.5 h-3.5 mr-1.5" />$39.99/yr — Best Value</>
+                )}
               </Button>
             </div>
           </motion.div>
         )}
       </div>
 
-      {/* Test card info */}
-      <div className="bg-[#eef4f1] border border-[#c8d8d0] rounded-xl p-4 flex items-start gap-2.5">
-        <Info className="w-4 h-4 text-[#4a8a72] shrink-0 mt-0.5" />
-        <div>
-          <p className="text-xs font-bold text-[#1a2b22]">Test payments</p>
-          <p className="text-[10px] text-[#6b7a72] leading-relaxed mt-0.5">
-            Use card number <strong className="font-mono">4242 4242 4242 4242</strong> with any future expiry and any CVC to test checkout. Real payments require claiming your Stripe sandbox in Settings → Payment.
-          </p>
+      {/* Payments status */}
+      {paymentsEnabled ? (
+        <div className="bg-[#eef4f1] border border-[#c8d8d0] rounded-xl p-4 flex items-start gap-2.5">
+          <Info className="w-4 h-4 text-[#4a8a72] shrink-0 mt-0.5" />
+          <div>
+            <p className="text-xs font-bold text-[#1a2b22]">Test payments</p>
+            <p className="text-[10px] text-[#6b7a72] leading-relaxed mt-0.5">
+              Use card number <strong className="font-mono">4242 4242 4242 4242</strong> with any future expiry and any CVC to test checkout. Real payments require claiming your Stripe sandbox in Settings → Payment.
+            </p>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="bg-[#faf5f3] border border-[#e8d8d0] rounded-xl p-4 flex items-start gap-2.5">
+          <Info className="w-4 h-4 text-[#c07060] shrink-0 mt-0.5" />
+          <div>
+            <p className="text-xs font-bold text-[#1a2b22]">Payments coming soon</p>
+            <p className="text-[10px] text-[#6b7a72] leading-relaxed mt-0.5">
+              We're still finishing checkout. During the beta, every account gets full access to the Free tier — no card required, no time limit.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Pricing comparison */}
       <div className="ripple-card p-5 space-y-3">

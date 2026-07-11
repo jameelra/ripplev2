@@ -5,6 +5,9 @@ export const ENV = {
   // Supabase user id of the account that should get the "admin" role.
   ownerOpenId: process.env.OWNER_OPEN_ID ?? "",
   isProduction: process.env.NODE_ENV === "production",
+  // Stripe keys/prices are placeholders during beta — keep this off until
+  // real ones are configured. Explicit opt-in: anything but "true" is off.
+  paymentsEnabled: process.env.PAYMENTS_ENABLED === "true",
   forgeApiUrl: process.env.BUILT_IN_FORGE_API_URL ?? "",
   forgeApiKey: process.env.BUILT_IN_FORGE_API_KEY ?? "",
 };
