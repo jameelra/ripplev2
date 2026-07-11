@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   WIKI_PAGES,
   getReverseLookupWikiLink,
@@ -144,6 +145,7 @@ function ResultCard({ result, query }: { result: SymptomResult; query: string })
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function ReverseLookup() {
+  const { user, openAuthModal } = useAuth();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SymptomResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -168,6 +170,10 @@ export default function ReverseLookup() {
   const handleSearch = (q?: string) => {
     const searchQuery = q ?? query;
     if (!searchQuery.trim()) return;
+    if (!user) {
+      openAuthModal();
+      return;
+    }
     setIsSearching(true);
     setResults([]);
     setSearched(false);

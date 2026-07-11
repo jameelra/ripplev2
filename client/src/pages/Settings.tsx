@@ -3,12 +3,13 @@ import { motion } from "framer-motion";
 import {
   Lock, Trash2, Download, Bell, BellOff, Heart, ShieldCheck,
   AlertCircle, CheckCircle2, ChevronRight, Info, RefreshCw,
-  Eye, EyeOff, Moon, Sun, Smartphone
+  Eye, EyeOff, Moon, Sun, Smartphone, UserCircle, LogOut
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { useVaultStore } from "../stores/vaultStore";
+import { useAuth } from "@/contexts/AuthContext";
 
 // ─── Section wrapper ──────────────────────────────────────────────────────────
 function SettingsSection({
@@ -88,6 +89,7 @@ export default function Settings() {
     setActiveTab,
     setToastNotification,
   } = useVaultStore();
+  const { user, signOut, openAuthModal } = useAuth();
 
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [resetInput, setResetInput] = useState("");
@@ -184,6 +186,15 @@ export default function Settings() {
     });
   };
 
+  const handleSignOut = async () => {
+    await signOut();
+    setToastNotification({
+      type: "info",
+      title: "Signed Out",
+      description: "You've been logged out. Your encrypted vault stays on this device.",
+    });
+  };
+
   const handleResetVault = () => {
     if (resetInput !== "DELETE MY DATA") return;
     resetVault();
@@ -229,6 +240,30 @@ export default function Settings() {
           <span>Vault Encrypted · Zero-Knowledge</span>
         </div>
       </div>
+
+      {/* Account */}
+      <SettingsSection title="Account" icon={UserCircle} color="text-[#4a8a72]">
+        {user ? (
+          <>
+            <SettingsRow
+              label={user.email ?? "Signed in"}
+              description="Used to sign in and for AI features & billing. Your health data never leaves this device unencrypted."
+            />
+            <SettingsRow
+              label="Log Out"
+              description="You'll need to log in again to use AI features or manage billing."
+              onClick={handleSignOut}
+              danger
+            />
+          </>
+        ) : (
+          <SettingsRow
+            label="Sign In / Create Account"
+            description="Required for AI Diary, Symptom Lookup, Evidence Engine, and billing. Your local vault works without it."
+            onClick={openAuthModal}
+          />
+        )}
+      </SettingsSection>
 
       {/* Vault & Security */}
       <SettingsSection title="Vault & Security" icon={Lock}>

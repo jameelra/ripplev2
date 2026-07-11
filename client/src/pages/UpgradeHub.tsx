@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useVaultStore } from "../stores/vaultStore";
 import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 
 type BillingCycle = "monthly" | "annual";
@@ -99,6 +100,7 @@ const PLANS = [
 
 export default function UpgradeHub() {
   const { licenseTier } = useVaultStore();
+  const { user, openAuthModal } = useAuth();
   const [billing, setBilling] = useState<BillingCycle>("annual");
   const [showAddon, setShowAddon] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
@@ -131,14 +133,23 @@ export default function UpgradeHub() {
 
   const { data: subscriptionData } = trpc.billing.getSubscription.useQuery(undefined, {
     retry: false,
+    enabled: !!user,
   });
 
   const handleSelect = async (planId: PlanId) => {
+    if (!user) {
+      openAuthModal();
+      return;
+    }
     setLoadingPlan(planId + billing);
     createCheckout.mutate({ planId, billingCycle: billing });
   };
 
   const handleAddonSelect = async (cycle: BillingCycle) => {
+    if (!user) {
+      openAuthModal();
+      return;
+    }
     setLoadingPlan("HRT_Addon" + cycle);
     createCheckout.mutate({ planId: "HRT_Addon", billingCycle: cycle });
   };

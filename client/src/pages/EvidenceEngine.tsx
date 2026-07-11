@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { useVaultStore } from "../stores/vaultStore";
+import { useAuth } from "@/contexts/AuthContext";
 import { Streamdown } from "streamdown";
 import {
   WIKI_PAGES,
@@ -57,6 +58,7 @@ function WikiResourceLink({
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function EvidenceEngine() {
   const { logs, dismissals, cycleEvents, hrtMedications, triggerAnalysis, licenseTier, setActiveTab } = useVaultStore();
+  const { user, openAuthModal } = useAuth();
   const [brief, setBrief] = useState<string | null>(null);
   const [scores, setScores] = useState<{
     greeneScore: number;
@@ -87,6 +89,10 @@ export default function EvidenceEngine() {
 
   const handleGenerate = () => {
     if (logs.length < 3) return;
+    if (!user) {
+      openAuthModal();
+      return;
+    }
     setIsGenerating(true);
     setBrief(null);
     generateMutation.mutate({
