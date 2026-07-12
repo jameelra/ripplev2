@@ -23,6 +23,7 @@ const trpcClient = trpc.createClient({
       url: "/api/trpc",
       transformer: superjson,
       headers: async () => {
+        if (!supabase) return {};
         const { data } = await supabase.auth.getSession();
         const token = data.session?.access_token;
         return token ? { Authorization: `Bearer ${token}` } : {};

@@ -31,6 +31,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   useEffect(() => {
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
       setLoading(false);
@@ -44,17 +49,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signUp = useCallback(async (email: string, password: string): Promise<AuthResult> => {
+    if (!supabase) return { error: "Login is temporarily unavailable. Please try again later." };
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (error) return { error: error.message };
     return { error: null, needsEmailConfirmation: !data.session };
   }, []);
 
   const signIn = useCallback(async (email: string, password: string): Promise<AuthResult> => {
+    if (!supabase) return { error: "Login is temporarily unavailable. Please try again later." };
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     return { error: error?.message ?? null };
   }, []);
 
   const signOut = useCallback(async () => {
+    if (!supabase) return;
     await supabase.auth.signOut();
   }, []);
 
