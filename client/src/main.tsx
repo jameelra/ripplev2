@@ -5,6 +5,7 @@ import { httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
 import App from "./App";
 import { trpc } from "./lib/trpc";
+import { supabase } from "./lib/supabase";
 import "./index.css";
 
 const queryClient = new QueryClient({
@@ -21,6 +22,11 @@ const trpcClient = trpc.createClient({
     httpBatchLink({
       url: "/api/trpc",
       transformer: superjson,
+      headers: async () => {
+        const { data } = await supabase.auth.getSession();
+        const token = data.session?.access_token;
+        return token ? { Authorization: `Bearer ${token}` } : {};
+      },
     }),
   ],
 });

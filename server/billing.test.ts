@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
+import { ENV } from "./_core/env";
 import type { TrpcContext } from "./_core/context";
+
+// These tests exercise the Stripe integration itself, so they assume
+// payments are turned on — the "payments disabled" path is tested
+// separately below.
+ENV.paymentsEnabled = true;
 
 // ─── Mock context ─────────────────────────────────────────────────────────────
 function createAuthContext(): { ctx: TrpcContext } {
@@ -145,5 +151,41 @@ describe("billing.createPortalSession", () => {
 
     if (originalKey) process.env.STRIPE_SECRET_KEY = originalKey;
     else delete process.env.STRIPE_SECRET_KEY;
+  });
+});
+
+describe("billing.paymentsEnabled gate", () => {
+  it("blocks checkout with a friendly message when payments are disabled", async () => {
+    ENV.paymentsEnabled = false;
+    const { ctx } = createAuthContext();
+    const caller = appRouter.createCaller(ctx);
+
+    await expect(
+      caller.billing.createCheckout({ planId: "Pro", billingCycle: "monthly" })
+    ).rejects.toThrow("Payments are coming soon");
+
+    ENV.paymentsEnabled = true;
+  });
+
+  it("blocks the billing portal with the same message when disabled", async () => {
+    ENV.paymentsEnabled = false;
+    const { ctx } = createAuthContext();
+    const caller = appRouter.createCaller(ctx);
+
+    await expect(caller.billing.createPortalSession()).rejects.toThrow(
+      "Payments are coming soon"
+    );
+
+    ENV.paymentsEnabled = true;
+  });
+
+  it("reports its state via the public paymentsEnabled query", async () => {
+    ENV.paymentsEnabled = false;
+    const { ctx } = createAuthContext();
+    const caller = appRouter.createCaller(ctx);
+    expect(await caller.billing.paymentsEnabled()).toBe(false);
+
+    ENV.paymentsEnabled = true;
+    expect(await caller.billing.paymentsEnabled()).toBe(true);
   });
 });

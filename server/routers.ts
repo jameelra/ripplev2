@@ -1,5 +1,3 @@
-import { COOKIE_NAME } from "@shared/const";
-import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { billingRouter } from "./billing/router";
@@ -126,17 +124,14 @@ export const appRouter = router({
   system: systemRouter,
   billing: billingRouter,
   auth: router({
+    // Supabase manages the session itself (browser storage + its own sign-out
+    // call); this just reports who the verified bearer token belongs to.
     me: publicProcedure.query((opts) => opts.ctx.user),
-    logout: publicProcedure.mutation(({ ctx }) => {
-      const cookieOptions = getSessionCookieOptions(ctx.req);
-      ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
-      return { success: true } as const;
-    }),
   }),
 
   // ── AI Diary Analysis ───────────────────────────────────────────────────────
   ai: router({
-    analyzeDiary: publicProcedure
+    analyzeDiary: protectedProcedure
       .input(z.object({
         text: z.string().min(1).max(2000),
         currentSymptoms: z.record(z.string(), z.number()).optional(),
@@ -203,7 +198,7 @@ export const appRouter = router({
       }),
 
     // ── Reverse Symptom Lookup ────────────────────────────────────────────────
-    reverseLookup: publicProcedure
+    reverseLookup: protectedProcedure
       .input(z.object({ query: z.string().min(1).max(200) }))
       .mutation(async ({ input }) => {
         // First try heuristic database
@@ -268,7 +263,7 @@ export const appRouter = router({
       }),
 
     // ── Evidence Engine (GP Brief Generator) ─────────────────────────────────
-    generateEvidence: publicProcedure
+    generateEvidence: protectedProcedure
       .input(z.object({
         logs: z.array(z.object({
           id: z.string(),

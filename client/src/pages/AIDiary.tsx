@@ -4,10 +4,12 @@ import { Sparkles, RefreshCw, AlertCircle, BookOpen, Zap, Brain } from "lucide-r
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
 import { useVaultStore } from "../stores/vaultStore";
+import { useAuth } from "@/contexts/AuthContext";
 import { Streamdown } from "streamdown";
 
 export default function AIDiary() {
   const { logs, saveLog, getLogForToday } = useVaultStore();
+  const { user, openAuthModal } = useAuth();
   const [text, setText] = useState(getLogForToday()?.diaryText ?? "");
   const [result, setResult] = useState<{
     narrativeInsight: string;
@@ -29,6 +31,10 @@ export default function AIDiary() {
 
   const handleAnalyze = () => {
     if (!text.trim()) return;
+    if (!user) {
+      openAuthModal();
+      return;
+    }
     setIsAnalyzing(true);
     setResult(null);
     analyzeMutation.mutate({ text });
@@ -123,6 +129,11 @@ export default function AIDiary() {
               <span className="flex items-center gap-2">
                 <RefreshCw className="w-4 h-4 animate-spin" />
                 Analysing…
+              </span>
+            ) : !user ? (
+              <span className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4" />
+                Sign In to Analyse
               </span>
             ) : (
               <span className="flex items-center gap-2">

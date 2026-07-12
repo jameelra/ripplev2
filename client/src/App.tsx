@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { AuthProvider } from "./contexts/AuthContext";
+import { AuthModal } from "./components/AuthModal";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -405,10 +407,13 @@ export default function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
-        <TooltipProvider>
-          <Toaster />
-          <AppRouter />
-        </TooltipProvider>
+        <AuthProvider>
+          <TooltipProvider>
+            <Toaster />
+            <AppRouter />
+            <AuthModal />
+          </TooltipProvider>
+        </AuthProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );
