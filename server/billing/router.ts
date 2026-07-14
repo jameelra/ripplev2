@@ -113,7 +113,7 @@ export const billingRouter = router({
       }
 
       // Build origin for redirect URLs
-      const origin = ctx.req.headers.origin as string ?? "https://ripple.health";
+      const origin = ctx.req.headers.origin as string ?? "https://ripplehealth.app";
 
       const session = await stripe.checkout.sessions.create({
         customer: stripeCustomerId!,
@@ -162,7 +162,7 @@ export const billingRouter = router({
       });
     }
 
-    const origin = ctx.req.headers.origin as string ?? "https://ripple.health";
+    const origin = ctx.req.headers.origin as string ?? "https://ripplehealth.app";
     const session = await stripe.billingPortal.sessions.create({
       customer: stripeCustomerId,
       return_url: `${origin}/`,
