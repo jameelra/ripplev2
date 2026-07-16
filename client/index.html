@@ -19,6 +19,16 @@
 
   <body>
     <div id="root"></div>
+    <!--
+      Static, crawlable link outside the React tree: the app above is a
+      client-rendered SPA gated by onboarding/vault state, so this is the
+      only link on "/" a crawler can see without executing JS. Keep it a
+      real, visible link (no display:none) as more of the 7 planned SEO
+      tool pages ship and get added here.
+    -->
+    <footer style="font: 12px/1.5 Inter, system-ui, sans-serif; color: #6b7a72; text-align: center; padding: 16px; background: #f5f0ea;">
+      <a href="/tools/greene-climacteric-scale/" style="color: #4a8a72;">Free Greene Climacteric Scale self-assessment</a>
+    </footer>
     <script type="module" src="/src/main.tsx"></script>
     <script
       defer

@@ -251,6 +251,14 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
           <Lock className="w-3.5 h-3.5" />
           <span>Lock Vault</span>
         </button>
+        <a
+          href="/tools/greene-climacteric-scale/"
+          target="_blank"
+          rel="noopener"
+          className="block text-center text-[10px] font-mono text-[#9a9490] hover:text-[#4a8a72] transition-colors"
+        >
+          Free Greene Climacteric Scale tool
+        </a>
       </div>
     </div>
   );

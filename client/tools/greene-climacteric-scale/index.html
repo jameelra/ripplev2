@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Greene Climacteric Scale Calculator — Free Online Self-Assessment | Ripple</title>
+    <meta
+      name="description"
+      content="Take the validated 21-item Greene Climacteric Scale online — free, private, and instant. See your psychological, somatic, vasomotor, and sexual symptom scores, then print a summary for your GP." />
+    <link rel="canonical" href="https://ripplehealth.app/tools/greene-climacteric-scale/" />
+
+    <meta property="og:url" content="https://ripplehealth.app/tools/greene-climacteric-scale/" />
+    <meta property="og:site_name" content="Ripple" />
+    <meta property="og:title" content="Greene Climacteric Scale Calculator — Free Online Self-Assessment" />
+    <meta property="og:description" content="Take the validated 21-item Greene Climacteric Scale online — free, private, and instant. Scored entirely in your browser." />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Greene Climacteric Scale Calculator — Free Online Self-Assessment" />
+    <meta name="twitter:description" content="Take the validated 21-item Greene Climacteric Scale online — free, private, and instant. Scored entirely in your browser." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <!--
+      JSON-LD pattern for the 6 remaining SEO tool pages: keep FAQPage +
+      MedicalWebPage as two separate <script type="application/ld+json">
+      blocks (Google supports multiple JSON-LD blocks per page). Only add
+      fields you can honestly fill in — no fabricated reviewer names or
+      credentials. See client/tools/README.md for the full template.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Greene Climacteric Scale Calculator — Free Online Self-Assessment",
+      "url": "https://ripplehealth.app/tools/greene-climacteric-scale/",
+      "description": "A free, private, client-side implementation of the validated 21-item Greene Climacteric Scale for tracking perimenopause and menopause symptom severity over time.",
+      "about": {
+        "@type": "MedicalTest",
+        "name": "Greene Climacteric Scale"
+      },
+      "lastReviewed": "2026-07-16",
+      "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Patient"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Ripple",
+        "url": "https://ripplehealth.app/"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Greene Climacteric Scale Calculator",
+      "url": "https://ripplehealth.app/tools/greene-climacteric-scale/",
+      "description": "Free interactive calculator for the validated 21-item Greene Climacteric Scale. All scoring happens in the browser — no answers are ever sent to a server.",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any (web browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the Greene Climacteric Scale?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Greene Climacteric Scale is a 21-item, self-completed questionnaire developed by James Greene and published in 1998 in the journal Maturitas. It measures the severity of psychological, physical, and vasomotor symptoms commonly associated with perimenopause and menopause, plus a single question about interest in sex."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the Greene Climacteric Scale a diagnostic test?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It measures the severity of symptoms you're reporting right now — it does not diagnose perimenopause, menopause, anxiety, or depression. There is no pass/fail score. Clinicians typically use it to track how symptoms change over time, for example before and after starting a treatment, alongside a full clinical assessment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is the Greene Climacteric Scale scored?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Each of the 21 items is rated from 0 (Not at all) to 3 (Extremely). Items 1 to 20 sum into a total score from 0 to 63, made up of three subscales: Psychological (items 1-11, split into Anxiety and Depressed Mood), Somatic (items 12-18), and Vasomotor (items 19-20). Item 21, about interest in sex, is reported separately rather than added to the total."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this tool store or send my answers anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Every calculation happens in your browser using JavaScript running on your own device. Your answers, your scores, and your progress are never transmitted to Ripple's servers, stored, or logged — you can confirm this yourself by checking your browser's network tab while completing it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often should I retake the Greene Climacteric Scale?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There's no fixed rule, but because the scale is designed to track change rather than give a one-off diagnosis, it's most useful when repeated periodically — for example monthly, or before and after a change in treatment — so you and your clinician can see a trend rather than a single number."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I bring my results to a doctor's appointment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. After you complete the questionnaire, you can print or save a clean summary of your total score, subscale scores, and individual answers to bring to a GP or menopause specialist appointment as a starting point for discussion."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who created the Greene Climacteric Scale and can I use it for free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The scale was constructed by James Greene and published in Maturitas in 1998. This page provides a free, non-commercial self-assessment tool for individual use; the underlying instrument text is owned by its original author and is separately licensed for other uses."
+          }
+        }
+      ]
+    }
+    </script>
+  </head>
+
+  <body class="bg-background text-foreground font-sans antialiased">
+    <a href="#greene-form" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:px-3 focus:py-2 focus:rounded-lg focus:border focus:border-[#e0d5c8]">
+      Skip to the questionnaire
+    </a>
+
+    <header class="no-print border-b border-[#e0d5c8] bg-white/80">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-2.5">
+        <a href="https://ripplehealth.app/" class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-full bg-[#f5f0ea] border border-[#e0d5c8] flex items-center justify-center shrink-0">
+            <span class="w-2 h-2 rounded-full bg-[#c07060]"></span>
+          </span>
+          <span class="text-sm font-serif font-bold text-[#1a2b22]">Ripple</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <!-- ─── Hero ──────────────────────────────────────────────────────── -->
+      <div class="no-print">
+        <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1a2b22] tracking-tight">
+          Greene Climacteric Scale — Free Self-Assessment
+        </h1>
+        <p class="mt-4 text-base leading-relaxed text-[#3f4a44]">
+          The Greene Climacteric Scale is a validated, 21-item questionnaire used by clinicians and researchers to
+          measure the severity of symptoms commonly linked to perimenopause and menopause — psychological, physical,
+          vasomotor (hot flushes and night sweats), and sexual. Answer all 21 questions below to see your score
+          broken down by category, with a plain-language explanation of what each part measures. It takes about
+          five minutes.
+        </p>
+        <div class="mt-4 flex items-start gap-2.5 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-4 text-sm text-[#2f4038]">
+          <span aria-hidden="true">🔒</span>
+          <p class="leading-relaxed">
+            <strong>Private by design.</strong> Every answer and every score is calculated on your own device. Nothing
+            you enter here is sent to, or stored on, any server — not even Ripple's.
+          </p>
+        </div>
+      </div>
+
+      <!-- ─── Questionnaire ─────────────────────────────────────────────── -->
+      <form id="greene-form" class="no-print mt-8" novalidate>
+        <div id="greene-progress" class="sticky top-0 z-10 -mx-4 sm:-mx-6 px-4 sm:px-6 py-2.5 bg-[#f5f0ea]/95 backdrop-blur-sm border-b border-[#e0d5c8] text-xs font-mono text-[#6b7a72]">
+          <span id="greene-progress-text">0 of 21 answered</span>
+          <div class="mt-1.5 h-1.5 rounded-full bg-[#e6e0d8] overflow-hidden">
+            <div id="greene-progress-bar" class="h-full rounded-full bg-[#4a8a72] transition-[width] duration-200" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div id="greene-missing-warning" class="hidden mt-4 rounded-xl border border-[#e8d8d0] bg-[#faf5f3] p-3 text-sm text-[#8a4a35]" role="alert"></div>
+
+        <section aria-labelledby="greene-group-psych" class="mt-6">
+          <h2 id="greene-group-psych" class="ripple-label text-[#6b7a72]">Psychological</h2>
+          <p class="mt-1 text-sm text-[#6b7a72]">Anxiety and mood-related symptoms.</p>
+          <div class="mt-3 space-y-3" id="greene-items-1-11">
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="1">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">1.</span>
+          <span class="greene-item-text">Heart beating quickly or strongly</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Heart beating quickly or strongly">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-1" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-1" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-1" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-1" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="2">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">2.</span>
+          <span class="greene-item-text">Feeling tense or nervous</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Feeling tense or nervous">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-2" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-2" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-2" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-2" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="3">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">3.</span>
+          <span class="greene-item-text">Difficulty in sleeping</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Difficulty in sleeping">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-3" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-3" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-3" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-3" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="4">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">4.</span>
+          <span class="greene-item-text">Excitable</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Excitable">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-4" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-4" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-4" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-4" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="5">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">5.</span>
+          <span class="greene-item-text">Attacks of panic</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Attacks of panic">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-5" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-5" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-5" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-5" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="6">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">6.</span>
+          <span class="greene-item-text">Difficulty in concentrating</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Difficulty in concentrating">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-6" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-6" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-6" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-6" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="7">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">7.</span>
+          <span class="greene-item-text">Feeling tired or lacking in energy</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Feeling tired or lacking in energy">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-7" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-7" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-7" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-7" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="8">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">8.</span>
+          <span class="greene-item-text">Loss of interest in most things</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Loss of interest in most things">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-8" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-8" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-8" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-8" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="9">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">9.</span>
+          <span class="greene-item-text">Feeling unhappy or depressed</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Feeling unhappy or depressed">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-9" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-9" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-9" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-9" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="10">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">10.</span>
+          <span class="greene-item-text">Crying spells</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Crying spells">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-10" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-10" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-10" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-10" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="11">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">11.</span>
+          <span class="greene-item-text">Irritability</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Irritability">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-11" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-11" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-11" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-11" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+          </div>
+        </section>
+
+        <section aria-labelledby="greene-group-somatic" class="mt-8">
+          <h2 id="greene-group-somatic" class="ripple-label text-[#6b7a72]">Somatic</h2>
+          <p class="mt-1 text-sm text-[#6b7a72]">Physical body symptoms.</p>
+          <div class="mt-3 space-y-3" id="greene-items-12-18">
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="12">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">12.</span>
+          <span class="greene-item-text">Feeling dizzy or faint</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Feeling dizzy or faint">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-12" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-12" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-12" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-12" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="13">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">13.</span>
+          <span class="greene-item-text">Pressure or tightness in head or body</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Pressure or tightness in head or body">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-13" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-13" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-13" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-13" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="14">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">14.</span>
+          <span class="greene-item-text">Parts of body feel numb or tingling</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Parts of body feel numb or tingling">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-14" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-14" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-14" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-14" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="15">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">15.</span>
+          <span class="greene-item-text">Headaches</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Headaches">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-15" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-15" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-15" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-15" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="16">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">16.</span>
+          <span class="greene-item-text">Muscle and joint pains</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Muscle and joint pains">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-16" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-16" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-16" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-16" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="17">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">17.</span>
+          <span class="greene-item-text">Loss of feeling in hands or feet</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Loss of feeling in hands or feet">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-17" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-17" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-17" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-17" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="18">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">18.</span>
+          <span class="greene-item-text">Breathing difficulties</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Breathing difficulties">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-18" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-18" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-18" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-18" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+          </div>
+        </section>
+
+        <section aria-labelledby="greene-group-vasomotor" class="mt-8">
+          <h2 id="greene-group-vasomotor" class="ripple-label text-[#6b7a72]">Vasomotor</h2>
+          <p class="mt-1 text-sm text-[#6b7a72]">Hot flushes and night sweats.</p>
+          <div class="mt-3 space-y-3" id="greene-items-19-20">
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="19">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">19.</span>
+          <span class="greene-item-text">Hot flushes</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Hot flushes">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-19" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-19" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-19" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-19" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="20">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">20.</span>
+          <span class="greene-item-text">Sweating at night</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Sweating at night">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-20" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-20" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-20" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-20" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+          </div>
+        </section>
+
+        <section aria-labelledby="greene-group-sexual" class="mt-8">
+          <h2 id="greene-group-sexual" class="ripple-label text-[#6b7a72]">Sexual Function</h2>
+          <p class="mt-1 text-sm text-[#6b7a72]">Reported on its own, not added to the total score.</p>
+          <div class="mt-3 space-y-3" id="greene-items-21">
+      <fieldset class="greene-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="21">
+        <legend class="flex items-baseline gap-2 text-sm font-semibold text-[#1a2b22] px-0.5">
+          <span class="font-mono text-xs text-[#9a9490]">21.</span>
+          <span class="greene-item-text">Loss of interest in sex</span>
+        </legend>
+        <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Loss of interest in sex">
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-21" value="0" class="accent-[#4a8a72]" required>
+          Not at all
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-21" value="1" class="accent-[#4a8a72]">
+          A little
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-21" value="2" class="accent-[#4a8a72]">
+          Quite a bit
+        </label>
+        <label class="greene-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+          <input type="radio" name="item-21" value="3" class="accent-[#4a8a72]">
+          Extremely
+        </label>
+        </div>
+      </fieldset>
+          </div>
+        </section>
+
+        <div class="mt-8 flex justify-end">
+          <button type="submit" class="rounded-xl bg-[#1a2b22] text-white text-sm font-semibold px-6 py-3 hover:bg-[#2a3b32] transition-colors">
+            See my results
+          </button>
+        </div>
+      </form>
+
+      <!-- ─── Results (hidden until scored) ────────────────────────────── -->
+      <section id="greene-results" class="hidden mt-10 scroll-mt-6" aria-live="polite">
+        <div class="no-print ripple-card p-5 sm:p-6">
+          <h2 class="font-serif text-2xl font-bold text-[#1a2b22]">Your results</h2>
+          <p id="greene-results-summary" class="mt-2 text-sm leading-relaxed text-[#3f4a44]"></p>
+
+          <div id="greene-results-bars" class="mt-6 space-y-5"></div>
+
+          <div class="mt-6 rounded-xl border border-[#e0d5c8] bg-[#f5f0ea] p-4 text-xs leading-relaxed text-[#6b7a72]">
+            There's no pass/fail line on this scale — Greene's scale doesn't define a diagnostic cutoff. It's
+            designed to track how your symptoms change over time (for example, before and after starting a
+            treatment) rather than to diagnose a single point in time. A higher number means more severe or more
+            frequent symptoms in that category.
+          </div>
+
+          <div class="no-print mt-6 flex flex-col sm:flex-row gap-3">
+            <button type="button" id="greene-print-btn" class="flex-1 rounded-xl border border-[#e0d5c8] text-[#1a2b22] text-sm font-semibold px-5 py-3 hover:bg-[#f5f0ea] transition-colors">
+              Print / save my results
+            </button>
+            <button type="button" id="greene-edit-btn" class="flex-1 rounded-xl border border-transparent text-[#6b7a72] text-sm font-semibold px-5 py-3 hover:bg-[#f5f0ea] transition-colors">
+              Edit my answers
+            </button>
+          </div>
+        </div>
+
+        <!-- Print-only, GP-appointment-ready summary -->
+        <div id="greene-print-summary" class="print-only hidden greene-print-summary"></div>
+
+        <div class="no-print mt-6 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-5 sm:p-6 text-center">
+          <p class="text-sm text-[#2f4038] leading-relaxed">
+            Ripple tracks this score over time, shows how it trends alongside your other symptoms, and can build
+            it into a clinical evidence report for your next appointment.
+          </p>
+          <a href="https://ripplehealth.app/" class="mt-4 inline-block rounded-xl bg-[#4a8a72] text-white text-sm font-semibold px-6 py-3 hover:bg-[#3d7460] transition-colors">
+            Track your symptoms in Ripple — it's free to start
+          </a>
+        </div>
+      </section>
+
+      <!-- ─── SEO body content ──────────────────────────────────────────── -->
+      <article class="no-print mt-14 prose-content max-w-none space-y-6 text-[#3f4a44] leading-relaxed">
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What is the Greene Climacteric Scale?</h2>
+          <p class="mt-2">
+            The Greene Climacteric Scale is a 21-item, self-completed symptom questionnaire constructed by James
+            Greene and published in 1998 in the journal <em>Maturitas</em> under the title "Constructing a standard
+            climacteric scale." It was built to give researchers and clinicians a consistent, standardized way to
+            measure the severity of symptoms people report during the climacteric — the years around the menopause
+            transition — instead of relying on unstructured description. Because it's short, free of any single
+            manufacturer's branding, and has been used in menopause research for over two decades, it remains one
+            of the most widely used symptom scales in this field.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">How scoring works</h2>
+          <p class="mt-2">
+            Each of the 21 items is rated on a four-point scale: Not at all (0), A little (1), Quite a bit (2), or
+            Extremely (3). The first 20 items combine into a total score from 0 to 63, made up of three
+            independent subscales — Psychological (items 1-11, out of 33), Somatic (items 12-18, out of 21), and
+            Vasomotor (items 19-20, out of 6). The 21st item, about interest in sex, is treated as a standalone
+            probe and reported on its own rather than folded into the total. Higher numbers mean more severe or
+            more frequent symptoms; there is no published cutoff score that separates "normal" from "abnormal" —
+            the scale describes severity, it doesn't diagnose anything.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What the four subscales measure</h2>
+          <p class="mt-2">
+            <strong>Psychological</strong> covers eleven items split into two groups: Anxiety (a racing heart,
+            feeling tense or on edge, trouble sleeping, panic, and difficulty concentrating) and Depressed Mood
+            (tiredness, loss of interest, low mood, tearfulness, and irritability). <strong>Somatic</strong> covers
+            seven physical symptoms sometimes linked to hormonal change — dizziness, head pressure, numbness or
+            tingling, headaches, joint and muscle pain, and breathing difficulty. <strong>Vasomotor</strong> covers
+            hot flushes and night sweats, the two symptoms most classically associated with perimenopause and
+            menopause. <strong>Sexual function</strong> is a single item asking about loss of interest in sex,
+            reported separately because one question can't carry the same weight as a seven-item subscale.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">How clinicians use it</h2>
+          <p class="mt-2">
+            The Greene Climacteric Scale is not used to diagnose perimenopause or menopause — that's a clinical
+            judgment based on your age, symptoms, and history. Instead, it's most valuable as a repeatable
+            measurement: completing it periodically, for example before starting hormone therapy and again a few
+            months later, gives a structured way to see whether overall symptom burden is improving. Because it
+            breaks symptoms into psychological, somatic, vasomotor, and sexual categories, it can also help a
+            conversation with a clinician stay specific — rather than "I feel awful," you can point to which
+            categories have shifted and by how much.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">How this tool protects your privacy</h2>
+          <p class="mt-2">
+            This page runs the entire questionnaire and scoring calculation in your browser. No answer, partial
+            response, or final score is ever sent to a server, stored in a database, or logged anywhere — you can
+            verify this yourself by opening your browser's developer tools and watching the network tab while you
+            complete it. If you choose to print or save your results, that happens locally on your device too.
+          </p>
+        </section>
+
+        <section aria-labelledby="greene-faq-heading">
+          <h2 id="greene-faq-heading" class="font-serif text-xl font-bold text-[#1a2b22]">Frequently asked questions</h2>
+          <div class="mt-3 space-y-4">
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Is the Greene Climacteric Scale a diagnostic test?</h3>
+              <p class="mt-1">
+                No. It measures the severity of symptoms you're reporting right now — it does not diagnose
+                perimenopause, menopause, anxiety, or depression. There is no pass/fail score. Clinicians typically
+                use it to track how symptoms change over time, alongside a full clinical assessment.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Does this tool store or send my answers anywhere?</h3>
+              <p class="mt-1">
+                No. Every calculation happens in your browser using JavaScript running on your own device. Your
+                answers and scores are never transmitted to Ripple's servers, stored, or logged.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">How often should I retake the Greene Climacteric Scale?</h3>
+              <p class="mt-1">
+                There's no fixed rule, but because the scale is designed to track change rather than give a
+                one-off diagnosis, it's most useful when repeated periodically — for example monthly, or before
+                and after a change in treatment — so you and your clinician can see a trend rather than a single
+                number.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Can I bring my results to a doctor's appointment?</h3>
+              <p class="mt-1">
+                Yes. After you complete the questionnaire, you can print or save a clean summary of your total
+                score, subscale scores, and individual answers to bring to a GP or menopause specialist
+                appointment as a starting point for discussion.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">What do the four subscale scores mean?</h3>
+              <p class="mt-1">
+                Psychological covers anxiety and low mood, Somatic covers physical body symptoms, Vasomotor covers
+                hot flushes and night sweats, and Sexual function is a single question about interest in sex,
+                reported on its own. A higher score in any category means more severe or more frequent symptoms
+                in that category.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Who created the Greene Climacteric Scale, and can I use it for free?</h3>
+              <p class="mt-1">
+                The scale was constructed by James Greene and published in Maturitas in 1998. This page provides a
+                free, non-commercial self-assessment tool for individual use; the underlying instrument text is
+                owned by its original author and is separately licensed for other uses, such as embedding it in a
+                commercial product.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">What does Ripple do with the Greene Climacteric Scale?</h3>
+              <p class="mt-1">
+                Nothing, on this page — your results stay on your device unless you choose to save or print them.
+                If you'd like to track this score over time alongside your other symptoms, Ripple's app can do
+                that as part of a broader symptom and evidence tracker, but using this free self-assessment
+                doesn't require an account.
+              </p>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <footer class="no-print mt-12 border-t border-[#e0d5c8] pt-6 text-xs leading-relaxed text-[#9a9490]">
+        <p>
+          This tool is for informational and self-tracking purposes only. It is not a substitute for professional
+          medical advice, diagnosis, or treatment. The Greene Climacteric Scale measures symptom severity — it does
+          not diagnose perimenopause, menopause, anxiety, or depression. Always discuss your results with a
+          qualified GP or menopause specialist.
+        </p>
+        <p class="mt-3">
+          <a href="https://ripplehealth.app/" class="underline hover:text-[#6b7a72]">Ripple — Perimenopause Health Companion</a>
+        </p>
+      </footer>
+    </main>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+
+</html>

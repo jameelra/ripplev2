@@ -5,6 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, type Plugin, type ViteDevServer } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
+import { PUBLIC_TOOL_PAGES } from "./shared/publicPages";
 
 // =============================================================================
 // Manus Debug Collector - Vite Plugin
@@ -167,6 +168,17 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: path.resolve(import.meta.dirname, "client", "index.html"),
+        ...Object.fromEntries(
+          PUBLIC_TOOL_PAGES.map(page => [
+            page.slug,
+            path.resolve(import.meta.dirname, "client", "tools", page.slug, "index.html"),
+          ])
+        ),
+      },
+    },
   },
   server: {
     host: true,
