@@ -259,6 +259,14 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
         >
           Free Greene Climacteric Scale tool
         </a>
+        <a
+          href="/tools/dismissal-tracker/"
+          target="_blank"
+          rel="noopener"
+          className="block text-center text-[10px] font-mono text-[#9a9490] hover:text-[#4a8a72] transition-colors"
+        >
+          Free Dismissal Tracker tool
+        </a>
       </div>
     </div>
   );
