@@ -267,6 +267,14 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
         >
           Free Dismissal Tracker tool
         </a>
+        <a
+          href="/tools/evidence-engine/"
+          target="_blank"
+          rel="noopener"
+          className="block text-center text-[10px] font-mono text-[#9a9490] hover:text-[#4a8a72] transition-colors"
+        >
+          How to Read Menopause Evidence
+        </a>
       </div>
     </div>
   );
