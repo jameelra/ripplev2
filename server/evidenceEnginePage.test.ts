@@ -19,9 +19,9 @@ function extractFaqJsonLd(source: string): Array<{ name: string; text: string }>
 }
 
 describe("Evidence Engine page — static page markup", () => {
-  it("renders every checklist question from shared/evidenceQualityChecklist.ts, in order, as a fieldset legend", () => {
-    const legendRe = /<legend class="text-sm font-semibold text-\[#1a2b22\] px-0\.5">\s*([\s\S]*?)\s*<\/legend>/g;
-    const rendered = [...html.matchAll(legendRe)].map(m => m[1].replace(/\s+/g, " ").trim());
+  it("renders every checklist question from shared/evidenceQualityChecklist.ts, in order, as a labelled heading", () => {
+    const labelRe = /<p id="checklist-label-[a-zA-Z]+" class="text-sm font-semibold text-\[#1a2b22\] px-0\.5">\s*([\s\S]*?)\s*<\/p>/g;
+    const rendered = [...html.matchAll(labelRe)].map(m => m[1].replace(/\s+/g, " ").trim());
     expect(rendered).toEqual(CHECKLIST_QUESTIONS.map(q => q.question));
   });
 
@@ -29,6 +29,19 @@ describe("Evidence Engine page — static page markup", () => {
     const idRe = /data-question-id="([^"]+)"/g;
     const rendered = [...html.matchAll(idRe)].map(m => m[1]);
     expect(rendered).toEqual(CHECKLIST_QUESTIONS.map(q => q.id));
+  });
+
+  it("does not use fieldset/legend for the question boxes (legend straddles the border and overflows on wrap)", () => {
+    expect(html).not.toMatch(/<fieldset/);
+    expect(html).not.toMatch(/<legend/);
+  });
+
+  it("links each radiogroup to its question via aria-labelledby, not a duplicated aria-label", () => {
+    for (const question of CHECKLIST_QUESTIONS) {
+      expect(html).toContain(`id="checklist-label-${question.id}"`);
+      expect(html).toContain(`role="radiogroup" aria-labelledby="checklist-label-${question.id}"`);
+    }
+    expect(html).not.toMatch(/role="radiogroup" aria-label="/);
   });
 
   it("keeps the 'heuristic, not a verdict' label in the static markup, not just injected by JS", () => {

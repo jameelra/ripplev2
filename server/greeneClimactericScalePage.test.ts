@@ -54,6 +54,19 @@ describe("Greene Climacteric Scale — static page markup", () => {
     }
   });
 
+  it("does not use fieldset/legend for the item boxes (legend straddles the border and overflows on wrap)", () => {
+    expect(html).not.toMatch(/<fieldset/);
+    expect(html).not.toMatch(/<legend/);
+  });
+
+  it("links each radiogroup to its item via aria-labelledby, not a duplicated aria-label", () => {
+    for (const item of GREENE_ITEMS) {
+      expect(html).toContain(`id="greene-label-${item.id}"`);
+      expect(html).toContain(`role="radiogroup" aria-labelledby="greene-label-${item.id}"`);
+    }
+    expect(html).not.toMatch(/role="radiogroup" aria-label="/);
+  });
+
   it("declares canonical URL, title, and JSON-LD blocks required for SEO", () => {
     expect(html).toContain('<link rel="canonical" href="https://ripplehealth.app/tools/greene-climacteric-scale/" />');
     expect(html).toMatch(/<title>[^<]*Greene Climacteric Scale[^<]*<\/title>/);
