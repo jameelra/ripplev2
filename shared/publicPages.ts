@@ -14,5 +14,6 @@ export const PUBLIC_TOOL_PAGES: PublicToolPage[] = [
   { slug: "greene-climacteric-scale", changefreq: "monthly", priority: 0.9 },
   { slug: "dismissal-tracker", changefreq: "monthly", priority: 0.9 },
   { slug: "evidence-engine", changefreq: "monthly", priority: 0.9 },
-  // Four more SEO tool pages are planned — add each here as it ships.
+  { slug: "appointment-prep", changefreq: "monthly", priority: 0.9 },
+  // Three more SEO tool pages are planned — add each here as it ships.
 ];

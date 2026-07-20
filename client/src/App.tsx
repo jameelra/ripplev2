@@ -275,6 +275,14 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
         >
           How to Read Menopause Evidence
         </a>
+        <a
+          href="/tools/appointment-prep/"
+          target="_blank"
+          rel="noopener"
+          className="block text-center text-[10px] font-mono text-[#9a9490] hover:text-[#4a8a72] transition-colors"
+        >
+          Free Appointment Prep Sheet
+        </a>
       </div>
     </div>
   );
