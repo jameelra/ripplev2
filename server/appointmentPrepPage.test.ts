@@ -18,7 +18,38 @@ function extractFaqJsonLd(source: string): Array<{ name: string; text: string }>
   return parsed.map(q => ({ name: q.name, text: q.acceptedAnswer.text }));
 }
 
+// Walks div/section open/close tags to find the ancestor chain of a given
+// element id, without pulling in a full DOM/jsdom dependency (this project's
+// vitest config runs tests in the "node" environment, not "jsdom").
+function ancestorClassListsOf(source: string, elementId: string): string[][] {
+  const tagRe = /<(div|section)\b([^>]*)>|<\/(div|section)>/g;
+  const stack: string[][] = [];
+  let match: RegExpExecArray | null;
+
+  while ((match = tagRe.exec(source)) !== null) {
+    const [, openTag, attrs, closeTag] = match;
+    if (openTag) {
+      const classAttr = attrs.match(/class="([^"]*)"/)?.[1] ?? "";
+      const idAttr = attrs.match(/id="([^"]*)"/)?.[1];
+      if (idAttr === elementId) {
+        return stack.map(classes => classes);
+      }
+      stack.push(classAttr.split(/\s+/).filter(Boolean));
+    } else if (closeTag) {
+      stack.pop();
+    }
+  }
+
+  throw new Error(`Could not find an element with id="${elementId}"`);
+}
+
 describe("Appointment Prep page — static page markup", () => {
+  it("does not nest the print-only prep sheet inside any no-print ancestor (a display:none ancestor can't be un-hidden by a child's display rule, which previously made print preview render blank)", () => {
+    const ancestorClasses = ancestorClassListsOf(html, "prep-sheet-print");
+    const noPrintAncestor = ancestorClasses.find(classes => classes.includes("no-print"));
+    expect(noPrintAncestor, `ancestors were: ${JSON.stringify(ancestorClasses)}`).toBeUndefined();
+  });
+
   it("renders every symptom option from shared/appointmentPrepBuilder.ts, in order, as a checkbox", () => {
     const symptomRe = /<input type="checkbox" name="symptom" value="([^"]+)"/g;
     const rendered = [...html.matchAll(symptomRe)].map(m => m[1]);
