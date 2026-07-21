@@ -90,6 +90,11 @@ describe("Evidence Engine page — static page markup", () => {
     expect(html).toContain("https://ripplehealth.app/tools/hrt-tracker/");
   });
 
+  it("cross-links to the Balance comparison pages", () => {
+    expect(html).toContain("https://ripplehealth.app/tools/balance-alternative/");
+    expect(html).toContain("https://ripplehealth.app/tools/ripple-vs-balance/");
+  });
+
   it("lists all five verified sources with full locators", () => {
     expect(html).toContain("Rossouw JE, Anderson GL, Prentice RL");
     expect(html).toContain("Manson JE, Chlebowski RT, Stefanick ML");

@@ -125,6 +125,11 @@ describe("Appointment Prep page — static page markup", () => {
     expect(html).toContain("https://ripplehealth.app/tools/hrt-tracker/");
   });
 
+  it("cross-links to the Balance comparison pages", () => {
+    expect(html).toContain("https://ripplehealth.app/tools/balance-alternative/");
+    expect(html).toContain("https://ripplehealth.app/tools/ripple-vs-balance/");
+  });
+
   it("cites NICE NG23 recommendation 1.5.4, scoped to vasomotor symptoms, as the only new citation", () => {
     expect(html).toContain("NG23");
     expect(html).toContain("1.5.4");

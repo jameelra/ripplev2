@@ -291,6 +291,22 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
         >
           Free HRT Tracking Log
         </a>
+        <a
+          href="/tools/balance-alternative/"
+          target="_blank"
+          rel="noopener"
+          className="block text-center text-[10px] font-mono text-[#9a9490] hover:text-[#4a8a72] transition-colors"
+        >
+          Balance App Alternative
+        </a>
+        <a
+          href="/tools/ripple-vs-balance/"
+          target="_blank"
+          rel="noopener"
+          className="block text-center text-[10px] font-mono text-[#9a9490] hover:text-[#4a8a72] transition-colors"
+        >
+          Ripple vs Balance
+        </a>
       </div>
     </div>
   );

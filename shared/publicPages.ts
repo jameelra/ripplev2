@@ -16,5 +16,6 @@ export const PUBLIC_TOOL_PAGES: PublicToolPage[] = [
   { slug: "evidence-engine", changefreq: "monthly", priority: 0.9 },
   { slug: "appointment-prep", changefreq: "monthly", priority: 0.9 },
   { slug: "hrt-tracker", changefreq: "monthly", priority: 0.9 },
-  // Two more SEO tool pages are planned — add each here as it ships.
+  { slug: "balance-alternative", changefreq: "monthly", priority: 0.9 },
+  { slug: "ripple-vs-balance", changefreq: "monthly", priority: 0.9 },
 ];

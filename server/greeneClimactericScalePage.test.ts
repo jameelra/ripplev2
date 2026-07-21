@@ -77,4 +77,9 @@ describe("Greene Climacteric Scale — static page markup", () => {
   it("cross-links to the HRT Tracker page", () => {
     expect(html).toContain("https://ripplehealth.app/tools/hrt-tracker/");
   });
+
+  it("cross-links to the Balance comparison pages", () => {
+    expect(html).toContain("https://ripplehealth.app/tools/balance-alternative/");
+    expect(html).toContain("https://ripplehealth.app/tools/ripple-vs-balance/");
+  });
 });

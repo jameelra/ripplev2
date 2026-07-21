@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Ripple vs Balance — Feature-by-Feature App Comparison | Ripple</title>
+    <meta
+      name="description"
+      content="An honest, feature-by-feature comparison of Ripple and the Balance app: tracking, reports, trend analysis, data entry, platform, and cost category. Facts only — you decide." />
+    <link rel="canonical" href="https://ripplehealth.app/tools/ripple-vs-balance/" />
+
+    <meta property="og:url" content="https://ripplehealth.app/tools/ripple-vs-balance/" />
+    <meta property="og:site_name" content="Ripple" />
+    <meta property="og:title" content="Ripple vs Balance — Feature-by-Feature App Comparison" />
+    <meta property="og:description" content="An honest, feature-by-feature comparison of Ripple and the Balance app across tracking, reports, trend analysis, data entry, platform, and cost category." />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Ripple vs Balance — Feature-by-Feature App Comparison" />
+    <meta name="twitter:description" content="An honest, feature-by-feature comparison of Ripple and the Balance app across tracking, reports, trend analysis, data entry, platform, and cost category." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Ripple vs Balance — Feature-by-Feature App Comparison",
+      "url": "https://ripplehealth.app/tools/ripple-vs-balance/",
+      "description": "An honest, feature-by-feature comparison of Ripple and the Balance app across tracking, reports, trend analysis, data entry, platform, and cost category.",
+      "about": {
+        "@type": "MedicalCondition",
+        "name": "Perimenopause"
+      },
+      "lastReviewed": "2026-07-21",
+      "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Patient"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Ripple",
+        "url": "https://ripplehealth.app/"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Which app should I use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This page doesn't make that call. Balance and Ripple make different trade-offs, and the table above lays out what each currently offers so you can weigh what matters to you."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do either of these apps connect to Apple Health, Garmin, or MyFitnessPal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. As of today, neither app integrates with those platforms. Both rely on manual entry."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which app shows trends or patterns across symptoms?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Balance shows a 1-, 3-, and 6-month graph for each symptom individually. Ripple adds two features that connect symptoms and triggers to each other over time: the Trigger Tracker's correlation engine and the Biological Correlations chart."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do both apps produce a report I can share with my doctor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Balance generates a shareable clinician Health Report from your journal entries, with an editable symptom summary before you generate it. Ripple generates a printable GP brief through its Evidence Engine feature."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does each app cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both offer a free tier and an optional paid subscription for additional features. Pricing varies by region and changes over time, so check each app's current listing directly rather than relying on this page."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Ripple endorsed by ORCHA, the NHS, or Apple?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Those recognitions belong to Balance. Ripple isn't endorsed by, recommended by, or affiliated with ORCHA, the NHS, Apple, Balance, or any other organisation referenced on this page."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "I'm trying to decide whether to switch from Balance — where do I start?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "See the free Balance app alternative guide, which walks through what Balance does well, two things its users commonly ask for, and how Ripple approaches those two areas differently."
+          }
+        }
+      ]
+    }
+    </script>
+  </head>
+
+  <body class="bg-background text-foreground font-sans antialiased">
+    <a href="#comparison-table" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:px-3 focus:py-2 focus:rounded-lg focus:border focus:border-[#e0d5c8]">
+      Skip to the comparison table
+    </a>
+
+    <header class="no-print border-b border-[#e0d5c8] bg-white/80">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-2.5">
+        <a href="https://ripplehealth.app/" class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-full bg-[#f5f0ea] border border-[#e0d5c8] flex items-center justify-center shrink-0">
+            <span class="w-2 h-2 rounded-full bg-[#c07060]"></span>
+          </span>
+          <span class="text-sm font-serif font-bold text-[#1a2b22]">Ripple</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <!-- ─── Hero ──────────────────────────────────────────────────────── -->
+      <div>
+        <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1a2b22] tracking-tight">
+          Ripple vs Balance: A Feature-by-Feature Comparison
+        </h1>
+        <p class="mt-4 text-base leading-relaxed text-[#3f4a44]">
+          Comparing Ripple and Balance? Here's an honest, side-by-side look at what each app actually offers today,
+          across the areas that matter most: symptom tracking, clinician reports, trend and pattern analysis, how
+          you enter data, what platform each runs on, and cost structure. This is a comparison, not a verdict — the
+          facts are below so you can decide what fits what you need.
+        </p>
+      </div>
+
+      <!-- ─── Comparison table ───────────────────────────────────────────── -->
+      <section id="comparison-table" class="mt-8 scroll-mt-6">
+        <div class="no-print flex items-center justify-between gap-3 flex-wrap mb-3">
+          <h2 class="ripple-label text-[#6b7a72]">Feature-by-feature comparison</h2>
+          <button type="button" id="comparison-print-btn" class="rounded-xl border border-[#e0d5c8] text-[#1a2b22] text-xs font-semibold px-4 py-2 hover:bg-[#f5f0ea] transition-colors">
+            Print / save this comparison
+          </button>
+        </div>
+
+        <div class="overflow-x-auto rounded-2xl border border-[#e0d5c8]">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="bg-[#f5f0ea] text-left">
+                <th scope="col" class="p-3 font-semibold text-[#1a2b22] border-b border-[#e0d5c8]">Category</th>
+                <th scope="col" class="p-3 font-semibold text-[#1a2b22] border-b border-[#e0d5c8]">Balance</th>
+                <th scope="col" class="p-3 font-semibold text-[#1a2b22] border-b border-[#e0d5c8]">Ripple</th>
+              </tr>
+            </thead>
+            <tbody class="align-top">
+              <tr class="border-b border-[#e0d5c8]">
+                <th scope="row" class="p-3 font-semibold text-[#1a2b22] whitespace-nowrap">Tracking</th>
+                <td class="p-3 text-[#3f4a44]">A symptom, period, sleep, and mood tracking journal, plus quarterly symptom questionnaires.</td>
+                <td class="p-3 text-[#3f4a44]">A daily symptom log across 12 common perimenopause symptoms, plus HRT medication and dose tracking, trigger logging, and cycle event tracking.</td>
+              </tr>
+              <tr class="border-b border-[#e0d5c8]">
+                <th scope="row" class="p-3 font-semibold text-[#1a2b22] whitespace-nowrap">Reports</th>
+                <td class="p-3 text-[#3f4a44]">A shareable clinician Health Report generated from journal entries, with an editable symptom summary before you generate it (added in a 2026 update).</td>
+                <td class="p-3 text-[#3f4a44]">A printable GP brief (Evidence Engine) combining Greene Climacteric Scale scores, biometric averages, HRT regimen, trigger correlations, and cycle analysis, with peer-reviewed citations.</td>
+              </tr>
+              <tr class="border-b border-[#e0d5c8]">
+                <th scope="row" class="p-3 font-semibold text-[#1a2b22] whitespace-nowrap">Trend analysis</th>
+                <td class="p-3 text-[#3f4a44]">1-, 3-, and 6-month symptom graphs, tracked per symptom.</td>
+                <td class="p-3 text-[#3f4a44]">A 14-day dashboard trend chart; a Biological Correlations view charting two related signals together over 30 days; and a Trigger Tracker correlation engine linking specific triggers to specific symptoms by confidence level.</td>
+              </tr>
+              <tr class="border-b border-[#e0d5c8]">
+                <th scope="row" class="p-3 font-semibold text-[#1a2b22] whitespace-nowrap">Data entry</th>
+                <td class="p-3 text-[#3f4a44]">Manual entry only — no integration with Apple Health, Garmin, or MyFitnessPal.</td>
+                <td class="p-3 text-[#3f4a44]">Manual entry only — no integration with Apple Health, Garmin, or MyFitnessPal either.</td>
+              </tr>
+              <tr class="border-b border-[#e0d5c8]">
+                <th scope="row" class="p-3 font-semibold text-[#1a2b22] whitespace-nowrap">Platform</th>
+                <td class="p-3 text-[#3f4a44]">Native mobile app, recognized as an Apple Editors' Choice.</td>
+                <td class="p-3 text-[#3f4a44]">Web app — works in any modern desktop or mobile browser, no app-store install.</td>
+              </tr>
+              <tr>
+                <th scope="row" class="p-3 font-semibold text-[#1a2b22] whitespace-nowrap">Cost category</th>
+                <td class="p-3 text-[#3f4a44]">Free tier, plus an optional paid subscription (Balance+) for additional features.</td>
+                <td class="p-3 text-[#3f4a44]">Free tier, plus optional paid subscription tiers for additional features.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 text-xs text-[#9a9490] leading-relaxed">
+          Facts about Balance reflect its public app store listing as checked on July 21, 2026, and may change as
+          Balance updates its app.
+        </p>
+      </section>
+
+      <!-- ─── SEO body content ──────────────────────────────────────────── -->
+      <article class="no-print mt-10 prose-content max-w-none space-y-6 text-[#3f4a44] leading-relaxed">
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Which one is right for you?</h2>
+          <p class="mt-2">
+            That depends on what you're looking for, not which app is objectively "better." If you value an
+            established, ORCHA-certified app with quarterly questionnaires and expert-led content, Balance may
+            already cover what you need. If a built-in view connecting trends and patterns across symptoms and
+            triggers matters to you, that's an area where Ripple's Trigger Tracker and Biological Correlations
+            differ from Balance today. Some people use both — a comparison table can't make that call for you, only
+            lay out what's actually there.
+          </p>
+        </section>
+
+        <section aria-labelledby="ripple-vs-balance-faq-heading">
+          <h2 id="ripple-vs-balance-faq-heading" class="font-serif text-xl font-bold text-[#1a2b22]">Frequently asked questions</h2>
+          <div class="mt-3 space-y-4">
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Which app should I use?</h3>
+              <p class="mt-1">
+                This page doesn't make that call. Balance and Ripple make different trade-offs, and the table above
+                lays out what each currently offers so you can weigh what matters to you.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Do either of these apps connect to Apple Health, Garmin, or MyFitnessPal?</h3>
+              <p class="mt-1">
+                No. As of today, neither app integrates with those platforms. Both rely on manual entry.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Which app shows trends or patterns across symptoms?</h3>
+              <p class="mt-1">
+                Balance shows a 1-, 3-, and 6-month graph for each symptom individually. Ripple adds two features
+                that connect symptoms and triggers to each other over time: the Trigger Tracker's correlation
+                engine and the Biological Correlations chart.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Do both apps produce a report I can share with my doctor?</h3>
+              <p class="mt-1">
+                Yes. Balance generates a shareable clinician Health Report from your journal entries, with an
+                editable symptom summary before you generate it. Ripple generates a printable GP brief through its
+                Evidence Engine feature.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">How much does each app cost?</h3>
+              <p class="mt-1">
+                Both offer a free tier and an optional paid subscription for additional features. Pricing varies by
+                region and changes over time, so check each app's current listing directly rather than relying on
+                this page.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Is Ripple endorsed by ORCHA, the NHS, or Apple?</h3>
+              <p class="mt-1">
+                No. Those recognitions belong to Balance. Ripple isn't endorsed by, recommended by, or affiliated
+                with ORCHA, the NHS, Apple, Balance, or any other organisation referenced on this page.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">I'm trying to decide whether to switch from Balance — where do I start?</h3>
+              <p class="mt-1">
+                See the
+                <a href="https://ripplehealth.app/tools/balance-alternative/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Balance app alternative guide</a>,
+                which walks through what Balance does well, two things its users commonly ask for, and how Ripple
+                approaches those two areas differently.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Related</h2>
+          <p class="mt-2">
+            For a broader look at whether Balance is meeting your needs, see
+            <a href="https://ripplehealth.app/tools/balance-alternative/" class="text-[#4a8a72] underline hover:text-[#3d7460]">Balance app alternative</a>.
+            If you're preparing for an appointment, the
+            <a href="https://ripplehealth.app/tools/appointment-prep/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Appointment Prep sheet builder</a>
+            helps you describe symptoms clearly. If a symptom hasn't been taken seriously, the
+            <a href="https://ripplehealth.app/tools/dismissal-tracker/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Dismissal Tracker</a>
+            helps you keep a dated record. For a structured way to describe your overall symptom severity, try the
+            <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Greene Climacteric Scale self-assessment</a>.
+            If you're on HRT, the
+            <a href="https://ripplehealth.app/tools/hrt-tracker/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free HRT tracking log builder</a>
+            helps you organize symptoms and regimen notes. And if a claim came up in conversation that you want to
+            check for yourself, see
+            <a href="https://ripplehealth.app/tools/evidence-engine/" class="text-[#4a8a72] underline hover:text-[#3d7460]">how to read perimenopause and menopause evidence</a>,
+            including a free Evidence Quality Checklist.
+          </p>
+        </section>
+      </article>
+
+      <div class="no-print mt-10 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-5 sm:p-6 text-center">
+        <p class="text-sm text-[#2f4038] leading-relaxed">
+          Ripple tracks your symptoms with Trigger Tracker correlations and Biological Correlations built in from
+          day one.
+        </p>
+        <a href="https://ripplehealth.app/" class="mt-4 inline-block rounded-xl bg-[#4a8a72] text-white text-sm font-semibold px-6 py-3 hover:bg-[#3d7460] transition-colors">
+          Track your symptoms in Ripple — it's free to start
+        </a>
+      </div>
+
+      <footer class="no-print mt-12 border-t border-[#e0d5c8] pt-6 text-xs leading-relaxed text-[#9a9490]">
+        <p>
+          This page compares Ripple and Balance as products only; it does not evaluate, endorse, or criticize any
+          individual, company, or clinical practice associated with either app. Verified facts about Balance on this
+          page reflect its public app store listing and ORCHA/NHS digital health library entries as checked on July
+          21, 2026; Balance updates its app independently of this page, so check its current listing for the latest
+          details. Ripple is not endorsed by, recommended by, or affiliated with ORCHA, the NHS, Apple, or Balance.
+          Always discuss your symptoms and any treatment decisions directly with a qualified GP or menopause
+          specialist.
+        </p>
+        <p class="mt-3">
+          <a href="https://ripplehealth.app/" class="underline hover:text-[#6b7a72]">Ripple — Perimenopause Health Companion</a>
+        </p>
+      </footer>
+    </main>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+
+</html>

@@ -126,6 +126,11 @@ describe("HRT Tracker page — static page markup", () => {
     expect(html).toContain("https://ripplehealth.app/tools/appointment-prep/");
   });
 
+  it("cross-links to the Balance comparison pages", () => {
+    expect(html).toContain("https://ripplehealth.app/tools/balance-alternative/");
+    expect(html).toContain("https://ripplehealth.app/tools/ripple-vs-balance/");
+  });
+
   it("cites all four verified sources with full locators, and no others", () => {
     expect(html).toContain("Rossouw JE, Anderson GL, Prentice RL");
     expect(html).toContain("288(3):321–333");
