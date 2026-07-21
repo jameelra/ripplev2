@@ -283,6 +283,14 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
         >
           Free Appointment Prep Sheet
         </a>
+        <a
+          href="/tools/hrt-tracker/"
+          target="_blank"
+          rel="noopener"
+          className="block text-center text-[10px] font-mono text-[#9a9490] hover:text-[#4a8a72] transition-colors"
+        >
+          Free HRT Tracking Log
+        </a>
       </div>
     </div>
   );

@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>How to Track HRT Symptoms and Response — Free HRT Tracking Log | Ripple</title>
+    <meta
+      name="description"
+      content="How to track HRT (hormone therapy) symptoms, timing, and response so you have organized data for your follow-up appointments — plus a free, private HRT tracking log builder. No account needed." />
+    <link rel="canonical" href="https://ripplehealth.app/tools/hrt-tracker/" />
+
+    <meta property="og:url" content="https://ripplehealth.app/tools/hrt-tracker/" />
+    <meta property="og:site_name" content="Ripple" />
+    <meta property="og:title" content="How to Track HRT Symptoms and Response — Free HRT Tracking Log" />
+    <meta property="og:description" content="How to track HRT symptoms, timing, and response for your follow-up appointments, plus a free, private HRT tracking log builder. Everything happens in your browser." />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="How to Track HRT Symptoms and Response — Free HRT Tracking Log" />
+    <meta name="twitter:description" content="How to track HRT symptoms, timing, and response for your follow-up appointments, plus a free, private HRT tracking log builder. Everything happens in your browser." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "How to Track HRT Symptoms and Response",
+      "url": "https://ripplehealth.app/tools/hrt-tracker/",
+      "description": "How to track HRT (hormone therapy) symptoms, timing, and response so you have organized data for follow-up appointments — plus a free, private, client-side HRT tracking log builder.",
+      "about": {
+        "@type": "MedicalCondition",
+        "name": "Perimenopause"
+      },
+      "lastReviewed": "2026-07-21",
+      "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Patient"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Ripple",
+        "url": "https://ripplehealth.app/"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "HRT Tracking Log Builder",
+      "url": "https://ripplehealth.app/tools/hrt-tracker/",
+      "description": "Free tool that turns a checklist of HRT symptoms and regimen notes you select into a printable HRT tracking log entry. Selections are held only in the browser; nothing is sent to a server. This is a separate, free tool from the HRT Tracker feature inside the Ripple app.",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any (web browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the HRT Tracker?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The HRT Tracker is a feature inside the Ripple app for logging your HRT medications, doses, and application sites, then comparing your logged symptom severity from the weeks before and after you started or adjusted a treatment. It's part of Ripple's Premier tier, or available as a standalone HRT add-on."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the free tracking log builder on this page the same as the Ripple app's HRT Tracker?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, and it's worth being clear about the difference. The in-app feature stores your ongoing medication and dose logs, tracks adherence, and computes a before-and-after symptom comparison automatically. This page's builder is simpler: you build one tracking log entry at a time from a fixed checklist, and nothing is saved between visits."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an account to use the tracking log builder?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It works entirely in your browser with no sign-up, no email address, and no popup."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my information sent anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Everything you select or type stays in your browser for the current session. Nothing is transmitted to, or stored on, any server — you can verify this yourself by checking your browser's network tab while you use it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this tell me whether to start, stop, or change my HRT?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. This page and its tracking log builder are for organizing your own observations — they don't recommend starting, stopping, or changing any treatment. That decision is between you and your clinician, informed by your own health history."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is HRT safe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This isn't a question with a single yes-or-no answer. A large 2002 trial found real risks in the population it studied; later analysis by age and time since menopause found a more favorable picture for women who start treatment earlier. Current guidance from The Menopause Society reflects that nuance rather than either extreme. Whether hormone therapy is right for you, and how it should be reviewed over time, is a conversation for you and a clinician — not something a page like this can answer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often should HRT be reviewed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NICE's UK guideline on menopause (NG23, updated November 2024) recommends reviewing HRT treatment around three months after starting, and at least annually after that. A tracking log like the one on this page is meant to give you organized, dated notes to bring to those reviews — not to replace them."
+          }
+        }
+      ]
+    }
+    </script>
+  </head>
+
+  <body class="bg-background text-foreground font-sans antialiased">
+    <a href="#hrt-tracking-builder" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:px-3 focus:py-2 focus:rounded-lg focus:border focus:border-[#e0d5c8]">
+      Skip to the tracking log builder
+    </a>
+
+    <header class="no-print border-b border-[#e0d5c8] bg-white/80">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-2.5">
+        <a href="https://ripplehealth.app/" class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-full bg-[#f5f0ea] border border-[#e0d5c8] flex items-center justify-center shrink-0">
+            <span class="w-2 h-2 rounded-full bg-[#c07060]"></span>
+          </span>
+          <span class="text-sm font-serif font-bold text-[#1a2b22]">Ripple</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <!-- ─── Hero ──────────────────────────────────────────────────────── -->
+      <div class="no-print">
+        <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1a2b22] tracking-tight">
+          How to Track HRT Symptoms and Response
+        </h1>
+        <p class="mt-4 text-base leading-relaxed text-[#3f4a44]">
+          Starting or adjusting a hormone therapy (HRT) plan usually isn't a single decision made once — it's
+          something you and your clinician revisit over time. This page walks through what's useful to track and
+          why, then lets you turn your own answers into a free, private, printable HRT tracking log entry for your
+          next review.
+        </p>
+        <div class="mt-4 flex items-start gap-2.5 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-4 text-sm text-[#2f4038]">
+          <span aria-hidden="true">🔒</span>
+          <p class="leading-relaxed">
+            <strong>Private by design.</strong> The builder below runs entirely in your browser. Nothing you select
+            is sent to, or stored on, any server — not even Ripple's.
+          </p>
+        </div>
+      </div>
+
+      <!-- ─── HRT Tracking Log Builder ──────────────────────────────────── -->
+      <section id="hrt-tracking-builder" class="mt-8 scroll-mt-6">
+        <div class="no-print">
+        <h2 class="ripple-label text-[#6b7a72]">Build your HRT tracking log</h2>
+        <p class="mt-2 text-sm text-[#6b7a72] leading-relaxed">
+          Tick what applies today. This becomes a printable log entry — a record for your own files and your next
+          review, not a treatment recommendation.
+        </p>
+
+        <div class="mt-5">
+          <p id="hrt-symptoms-label" class="text-sm font-semibold text-[#1a2b22] px-0.5">Symptoms to log</p>
+          <div class="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-2" role="group" aria-labelledby="hrt-symptoms-label" id="hrt-symptoms-group">
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="symptom" value="Hot flashes" class="accent-[#4a8a72]" data-symptom-id="0">Hot flashes</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="symptom" value="Night sweats" class="accent-[#4a8a72]" data-symptom-id="1">Night sweats</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="symptom" value="Sleep difficulty" class="accent-[#4a8a72]" data-symptom-id="2">Sleep difficulty</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="symptom" value="Joint pain" class="accent-[#4a8a72]" data-symptom-id="3">Joint pain</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="symptom" value="Brain fog" class="accent-[#4a8a72]" data-symptom-id="4">Brain fog</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="symptom" value="Irritability" class="accent-[#4a8a72]" data-symptom-id="5">Irritability</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="symptom" value="Anxiety" class="accent-[#4a8a72]" data-symptom-id="6">Anxiety</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="symptom" value="Fatigue" class="accent-[#4a8a72]" data-symptom-id="7">Fatigue</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="symptom" value="Heart palpitations" class="accent-[#4a8a72]" data-symptom-id="8">Heart palpitations</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="symptom" value="Breast tenderness" class="accent-[#4a8a72]" data-symptom-id="9">Breast tenderness</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="symptom" value="Bloating" class="accent-[#4a8a72]" data-symptom-id="10">Bloating</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="symptom" value="Irregular periods" class="accent-[#4a8a72]" data-symptom-id="11">Irregular periods</label>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <p id="hrt-regimen-label" class="text-sm font-semibold text-[#1a2b22] px-0.5">Regimen notes</p>
+          <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2" role="group" aria-labelledby="hrt-regimen-label" id="hrt-regimen-group">
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="regimen" value="Took my dose(s) as scheduled" class="accent-[#4a8a72] shrink-0" data-regimen-id="0">Took my dose(s) as scheduled</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="regimen" value="Missed or delayed a dose" class="accent-[#4a8a72] shrink-0" data-regimen-id="1">Missed or delayed a dose</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="regimen" value="Rotated my patch or gel application site" class="accent-[#4a8a72] shrink-0" data-regimen-id="2">Rotated my patch or gel application site</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="regimen" value="Noticed a new or changed symptom since starting or adjusting treatment" class="accent-[#4a8a72] shrink-0" data-regimen-id="3">Noticed a new or changed symptom since starting or adjusting treatment</label>
+            <label class="hrt-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+              <input type="checkbox" name="regimen" value="Have a question to raise at my next review" class="accent-[#4a8a72] shrink-0" data-regimen-id="4">Have a question to raise at my next review</label>
+          </div>
+        </div>
+
+        <div class="mt-6 space-y-1">
+          <label for="hrt-notes" class="text-sm font-semibold text-[#1a2b22] px-0.5">Anything else to log (optional)</label>
+          <textarea
+            id="hrt-notes"
+            rows="3"
+            placeholder="Dose, timing, delivery method, or anything else you want to remember for your next review…"
+            class="w-full rounded-xl border border-[#e0d5c8] bg-white p-3.5 text-sm text-[#1a2b22] placeholder-[#9a9490] resize-none leading-relaxed"></textarea>
+        </div>
+
+        <!-- Result — hidden until at least one option or note is entered -->
+        <div id="hrt-log-result" class="hidden mt-5 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-5" aria-live="polite">
+          <p class="text-[10px] font-mono uppercase tracking-widest text-[#4a8a72] font-bold">Your tracking log entry</p>
+          <pre id="hrt-log-text" class="mt-2 text-sm leading-relaxed text-[#2f4038] whitespace-pre-wrap font-sans"></pre>
+          <p class="mt-4 text-xs leading-relaxed text-[#4a5a52] border-t border-[#c8d8d0] pt-3">
+            This is a personal tracking log, not a treatment plan or a medical record.
+          </p>
+          <div class="mt-4 flex flex-col sm:flex-row gap-3">
+            <button type="button" id="hrt-print-btn" class="flex-1 rounded-xl border border-[#e0d5c8] text-[#1a2b22] text-sm font-semibold px-5 py-3 hover:bg-white transition-colors">
+              Print / save my tracking log
+            </button>
+            <button type="button" id="hrt-copy-btn" class="flex-1 rounded-xl border border-transparent text-[#4a8a72] text-sm font-semibold px-5 py-3 hover:bg-white transition-colors">
+              Copy to clipboard
+            </button>
+          </div>
+          <p id="hrt-copy-confirm" class="hidden mt-2 text-xs text-[#4a8a72] font-mono">Copied.</p>
+        </div>
+        </div>
+
+        <!-- Print-only, GP-appointment-ready summary -->
+        <div id="hrt-log-print" class="print-only hidden whitespace-pre-wrap hrt-print-summary"></div>
+      </section>
+
+      <!-- ─── SEO body content ──────────────────────────────────────────── -->
+      <article class="no-print mt-14 prose-content max-w-none space-y-6 text-[#3f4a44] leading-relaxed">
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Why track HRT symptoms and response</h2>
+          <p class="mt-2">
+            Starting or adjusting a hormone therapy (HRT) plan isn't a single decision made once and then forgotten
+            — it's something you and your clinician usually revisit over time, adjusting dose, delivery method, or
+            timing based on how your symptoms respond. That review works better with organized data than with
+            memory. Noticing that hot flashes eased within a few weeks, that a symptom hasn't changed six weeks in,
+            or that you missed doses during a specific stretch gives your clinician something concrete to work
+            from at your next appointment, rather than a general impression of "better" or "about the same."
+          </p>
+          <p class="mt-3">
+            This page isn't about whether to start, stop, or change HRT — that's a decision for you and your
+            clinician, informed by your own health history. It's about keeping the kind of record that makes the
+            follow-up conversation more useful once that decision has already been made.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What to track</h2>
+          <p class="mt-2">
+            The same details that make any symptom easier to discuss apply here, with one addition specific to
+            hormone therapy: timing relative to your regimen.
+          </p>
+          <p class="mt-3">
+            <strong>Frequency.</strong> How often is this happening — daily, most days, or a few times a week?
+          </p>
+          <p class="mt-3">
+            <strong>Duration.</strong> How long has this specific pattern lasted — since you started treatment,
+            since a dose change, or does it predate HRT entirely?
+          </p>
+          <p class="mt-3">
+            <strong>Severity.</strong> On a normal day, is it a mild nuisance or does it stop you doing what you'd
+            otherwise do?
+          </p>
+          <p class="mt-3">
+            <strong>Functional impact.</strong> What does it actually change about your day — sleep,
+            concentration, plans you've cancelled?
+          </p>
+          <p class="mt-3">
+            <strong>Timing relative to your regimen.</strong> Did a symptom change happen around a dose change, a
+            missed dose, or a delivery-method switch? That kind of timing detail is often the piece a clinician has
+            no way to know unless you log it.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What the research says about individualizing HRT over time</h2>
+          <p class="mt-2">
+            Hormone therapy research is a good illustration of why individual variation, and tracking it, matters.
+            In 2002, a large randomized trial — the Women's Health Initiative — published results suggesting
+            combined hormone therapy increased the risk of breast cancer, stroke, and heart disease in the
+            postmenopausal women studied (Rossouw et al., 2002). Hormone therapy use dropped sharply. But that
+            trial enrolled women across a wide age range, many starting treatment years after menopause began, and
+            a later, more detailed reanalysis by age and time since menopause found a different picture for women
+            who started treatment earlier (Manson et al., 2013).
+          </p>
+          <p class="mt-3">
+            That distinction is reflected in current guidance: the 2022 position statement from The Menopause
+            Society (published under the organisation's former name, NAMS) states that for women under 60 or
+            within 10 years of their final period, the benefit-risk balance for treating symptoms is generally
+            favorable; for women starting later, the calculation is different (The Menopause Society, 2022). The
+            same statement notes that risk also varies by the type, dose, duration, and route of hormone therapy
+            used, and by whether a progestogen is involved — exactly the kind of detail a tracking log, built
+            around your own regimen, can help keep straight over time.
+          </p>
+          <p class="mt-3">
+            NICE's UK guideline on menopause (NG23, updated November 2024) reflects the same individualized
+            approach in its follow-up structure, recommending that HRT treatment be reviewed around three months
+            after starting, and at least annually after that. A tracking log like the one on this page is meant to
+            give you organized, dated notes to bring to those reviews — not to replace them.
+          </p>
+        </section>
+
+        <section aria-labelledby="hrt-tracker-faq-heading">
+          <h2 id="hrt-tracker-faq-heading" class="font-serif text-xl font-bold text-[#1a2b22]">Frequently asked questions</h2>
+          <div class="mt-3 space-y-4">
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">What is the HRT Tracker?</h3>
+              <p class="mt-1">
+                The HRT Tracker is a feature inside the Ripple app for logging your HRT medications, doses, and
+                application sites, then comparing your logged symptom severity from the weeks before and after you
+                started or adjusted a treatment. It's part of Ripple's Premier tier, or available as a standalone
+                HRT add-on.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Is the free tracking log builder on this page the same as the Ripple app's HRT Tracker?</h3>
+              <p class="mt-1">
+                No, and it's worth being clear about the difference. The in-app feature stores your ongoing
+                medication and dose logs, tracks adherence, and computes a before-and-after symptom comparison
+                automatically. This page's builder is simpler: you build one tracking log entry at a time from a
+                fixed checklist, and nothing is saved between visits.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Do I need an account to use the tracking log builder?</h3>
+              <p class="mt-1">
+                No. It works entirely in your browser with no sign-up, no email address, and no popup.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Is my information sent anywhere?</h3>
+              <p class="mt-1">
+                No. Everything you select or type stays in your browser for the current session. Nothing is
+                transmitted to, or stored on, any server — you can verify this yourself by checking your browser's
+                network tab while you use it.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Does this tell me whether to start, stop, or change my HRT?</h3>
+              <p class="mt-1">
+                No. This page and its tracking log builder are for organizing your own observations — they don't
+                recommend starting, stopping, or changing any treatment. That decision is between you and your
+                clinician, informed by your own health history.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Is HRT safe?</h3>
+              <p class="mt-1">
+                This isn't a question with a single yes-or-no answer. A large 2002 trial found real risks in the
+                population it studied; later analysis by age and time since menopause found a more favorable
+                picture for women who start treatment earlier. Current guidance from The Menopause Society reflects
+                that nuance rather than either extreme. Whether hormone therapy is right for you, and how it should
+                be reviewed over time, is a conversation for you and a clinician — not something a page like this
+                can answer.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">How often should HRT be reviewed?</h3>
+              <p class="mt-1">
+                NICE's UK guideline on menopause (NG23, updated November 2024) recommends reviewing HRT treatment
+                around three months after starting, and at least annually after that. A tracking log like the one
+                on this page is meant to give you organized, dated notes to bring to those reviews — not to replace
+                them.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Sources</h2>
+          <ul class="mt-2 space-y-2 text-sm">
+            <li>Rossouw JE, Anderson GL, Prentice RL, et al. Risks and Benefits of Estrogen Plus Progestin in Healthy Postmenopausal Women: Principal Results From the Women's Health Initiative Randomized Controlled Trial. <em>JAMA</em>. 2002;288(3):321–333.</li>
+            <li>Manson JE, Chlebowski RT, Stefanick ML, et al. Menopausal Hormone Therapy and Health Outcomes During the Intervention and Extended Poststopping Phases of the Women's Health Initiative Randomized Trials. <em>JAMA</em>. 2013;310(13):1353–1368.</li>
+            <li>The North American Menopause Society. The 2022 Hormone Therapy Position Statement of The North American Menopause Society. <em>Menopause</em>. 2022;29(7):767–794. doi:10.1097/GME.0000000000002028. The organisation is now named The Menopause Society.</li>
+            <li>NICE guideline NG23, <em>Menopause: identification and management</em>. Published November 2015, updated November 2024. National Institute for Health and Care Excellence.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Related</h2>
+          <p class="mt-2">
+            If you're preparing for an appointment, the
+            <a href="https://ripplehealth.app/tools/appointment-prep/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Appointment Prep sheet builder</a>
+            helps you describe symptoms clearly and know what to say if you're not heard. If a symptom hasn't been
+            taken seriously, the
+            <a href="https://ripplehealth.app/tools/dismissal-tracker/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Dismissal Tracker</a>
+            helps you keep a dated record to bring with you. For a structured way to describe your overall symptom
+            severity, try the
+            <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Greene Climacteric Scale self-assessment</a>.
+            And if a claim about hormone therapy came up in conversation that you want to check for yourself, see
+            <a href="https://ripplehealth.app/tools/evidence-engine/" class="text-[#4a8a72] underline hover:text-[#3d7460]">how to read perimenopause and menopause evidence</a>,
+            including a free Evidence Quality Checklist.
+          </p>
+        </section>
+      </article>
+
+      <div class="no-print mt-10 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-5 sm:p-6 text-center">
+        <p class="text-sm text-[#2f4038] leading-relaxed">
+          Ripple's HRT Tracker logs your medications and doses, tracks adherence, and compares your symptoms
+          before and after starting or adjusting treatment, so you don't have to track any of this by hand.
+        </p>
+        <a href="https://ripplehealth.app/" class="mt-4 inline-block rounded-xl bg-[#4a8a72] text-white text-sm font-semibold px-6 py-3 hover:bg-[#3d7460] transition-colors">
+          Track your symptoms in Ripple — it's free to start
+        </a>
+      </div>
+
+      <footer class="no-print mt-12 border-t border-[#e0d5c8] pt-6 text-xs leading-relaxed text-[#9a9490]">
+        <p>
+          This page and the HRT tracking log are for informational purposes only. Neither diagnoses any condition,
+          recommends any treatment, nor tells you whether to start, stop, or change your HRT. Ripple is not
+          endorsed by, recommended by, or affiliated with NICE, The Menopause Society, the British Menopause
+          Society, or any other clinical organisation referenced above. Always discuss your symptoms and any
+          treatment decisions directly with a qualified GP or menopause specialist.
+        </p>
+        <p class="mt-3">
+          <a href="https://ripplehealth.app/" class="underline hover:text-[#6b7a72]">Ripple — Perimenopause Health Companion</a>
+        </p>
+      </footer>
+    </main>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+
+</html>

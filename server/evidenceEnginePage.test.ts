@@ -86,6 +86,10 @@ describe("Evidence Engine page — static page markup", () => {
     expect(html).toContain("https://ripplehealth.app/tools/dismissal-tracker/");
   });
 
+  it("cross-links to the HRT Tracker page", () => {
+    expect(html).toContain("https://ripplehealth.app/tools/hrt-tracker/");
+  });
+
   it("lists all five verified sources with full locators", () => {
     expect(html).toContain("Rossouw JE, Anderson GL, Prentice RL");
     expect(html).toContain("Manson JE, Chlebowski RT, Stefanick ML");

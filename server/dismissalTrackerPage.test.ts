@@ -55,4 +55,8 @@ describe("Dismissal Tracker — static page markup", () => {
   it("cross-links to the Greene Climacteric Scale page", () => {
     expect(html).toContain("https://ripplehealth.app/tools/greene-climacteric-scale/");
   });
+
+  it("cross-links to the HRT Tracker page", () => {
+    expect(html).toContain("https://ripplehealth.app/tools/hrt-tracker/");
+  });
 });

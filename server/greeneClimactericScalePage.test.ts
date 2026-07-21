@@ -73,4 +73,8 @@ describe("Greene Climacteric Scale — static page markup", () => {
     expect(html.match(/"@type":\s*"FAQPage"/g)?.length).toBe(1);
     expect(html.match(/"@type":\s*"MedicalWebPage"/g)?.length).toBe(1);
   });
+
+  it("cross-links to the HRT Tracker page", () => {
+    expect(html).toContain("https://ripplehealth.app/tools/hrt-tracker/");
+  });
 });
