@@ -12,6 +12,7 @@ import {
   FlaskConical, ShieldAlert, CalendarDays, TrendingUp, Pill, Zap, ClipboardList, Heart, ChevronDown, Settings as SettingsIcon
 } from "lucide-react";
 import { useVaultStore, TabId } from "./stores/vaultStore";
+import { loadCloudflareBeacon, shouldLoadPublicAnalytics } from "./lib/analytics";
 import Onboarding from "./pages/Onboarding";
 import VaultGate from "./pages/VaultGate";
 import Dashboard from "./pages/Dashboard";
@@ -438,6 +439,15 @@ function AppRouter() {
       unlockAmbientVault().catch(console.error);
     }
   }, [isVaultConfigured, vaultType, sessionKey, unlockAmbientVault]);
+
+  // Page-view analytics for the pre-vault visitor only — never once a vault
+  // has been configured on this device (see client/src/lib/analytics.ts).
+  useEffect(() => {
+    const token = import.meta.env.VITE_CF_BEACON_TOKEN;
+    if (token && shouldLoadPublicAnalytics(isVaultConfigured)) {
+      loadCloudflareBeacon(token);
+    }
+  }, [isVaultConfigured]);
 
   // Show onboarding if not completed
   if (!isOnboardingCompleted || !isLegalAccepted) {
