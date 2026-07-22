@@ -1,11 +1,34 @@
+import "dotenv/config";
 import { jsxLocPlugin } from "@builder.io/vite-plugin-jsx-loc";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import { PUBLIC_TOOL_PAGES } from "./shared/publicPages";
+import { buildCloudflareBeaconTag, buildGoogleSiteVerificationTag } from "./shared/publicPageHead";
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin()];
+// Replaces the `<!-- google-site-verification -->` and `<!-- cloudflare-beacon -->`
+// marker comments present in the public pages' <head> with the real tags, or
+// with nothing when the corresponding env var is unset — see
+// shared/publicPageHead.ts for the empty-env-means-no-tag logic.
+function publicPageHeadInjections(): Plugin {
+  return {
+    name: "public-page-head-injections",
+    transformIndexHtml(html) {
+      return html
+        .replace(
+          "<!-- google-site-verification -->",
+          buildGoogleSiteVerificationTag(process.env.VITE_GOOGLE_SITE_VERIFICATION)
+        )
+        .replace(
+          "<!-- cloudflare-beacon -->",
+          buildCloudflareBeaconTag(process.env.VITE_CF_BEACON_TOKEN)
+        );
+    },
+  };
+}
+
+const plugins = [react(), tailwindcss(), jsxLocPlugin(), publicPageHeadInjections()];
 
 export default defineConfig({
   plugins,
