@@ -756,6 +756,45 @@
         <!-- Print-only, GP-appointment-ready summary -->
         <div id="greene-print-summary" class="print-only hidden greene-print-summary"></div>
 
+        <!-- Email capture — sends only { email, source } to the server. No
+             answer or score data leaves the browser here, same as the rest
+             of this page. See client/tools/greene-climacteric-scale/main.ts. -->
+        <div class="no-print mt-6 rounded-2xl border border-[#e0d5c8] bg-white p-5 sm:p-6">
+          <h2 class="font-serif text-lg font-bold text-[#1a2b22]">Get a reminder to retake this in 30 days</h2>
+          <p class="mt-1 text-sm text-[#6b7a72]">Plus a printable tracking sheet, sent to your inbox.</p>
+          <form id="greene-email-form" class="mt-4" novalidate>
+            <div class="flex flex-col sm:flex-row gap-2">
+              <label for="greene-email-input" class="sr-only">Email address</label>
+              <input
+                type="email"
+                id="greene-email-input"
+                name="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+                class="flex-1 rounded-xl border border-[#e0d5c8] px-4 py-3 text-sm text-[#1a2b22] focus:outline-none focus:border-[#4a8a72]"
+              />
+              <!-- Honeypot: hidden from sighted users and skipped by screen readers via aria-hidden;
+                   a filled value means a bot filled every field indiscriminately. -->
+              <div class="absolute w-px h-px overflow-hidden" style="clip: rect(0,0,0,0)" aria-hidden="true">
+                <label for="greene-email-website">Leave this field blank</label>
+                <input type="text" id="greene-email-website" name="website" tabindex="-1" autocomplete="off" />
+              </div>
+              <button
+                type="submit"
+                id="greene-email-submit"
+                class="rounded-xl bg-[#4a8a72] text-white text-sm font-semibold px-6 py-3 hover:bg-[#3d7460] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                Send me a reminder
+              </button>
+            </div>
+            <p class="mt-2 text-xs text-[#9a9490] leading-relaxed">
+              We'll email a one-time 30-day retake reminder and a printable tracking sheet. Unsubscribe anytime.
+            </p>
+            <p id="greene-email-status" class="mt-2 text-xs hidden" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
         <div class="no-print mt-6 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-5 sm:p-6 text-center">
           <p class="text-sm text-[#2f4038] leading-relaxed">
             Ripple tracks this score over time, shows how it trends alongside your other symptoms, and can build

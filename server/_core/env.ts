@@ -10,6 +10,10 @@ export const ENV = {
   paymentsEnabled: process.env.PAYMENTS_ENABLED === "true",
   forgeApiUrl: process.env.BUILT_IN_FORGE_API_URL ?? "",
   forgeApiKey: process.env.BUILT_IN_FORGE_API_KEY ?? "",
+  // Server-side only — never exposed to the client. Powers the Greene widget
+  // email capture proxy (server/_core/mailerliteProxy.ts). No VITE_ prefix,
+  // so no Dockerfile ARG/ENV is needed for it.
+  mailerliteApiKey: process.env.MAILERLITE_API_KEY ?? "",
 };
 
 if (!ENV.supabaseUrl || !ENV.supabaseSecretKey) {
