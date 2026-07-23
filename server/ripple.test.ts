@@ -145,14 +145,22 @@ describe("ai.generateEvidence", () => {
       minimumDataMet: true,
       dataPointsAnalysed: 20,
     };
+    const mockGreeneScores = [
+      { takenAt: "2026-05-01T10:00:00.000Z", total: 40, psychological: 20, somatic: 12, vasomotor: 6, sexual: 2 },
+      { takenAt: "2026-06-01T10:00:00.000Z", total: 30, psychological: 14, somatic: 9, vasomotor: 5, sexual: 2 },
+    ];
     const result = await caller.ai.generateEvidence({
       logs: mockLogs,
       cycleEvents: mockCycleEvents,
       hrtMedications: mockHRTMedications,
       triggerAnalysis: mockTriggerAnalysis,
+      greeneScores: mockGreeneScores,
     });
     expect(result.success).toBe(true);
     expect(result.brief).toContain("Greene Climacteric Scale");
+    expect(result.brief).toContain("Greene JG. Constructing a Standard Climacteric Scale");
+    expect(result.brief).toContain("Maturitas");
+    expect(result.brief).toContain("29(1):25");
     expect(result.brief).toContain("NAMS");
     expect(result.brief).toContain("Menstrual Cycle Analysis");
     expect(result.brief).toContain("Period Start Events Logged");
@@ -164,8 +172,7 @@ describe("ai.generateEvidence", () => {
     expect(result.brief).toContain("Identified Symptom Triggers");
     expect(result.brief).toContain("Alcohol");
     expect(result.brief).toContain("Hot Flashes");
-    expect(result.greeneScore).toBeGreaterThan(0);
-    expect(result.vasomotorScore).toBeGreaterThan(0);
+    expect(result.greene).toEqual(mockGreeneScores[1]);
     expect(result.trackingDays).toBe(5);
   });
 });

@@ -10,6 +10,7 @@ import { trpc } from "@/lib/trpc";
 import { useVaultStore } from "../stores/vaultStore";
 import { useAuth } from "@/contexts/AuthContext";
 import { Streamdown } from "streamdown";
+import { GREENE_SUBSCALE_MAX, describeRelativeLevel, RelativeLevel } from "../../../shared/greeneClimactericScale";
 import {
   WIKI_PAGES,
   WIKI_TREATMENT_LINKS,
@@ -57,14 +58,18 @@ function WikiResourceLink({
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function EvidenceEngine() {
-  const { logs, dismissals, cycleEvents, hrtMedications, triggerAnalysis, licenseTier, setActiveTab } = useVaultStore();
+  const { logs, dismissals, cycleEvents, hrtMedications, triggerAnalysis, greeneScores, licenseTier, setActiveTab } = useVaultStore();
   const { user, openAuthModal } = useAuth();
   const [brief, setBrief] = useState<string | null>(null);
   const [scores, setScores] = useState<{
-    greeneScore: number;
-    vasomotorScore: number;
-    somaticScore: number;
-    psychologicalScore: number;
+    greene: {
+      total: number;
+      psychological: number;
+      somatic: number;
+      vasomotor: number;
+      sexual: number;
+      takenAt: string;
+    } | null;
     trackingDays: number;
   } | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -75,10 +80,7 @@ export default function EvidenceEngine() {
     onSuccess: (data) => {
       setBrief(data.brief);
       setScores({
-        greeneScore: data.greeneScore,
-        vasomotorScore: data.vasomotorScore,
-        somaticScore: data.somaticScore,
-        psychologicalScore: data.psychologicalScore,
+        greene: data.greene,
         trackingDays: data.trackingDays,
       });
       setIsGenerating(false);
@@ -150,6 +152,14 @@ export default function EvidenceEngine() {
         },
         diaryText: l.diaryText,
       })),
+      greeneScores: greeneScores.map((g) => ({
+        takenAt: g.takenAt,
+        total: g.total,
+        psychological: g.psychological,
+        somatic: g.somatic,
+        vasomotor: g.vasomotor,
+        sexual: g.sexual,
+      })),
     });
   };
 
@@ -163,11 +173,13 @@ export default function EvidenceEngine() {
   const isProOrPremier = licenseTier === "Pro" || licenseTier === "Premier";
   const hasEnoughData = logs.length >= 3;
 
-  const getGreeneLabel = (score: number) => {
-    if (score < 10) return { label: "Mild", color: "text-emerald-700", bg: "bg-emerald-50 border-emerald-200" };
-    if (score < 25) return { label: "Moderate", color: "text-amber-700", bg: "bg-amber-50 border-amber-200" };
-    if (score < 40) return { label: "Significant", color: "text-orange-700", bg: "bg-orange-50 border-orange-200" };
-    return { label: "Severe", color: "text-red-700", bg: "bg-red-50 border-red-200" };
+  // Purely descriptive placement within the scale's possible range — Greene
+  // (1998) publishes no diagnostic cutoff, so this never implies "mild" vs
+  // "severe" in a clinical sense. See shared/greeneClimactericScale.ts.
+  const getGreeneRangeBand = (level: RelativeLevel) => {
+    if (level === "lower") return { label: "Lower third of range", color: "text-emerald-700", bg: "bg-emerald-50 border-emerald-200" };
+    if (level === "middle") return { label: "Middle third of range", color: "text-amber-700", bg: "bg-amber-50 border-amber-200" };
+    return { label: "Upper third of range", color: "text-orange-700", bg: "bg-orange-50 border-orange-200" };
   };
 
   return (
@@ -344,42 +356,61 @@ export default function EvidenceEngine() {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
             {/* Greene Score */}
             <div className="ripple-card p-5 space-y-4">
-              <p className="ripple-label">Greene Climacteric Scale Scores</p>
-              <div className={`flex items-center justify-between p-4 rounded-xl border ${getGreeneLabel(scores.greeneScore).bg}`}>
-                <div>
-                  <p className="text-xs text-[#6b7a72]">Composite GCS Score</p>
-                  <p className={`font-serif text-3xl font-bold ${getGreeneLabel(scores.greeneScore).color}`}>
-                    {scores.greeneScore}<span className="text-sm font-sans font-normal text-[#6b7a72] ml-1">/63</span>
-                  </p>
-                </div>
-                <span className={`text-sm font-bold px-3 py-1.5 rounded-full border ${getGreeneLabel(scores.greeneScore).bg} ${getGreeneLabel(scores.greeneScore).color}`}>
-                  {getGreeneLabel(scores.greeneScore).label}
-                </span>
-              </div>
-              <div className="grid grid-cols-3 gap-3">
-                {[
-                  { label: "Vasomotor", score: scores.vasomotorScore, max: 6 },
-                  { label: "Somatic", score: scores.somaticScore, max: 15 },
-                  { label: "Psychological", score: scores.psychologicalScore, max: 15 },
-                ].map(({ label, score, max }) => (
-                  <div key={label} className="bg-[#f5f0ea] rounded-xl p-3 text-center">
-                    <p className="text-[10px] font-mono uppercase tracking-wider text-[#9a9490] font-bold">{label}</p>
-                    <p className="font-serif text-xl font-bold text-[#1a2b22] mt-1">
-                      {score.toFixed(1)}<span className="text-xs font-sans text-[#6b7a72]">/{max}</span>
-                    </p>
+              <p className="ripple-label">Greene Climacteric Scale</p>
+              {scores.greene ? (
+                <>
+                  <div
+                    className={`flex items-center justify-between p-4 rounded-xl border ${getGreeneRangeBand(describeRelativeLevel(scores.greene.total, GREENE_SUBSCALE_MAX.total)).bg}`}
+                  >
+                    <div>
+                      <p className="text-xs text-[#6b7a72]">
+                        Total score · {new Date(scores.greene.takenAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}
+                      </p>
+                      <p
+                        className={`font-serif text-3xl font-bold ${getGreeneRangeBand(describeRelativeLevel(scores.greene.total, GREENE_SUBSCALE_MAX.total)).color}`}
+                      >
+                        {scores.greene.total}
+                        <span className="text-sm font-sans font-normal text-[#6b7a72] ml-1">/{GREENE_SUBSCALE_MAX.total}</span>
+                      </p>
+                    </div>
+                    <span
+                      className={`text-sm font-bold px-3 py-1.5 rounded-full border ${getGreeneRangeBand(describeRelativeLevel(scores.greene.total, GREENE_SUBSCALE_MAX.total)).bg} ${getGreeneRangeBand(describeRelativeLevel(scores.greene.total, GREENE_SUBSCALE_MAX.total)).color}`}
+                    >
+                      {getGreeneRangeBand(describeRelativeLevel(scores.greene.total, GREENE_SUBSCALE_MAX.total)).label}
+                    </span>
                   </div>
-                ))}
-              </div>
-              {/* Greene Scale wiki link */}
-              <a
-                href="https://www.menopause-stay-on-top.com/gcs-quiz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-[10px] text-[#4a8a72] font-mono font-bold hover:underline"
-              >
-                <ExternalLink className="w-3 h-3" />
-                About the Greene Climacteric Scale →
-              </a>
+                  <div className="grid grid-cols-4 gap-2">
+                    {[
+                      { label: "Psychological", score: scores.greene.psychological, max: GREENE_SUBSCALE_MAX.psychological },
+                      { label: "Somatic", score: scores.greene.somatic, max: GREENE_SUBSCALE_MAX.somatic },
+                      { label: "Vasomotor", score: scores.greene.vasomotor, max: GREENE_SUBSCALE_MAX.vasomotor },
+                      { label: "Sexual", score: scores.greene.sexual, max: GREENE_SUBSCALE_MAX.sexual },
+                    ].map(({ label, score, max }) => (
+                      <div key={label} className="bg-[#f5f0ea] rounded-xl p-3 text-center">
+                        <p className="text-[10px] font-mono uppercase tracking-wider text-[#9a9490] font-bold">{label}</p>
+                        <p className="font-serif text-xl font-bold text-[#1a2b22] mt-1">
+                          {score}<span className="text-xs font-sans text-[#6b7a72]">/{max}</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="bg-[#f5f0ea] rounded-xl p-4 flex items-center justify-between gap-3">
+                  <p className="text-xs text-[#6b7a72] leading-relaxed">
+                    No Greene Climacteric Scale assessment recorded yet — complete the 21-item questionnaire to include it in this brief.
+                  </p>
+                  <button
+                    onClick={() => setActiveTab("greene_assessment")}
+                    className="shrink-0 text-xs font-mono font-bold text-[#4a8a72] hover:underline"
+                  >
+                    Take assessment →
+                  </button>
+                </div>
+              )}
+              <p className="text-[10px] text-[#9a9490] leading-relaxed">
+                Greene JG. Constructing a Standard Climacteric Scale. <em>Maturitas</em>. 1998;29(1):25–31.
+              </p>
             </div>
 
             {/* Content tabs */}
