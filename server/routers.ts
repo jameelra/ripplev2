@@ -42,13 +42,20 @@ function heuristicDiaryAnalysis(text: string) {
   };
 }
 
-function heuristicReverseLookup(query: string) {
+// frequencyNote is intentionally qualitative, not a percentage: none of these
+// eight symptom associations have a verifiable per-symptom prevalence figure,
+// and their previous "X% of perimenopausal women" values were uncited and
+// unverifiable. Do not reintroduce a specific percentage here without a named,
+// retrievable source — see server/reverseLookup.test.ts.
+export const UNVERIFIED_FREQUENCY_NOTE = "Reported by some women during perimenopause";
+
+export function heuristicReverseLookup(query: string) {
   const q = query.toLowerCase();
   const database = [
     {
       name: "Burning Tongue / Burning Mouth Syndrome",
       keywords: ["burn", "tongue", "mouth", "taste"],
-      coincidenceRate: "14% of perimenopausal women",
+      frequencyNote: UNVERIFIED_FREQUENCY_NOTE,
       explanation: "Estrogen receptors exist on the oral mucosa and taste buds. Fluctuating levels can dry the mucosal fluid and cause pain signals in oral nerve endings.",
       relatedSymptomsToTrack: ["Estrogen Volatility", "Salivary Secretion Drop"],
       gpConversationGuide: "I have a persistent burning sensation on my tongue that doesn't correlate with oral injury. Could we explore whether this relates to mucosal estrogen receptor sensitivity during perimenopause?",
@@ -56,7 +63,7 @@ function heuristicReverseLookup(query: string) {
     {
       name: "Formication (Skin Crawling)",
       keywords: ["crawl", "itch", "skin", "tingle", "formication"],
-      coincidenceRate: "18% of perimenopausal women",
+      frequencyNote: UNVERIFIED_FREQUENCY_NOTE,
       explanation: "As estradiol levels swing or drop, cutaneous sensory fibers can fire spontaneously, creating a tactile sensation of insects crawling under the skin.",
       relatedSymptomsToTrack: ["Estrogen Volatility", "Histamine Spikes"],
       gpConversationGuide: "I've had a recurring sensation of skin-crawling itchiness with no visible rash. Given estrogen's role in dermis hydration, could this be an autonomic paresthesia related to perimenopause?",
@@ -64,7 +71,7 @@ function heuristicReverseLookup(query: string) {
     {
       name: "Frozen Shoulder",
       keywords: ["shoulder", "frozen", "stiff", "arm", "adhesive"],
-      coincidenceRate: "22% of perimenopausal women",
+      frequencyNote: UNVERIFIED_FREQUENCY_NOTE,
       explanation: "A drop in estrogen triggers inflammatory cytokines in synovial joints. The glenohumeral joint is especially rich in estrogen receptors; loss leads to joint capsule thickening.",
       relatedSymptomsToTrack: ["Somatic Systemic Inflammatory Index"],
       gpConversationGuide: "I've noticed progressive tightness and stiffness in my shoulder. Since estrogen receptors modulate joint synovium inflammation, could we evaluate this as adhesive capsulitis secondary to endocrine transition?",
@@ -72,7 +79,7 @@ function heuristicReverseLookup(query: string) {
     {
       name: "Hair Texture Changes & Thinning",
       keywords: ["hair", "thin", "texture", "loss", "bald"],
-      coincidenceRate: "35% of women aged 40+",
+      frequencyNote: UNVERIFIED_FREQUENCY_NOTE,
       explanation: "As progesterone and estrogen decline relative to adrenal androgens (DHEA and testosterone), the growth phase (anagen) of hair follicles shrinks, leading to diffuse thinning.",
       relatedSymptomsToTrack: ["Androgen Overlap Capacity"],
       gpConversationGuide: "I'm seeing diffuse thinning and texture changes in my hair. Could we review whether androgenic shifts related to declining progesterone and estrogen are contributing?",
@@ -80,7 +87,7 @@ function heuristicReverseLookup(query: string) {
     {
       name: "Heart Palpitations",
       keywords: ["palpitation", "heart", "flutter", "racing", "beat", "cardiac"],
-      coincidenceRate: "28% of perimenopausal women",
+      frequencyNote: UNVERIFIED_FREQUENCY_NOTE,
       explanation: "Fluctuating estradiol irritates the cardiac pacing node and the autonomic nervous system, causing sudden benign ventricular ectopic pacing, especially at bedtime.",
       relatedSymptomsToTrack: ["HRV Decline", "Resting Heart Rate Instability"],
       gpConversationGuide: "I've had unprovoked racing heart events and palpitations, particularly in the evening. Can we check if these autonomic surges are related to hormonal pacing node disruption?",
@@ -88,7 +95,7 @@ function heuristicReverseLookup(query: string) {
     {
       name: "Electric Shock Sensations",
       keywords: ["electric", "shock", "zap", "static", "discharge"],
-      coincidenceRate: "8% of perimenopausal women",
+      frequencyNote: UNVERIFIED_FREQUENCY_NOTE,
       explanation: "Rapid changes in estrogen levels can affect neural transmitters, causing short, sharp sensory malfunctions that feel like mini static electric discharges under the scalp or limbs.",
       relatedSymptomsToTrack: ["Estrogen Volatility", "Neural Sensitivity"],
       gpConversationGuide: "I've been experiencing brief, sharp electric shock sensations in my scalp and limbs. Could these be related to estrogen-driven neural sensitivity changes during perimenopause?",
@@ -96,7 +103,7 @@ function heuristicReverseLookup(query: string) {
     {
       name: "Dry Eyes",
       keywords: ["dry", "eye", "vision", "blur", "gritty"],
-      coincidenceRate: "31% of perimenopausal women",
+      frequencyNote: UNVERIFIED_FREQUENCY_NOTE,
       explanation: "Estrogen and androgen receptors in the lacrimal glands regulate tear production. Hormonal fluctuations reduce tear film stability, causing dryness and irritation.",
       relatedSymptomsToTrack: ["Estrogen Volatility", "Lacrimal Function"],
       gpConversationGuide: "I've developed persistent dry, gritty eyes. Since estrogen receptors in the lacrimal glands regulate tear production, could this be hormonally driven?",
@@ -104,7 +111,7 @@ function heuristicReverseLookup(query: string) {
     {
       name: "Tinnitus (Ringing Ears)",
       keywords: ["tinnitus", "ring", "ear", "buzz", "hum"],
-      coincidenceRate: "12% of perimenopausal women",
+      frequencyNote: UNVERIFIED_FREQUENCY_NOTE,
       explanation: "Estrogen has a protective effect on the cochlea and auditory nerve. Declining levels can increase sensitivity to tinnitus and alter auditory processing.",
       relatedSymptomsToTrack: ["Estrogen Volatility", "Auditory Sensitivity"],
       gpConversationGuide: "I've noticed a persistent ringing in my ears that started around the time my other perimenopausal symptoms began. Could estrogen's cochlear protective role be relevant here?",
@@ -216,7 +223,9 @@ export const appRouter = router({
                 content: `You are a perimenopause health educator. A user is searching for information about an unusual symptom and whether it might be related to perimenopause.
 
                 Return a JSON object with a single result explaining the potential perimenopause connection. Always include the disclaimer that this is educational information only.
-                
+
+                For frequencyNote, do not invent a specific percentage or prevalence figure — you have no verified source for one. Write a brief, honest qualitative note instead (e.g. "Reported by some women during perimenopause").
+
                 Base your response on established medical literature about estrogen, progesterone, and their effects on various body systems.`,
               },
               {
@@ -233,12 +242,12 @@ export const appRouter = router({
                   type: "object",
                   properties: {
                     name: { type: "string" },
-                    coincidenceRate: { type: "string" },
+                    frequencyNote: { type: "string" },
                     explanation: { type: "string" },
                     relatedSymptomsToTrack: { type: "array", items: { type: "string" } },
                     gpConversationGuide: { type: "string" },
                   },
-                  required: ["name", "coincidenceRate", "explanation", "relatedSymptomsToTrack", "gpConversationGuide"],
+                  required: ["name", "frequencyNote", "explanation", "relatedSymptomsToTrack", "gpConversationGuide"],
                   additionalProperties: false,
                 },
               },

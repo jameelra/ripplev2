@@ -13,12 +13,15 @@ import { computePSSFromLogs } from "../lib/hrtEngine";
 import { CLINICAL_KNOWLEDGE_BASE } from "../lib/clinicalKnowledgeBase";
 
 // ─── GP conversation scripts for common dismissals ────────────────────────────
-const DISMISSAL_RESPONSES: Record<string, string> = {
+// Exported so its exact wording can be pinned by a content-drift test — see
+// server/dismissalResponses.test.ts, especially the "antidepressants" entry,
+// which previously made an uncited "overprescribed" claim.
+export const DISMISSAL_RESPONSES: Record<string, string> = {
   default: "I understand you may need more information. I have been tracking my symptoms daily using a validated tool (Greene Climacteric Scale) for the past {days} days. My composite score is {score}/63, which is clinically significant. I would like to discuss evidence-based treatment options as outlined in the NAMS 2023 Position Statement.",
   "too young": "NAMS guidelines state that perimenopause can begin in the early 40s and sometimes earlier. The average duration is 4–10 years before the final menstrual period. My symptoms align with the clinical presentation described in NAMS guidelines, and my tracking data demonstrates a consistent pattern over {days} days.",
   "normal levels": "NAMS guidelines explicitly state that perimenopause is a clinical diagnosis based on symptoms and age, not hormone levels alone. Hormone levels fluctuate significantly during perimenopause and a single test cannot capture the full picture. My symptom burden is documented and clinically significant.",
   "stress": "While stress can worsen symptoms, the pattern I am experiencing — particularly {topSymptom} — is consistent with the hormonal changes of perimenopause as described in the BMS guidelines. I would like to explore hormonal assessment and evidence-based treatment options.",
-  "antidepressants": "I appreciate the suggestion, but I would like to first explore whether my symptoms have a hormonal aetiology before starting antidepressants. Research shows that antidepressants are overprescribed to perimenopausal women when hormonal treatment would be more appropriate. Can we discuss hormone therapy first?",
+  "antidepressants": "I appreciate the suggestion, but I'd like to first understand whether hormone therapy might help. NICE's guideline on menopause (NG23) notes there's no clear evidence that antidepressants ease low mood caused by menopause itself when depression hasn't been diagnosed, and recommends considering hormone therapy. Could we discuss that first?",
 };
 
 // ─── Section component ────────────────────────────────────────────────────────

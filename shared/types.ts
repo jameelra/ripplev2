@@ -67,7 +67,7 @@ export interface GPReportData {
 
 export interface ReverseSymptomResult {
   name: string;
-  coincidenceRate: string;
+  frequencyNote: string;
   explanation: string;
   relatedSymptomsToTrack: string[];
   gpConversationGuide: string;

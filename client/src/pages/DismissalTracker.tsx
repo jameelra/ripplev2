@@ -11,6 +11,16 @@ import { Switch } from "@/components/ui/switch";
 import { useVaultStore } from "../stores/vaultStore";
 import { DismissalRecord } from "../../../shared/types";
 
+// Rationale copy for the "Why Track Dismissals?" card. Kept as a named,
+// exported constant (rather than inline JSX) so its wording can be pinned
+// with a content-drift test — see server/dismissalTrackerRationale.test.ts.
+// Deliberately qualitative: there is no verifiable, peer-reviewed source for
+// a specific misdiagnosis-rate percentage among perimenopausal women, so this
+// does not state one (it previously read "Nearly 40% of women feel
+// misdiagnosed", uncited).
+export const DISMISSAL_TRACKER_RATIONALE =
+  "Many women report being misdiagnosed, dismissed, or told their symptoms are something else entirely during perimenopause. Logging dismissals creates a formal record that is automatically included in your GP appointment brief — giving you documented evidence to counter future dismissal and advocate for appropriate care.";
+
 // ─── Common dismissal responses (for quick-select) ────────────────────────────
 const COMMON_RESPONSES = [
   "Told me it's just stress or anxiety",
@@ -318,7 +328,7 @@ export default function DismissalTracker() {
           <p className="text-sm font-bold text-[#1a2b22]">Why Track Dismissals?</p>
         </div>
         <p className="text-xs text-[#6b7a72] leading-relaxed">
-          Nearly 40% of women feel misdiagnosed during perimenopause. Logging dismissals creates a formal record that is automatically included in your GP appointment brief — giving you documented evidence to counter future dismissal and advocate for appropriate care.
+          {DISMISSAL_TRACKER_RATIONALE}
         </p>
         <button
           onClick={() => setActiveTab("evidence_engine")}

@@ -22,7 +22,7 @@ const QUICK_SEARCHES = [
 
 interface SymptomResult {
   name: string;
-  coincidenceRate: string;
+  frequencyNote: string;
   explanation: string;
   relatedSymptomsToTrack: string[];
   gpConversationGuide: string;
@@ -69,7 +69,7 @@ function ResultCard({ result, query }: { result: SymptomResult; query: string })
         <div>
           <p className="font-serif text-base font-bold text-[#1a2b22]">{result.name}</p>
           <span className="inline-block mt-1 text-[10px] font-mono uppercase tracking-wider bg-[#eef4f1] text-[#4a8a72] border border-[#c8d8d0] px-2 py-0.5 rounded-full font-bold">
-            {result.coincidenceRate}
+            {result.frequencyNote}
           </span>
         </div>
         <Sparkles className="w-4 h-4 text-[#c07060] shrink-0 mt-1" />
