@@ -60,7 +60,7 @@ export const GREENE_SUBSCALE_MAX = {
   psychological: 33, // 11 items x 3
   somatic: 21, // 7 items x 3
   vasomotor: 6, // 2 items x 3
-  total: 63, // items 1-20 x 3
+  total: 60, // items 1-20 x 3 (psychological 33 + somatic 21 + vasomotor 6)
   sexual: 3, // item 21 alone
 } as const;
 

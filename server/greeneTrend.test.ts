@@ -126,7 +126,7 @@ describe("describeGreeneChange — neutral, non-diagnostic language", () => {
 
 describe("GREENE_METRIC_CONFIG — matches the instrument's published subscale maximums", () => {
   it("has all five metrics with their correct maximums", () => {
-    expect(GREENE_METRIC_CONFIG.total.max).toBe(63);
+    expect(GREENE_METRIC_CONFIG.total.max).toBe(60);
     expect(GREENE_METRIC_CONFIG.psychological.max).toBe(33);
     expect(GREENE_METRIC_CONFIG.somatic.max).toBe(21);
     expect(GREENE_METRIC_CONFIG.vasomotor.max).toBe(6);

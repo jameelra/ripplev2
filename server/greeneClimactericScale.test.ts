@@ -3,6 +3,7 @@ import {
   GREENE_ITEMS,
   GREENE_ITEM_COUNT,
   GREENE_RESPONSE_OPTIONS,
+  GREENE_SUBSCALE_MAX,
   findMissingItems,
   scoreGreeneClimactericScale,
   describeRelativeLevel,
@@ -100,11 +101,36 @@ describe("Greene Climacteric Scale — scoring", () => {
 
 describe("Greene Climacteric Scale — descriptive (non-diagnostic) banding", () => {
   it("splits the possible range into thirds without asserting clinical cutoffs", () => {
-    expect(describeRelativeLevel(0, 63)).toBe("lower");
-    expect(describeRelativeLevel(20, 63)).toBe("lower");
-    expect(describeRelativeLevel(21, 63)).toBe("middle");
-    expect(describeRelativeLevel(41, 63)).toBe("middle");
-    expect(describeRelativeLevel(42, 63)).toBe("upper");
-    expect(describeRelativeLevel(63, 63)).toBe("upper");
+    expect(describeRelativeLevel(0, 60)).toBe("lower");
+    expect(describeRelativeLevel(19, 60)).toBe("lower");
+    expect(describeRelativeLevel(20, 60)).toBe("middle");
+    expect(describeRelativeLevel(39, 60)).toBe("middle");
+    expect(describeRelativeLevel(40, 60)).toBe("upper");
+    expect(describeRelativeLevel(60, 60)).toBe("upper");
+  });
+});
+
+// Regression coverage for a real bug: GREENE_SUBSCALE_MAX.total was hardcoded
+// to 63 (all 21 items) even though scoreGreeneClimactericScale's `total`
+// field explicitly excludes item 21/sexual (see its own comment: "Sum of
+// items 1–20 only"). The correct max is 60 — anxiety(18) + depression(15) +
+// somatic(21) + vasomotor(6) — and every "/NN" total denominator across the
+// app (widget, trend view, evidence report) is driven off this one constant,
+// so pinning it here catches drift everywhere at once.
+describe("Greene Climacteric Scale — total denominator matches what total actually sums", () => {
+  it("GREENE_SUBSCALE_MAX.total equals the sum of the subscale maximums it's built from", () => {
+    expect(GREENE_SUBSCALE_MAX.total).toBe(
+      GREENE_SUBSCALE_MAX.psychological + GREENE_SUBSCALE_MAX.somatic + GREENE_SUBSCALE_MAX.vasomotor
+    );
+    expect(GREENE_SUBSCALE_MAX.total).toBe(60);
+  });
+
+  it("scoring every item 1-20 at the maximum (3) produces a total equal to GREENE_SUBSCALE_MAX.total", () => {
+    const responses: GreeneResponses = {};
+    for (let id = 1; id <= 21; id++) responses[id] = 3;
+    const score = scoreGreeneClimactericScale(responses);
+    expect(score.total).toBe(GREENE_SUBSCALE_MAX.total);
+    // Sanity check that this isn't accidentally passing because sexual got summed in too.
+    expect(score.total).not.toBe(63);
   });
 });
