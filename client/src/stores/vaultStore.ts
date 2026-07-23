@@ -7,12 +7,14 @@ import {
   HRTDoseLog,
   TriggerAnalysis,
   TriggerExperiment,
+  GreeneScoreEntry,
   DEFAULT_SYMPTOMS,
   DEFAULT_SIGNALS,
   DEFAULT_CYCLE,
 } from "../../../shared/types";
 import { CycleEvent } from "../lib/cycleIntelligence";
 import { computeTriggerCorrelations } from "../lib/hrtEngine";
+import { trpcClient } from "../lib/trpcClient";
 import {
   deriveKey,
   encryptData,
@@ -33,6 +35,7 @@ export type TabId =
   | "dashboard"
   | "log_signals"
   | "evidence_engine"
+  | "greene_assessment"
   | "reverse_lookup"
   | "ai_diary"
   | "cycle_tracker"
@@ -71,6 +74,7 @@ interface VaultState {
   hrtDoseLogs: HRTDoseLog[];
   triggerAnalysis: TriggerAnalysis | null;
   triggerExperiments: TriggerExperiment[];
+  greeneScores: GreeneScoreEntry[];
   menopauseMode: "natural" | "surgical" | "early";
   surgeryDate: string | null;
   licenseTier: LicenseTier;
@@ -117,6 +121,7 @@ interface VaultState {
   addDismissal: (record: DismissalRecord) => Promise<void>;
   updateDismissal: (record: DismissalRecord) => Promise<void>;
   removeDismissal: (id: string) => Promise<void>;
+  addGreeneScore: (entry: GreeneScoreEntry) => Promise<void>;
 }
 
 const TODAY = () => new Date().toISOString().split("T")[0];
@@ -135,6 +140,7 @@ export const useVaultStore = create<VaultState>((set, get) => ({
   hrtDoseLogs: [],
   triggerAnalysis: null,
   triggerExperiments: [],
+  greeneScores: [],
   menopauseMode: (localStorage.getItem("ripple_menopause_mode") as "natural" | "surgical" | "early") || "natural",
   surgeryDate: localStorage.getItem("ripple_surgery_date") || null,
   licenseTier: (localStorage.getItem("ripple_license_tier") as LicenseTier) || "Free",
@@ -261,6 +267,7 @@ export const useVaultStore = create<VaultState>((set, get) => ({
       hrtDoseLogs: [],
       triggerAnalysis: null,
       triggerExperiments: [],
+      greeneScores: [],
     });
   },
 
@@ -280,7 +287,22 @@ export const useVaultStore = create<VaultState>((set, get) => ({
     const triggerExperimentsRaw = await loadAndDecrypt("ripple_trigger_experiments", key);
     const triggerExperiments: TriggerExperiment[] = triggerExperimentsRaw ? JSON.parse(triggerExperimentsRaw) : [];
     const triggerAnalysis = computeTriggerCorrelations(logs);
-    set({ logs, dismissals, cycleEvents, hrtMedications, hrtDoseLogs, triggerAnalysis, triggerExperiments });
+
+    // Greene score history syncs server-side (unlike the other vault data
+    // above, which is localStorage-only) — the server only ever sees the
+    // encrypted { iv, data } blob, decrypted here client-side.
+    let greeneScores: GreeneScoreEntry[] = [];
+    try {
+      const stored = await trpcClient.greene.loadScores.query();
+      if (stored) {
+        const decrypted = await decryptData(stored.iv, stored.data, key);
+        greeneScores = JSON.parse(decrypted);
+      }
+    } catch (error) {
+      console.error("[Vault] Failed to load Greene score history:", error);
+    }
+
+    set({ logs, dismissals, cycleEvents, hrtMedications, hrtDoseLogs, triggerAnalysis, triggerExperiments, greeneScores });
   },
 
   addCycleEvent: async (event: CycleEvent) => {
@@ -350,6 +372,7 @@ export const useVaultStore = create<VaultState>((set, get) => ({
       hrtDoseLogs: [],
       triggerAnalysis: null,
       triggerExperiments: [],
+      greeneScores: [],
       licenseTier: "Free",
     });
   },
@@ -455,6 +478,19 @@ export const useVaultStore = create<VaultState>((set, get) => ({
     const updated = dismissals.filter((d: DismissalRecord) => d.id !== id);
     await encryptAndSave("ripple_dismissals", JSON.stringify(updated), sessionKey);
     set({ dismissals: updated });
+  },
+
+  // ── Greene Climacteric Scale History ────────────────────────────────────────
+  // Append-only — a completed questionnaire is always a new historical entry,
+  // never an overwrite of a previous one. Encrypted client-side, then synced
+  // to the server as an opaque blob (see server routers.ts `greene` router).
+  addGreeneScore: async (entry: GreeneScoreEntry) => {
+    const { sessionKey, greeneScores } = get();
+    if (!sessionKey) return;
+    const updated = [...greeneScores, entry];
+    const encrypted = await encryptData(JSON.stringify(updated), sessionKey);
+    await trpcClient.greene.saveScores.mutate(encrypted);
+    set({ greeneScores: updated });
   },
 }));
 
