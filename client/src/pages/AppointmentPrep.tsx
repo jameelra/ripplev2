@@ -7,17 +7,25 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useVaultStore } from "../stores/vaultStore";
+import { useAuth } from "@/contexts/AuthContext";
 import { SYMPTOM_LABELS, SymptomLog } from "../../../shared/types";
+import { GREENE_SUBSCALE_MAX, describeRelativeLevel } from "../../../shared/greeneClimactericScale";
+import { getGreeneRangeBand } from "../lib/greeneDisplay";
 import { computeReproductiveIntelligence } from "../lib/cycleIntelligence";
 import { computePSSFromLogs } from "../lib/hrtEngine";
 import { CLINICAL_KNOWLEDGE_BASE } from "../lib/clinicalKnowledgeBase";
 
+const GREENE_TOOL_URL = "https://ripplehealth.app/tools/greene-climacteric-scale/";
+
 // ─── GP conversation scripts for common dismissals ────────────────────────────
 // Exported so its exact wording can be pinned by a content-drift test — see
 // server/dismissalResponses.test.ts, especially the "antidepressants" entry,
-// which previously made an uncited "overprescribed" claim.
+// which previously made an uncited "overprescribed" claim. The default entry
+// no longer names the Greene Climacteric Scale or cites a score — it used to
+// claim a "composite score" from a same-named but unrelated daily-log proxy,
+// not the real 21-item instrument. See server/appointmentPrepGreeneHonesty.test.ts.
 export const DISMISSAL_RESPONSES: Record<string, string> = {
-  default: "I understand you may need more information. I have been tracking my symptoms daily using a validated tool (Greene Climacteric Scale) for the past {days} days. My composite score is {score}/63, which is clinically significant. I would like to discuss evidence-based treatment options as outlined in the NAMS 2023 Position Statement.",
+  default: "I understand you may need more information. I have been tracking my symptoms daily for the past {days} days, and the pattern is consistent and ongoing. I would like to discuss evidence-based treatment options as outlined in the NAMS 2023 Position Statement.",
   "too young": "NAMS guidelines state that perimenopause can begin in the early 40s and sometimes earlier. The average duration is 4–10 years before the final menstrual period. My symptoms align with the clinical presentation described in NAMS guidelines, and my tracking data demonstrates a consistent pattern over {days} days.",
   "normal levels": "NAMS guidelines explicitly state that perimenopause is a clinical diagnosis based on symptoms and age, not hormone levels alone. Hormone levels fluctuate significantly during perimenopause and a single test cannot capture the full picture. My symptom burden is documented and clinically significant.",
   "stress": "While stress can worsen symptoms, the pattern I am experiencing — particularly {topSymptom} — is consistent with the hormonal changes of perimenopause as described in the BMS guidelines. I would like to explore hormonal assessment and evidence-based treatment options.",
@@ -58,7 +66,8 @@ function PrepSection({
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function AppointmentPrep() {
-  const { logs, dismissals, cycleEvents, hrtMedications, triggerAnalysis, setActiveTab } = useVaultStore();
+  const { logs, dismissals, cycleEvents, hrtMedications, triggerAnalysis, greeneScores, setActiveTab } = useVaultStore();
+  const { user } = useAuth();
   const [copied, setCopied] = useState(false);
 
   const today = new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
@@ -67,26 +76,16 @@ export default function AppointmentPrep() {
   const pssScore = useMemo(() => computePSSFromLogs(logs), [logs]);
   const trackingDays = logs.length;
 
-  // Greene score (simplified from logs)
-  const greeneData = useMemo(() => {
-    if (logs.length === 0) return null;
-    let vasomotor = 0, somatic = 0, psychological = 0;
-    logs.forEach((log) => {
-      const s = log.symptoms as unknown as Record<string, number>;
-      vasomotor += (s.hotFlashes || 0) + (s.nightSweats || 0);
-      somatic += (s.jointPain || 0) + (s.fatigue || 0) + (s.breastTenderness || 0) + (s.bloating || 0) + (s.postCarbCrash || 0);
-      psychological += (s.sleepLatency || 0) + (s.brainFog || 0) + (s.irritability || 0) + (s.anxiety || 0) + (s.heartPalpitations || 0);
-    });
-    const count = logs.length;
-    const composite = Math.min(63, Math.round((vasomotor + somatic + psychological) / count));
-    return {
-      composite,
-      vasomotor: Math.round((vasomotor / count) * 10) / 10,
-      somatic: Math.round((somatic / count) * 10) / 10,
-      psychological: Math.round((psychological / count) * 10) / 10,
-      label: composite > 35 ? "Severe" : composite > 20 ? "Moderate–Severe" : composite > 10 ? "Mild–Moderate" : "Mild",
-    };
-  }, [logs]);
+  // Most recent real Greene Climacteric Scale assessment, if any — no proxy
+  // calculation. Real history only, synced from the actual 21-item
+  // questionnaire (client/src/pages/GreeneAssessment.tsx).
+  const latestGreene = useMemo(() => {
+    if (greeneScores.length === 0) return null;
+    return [...greeneScores].sort((a, b) => b.takenAt.localeCompare(a.takenAt))[0];
+  }, [greeneScores]);
+  const latestGreeneDate = latestGreene
+    ? new Date(latestGreene.takenAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+    : null;
 
   // Top 3 symptoms
   const topSymptoms = useMemo(() => {
@@ -125,7 +124,9 @@ export default function AppointmentPrep() {
       `Tracking Period: ${trackingDays} days`,
       ``,
       `─── MY SYMPTOMS ───────────────────────────────────────────`,
-      `Greene Climacteric Scale Score: ${greeneData?.composite ?? "N/A"}/63 (${greeneData?.label ?? "N/A"})`,
+      latestGreene
+        ? `Greene Climacteric Scale: ${latestGreene.total}/${GREENE_SUBSCALE_MAX.total}, taken ${latestGreeneDate}`
+        : `Greene Climacteric Scale: not yet assessed — take the free assessment at ${GREENE_TOOL_URL}`,
       ``,
       `Top 3 Symptoms:`,
       ...topSymptoms.map((s, i) => `  ${i + 1}. ${s.label} — average severity ${s.avgSeverity}/3`),
@@ -154,7 +155,9 @@ export default function AppointmentPrep() {
       ...topSymptoms.filter((s) => s.cknEntry).map((s) => `  For ${s.label}:\n  "${s.cknEntry!.gpConversationScript}"`),
       ``,
       `─── WHAT I WANT TO DISCUSS ────────────────────────────────`,
-      `  1. Review my symptom data and Greene Climacteric Scale score`,
+      latestGreene
+        ? `  1. Review my symptom data and Greene Climacteric Scale score`
+        : `  1. Review my symptom data`,
       `  2. Discuss evidence-based treatment options (NAMS 2023 guidelines)`,
       `  3. Assess whether hormone therapy is appropriate for my situation`,
       `  4. Review my current medications and their effectiveness`,
@@ -162,7 +165,7 @@ export default function AppointmentPrep() {
       `─── CLINICAL REFERENCES ───────────────────────────────────`,
       `  • NAMS 2023 Hormone Therapy Position Statement`,
       `  • BMS Menopause Guidelines`,
-      `  • Greene Climacteric Scale (Greene, 1998)`,
+      `  • Greene Climacteric Scale — ${GREENE_TOOL_URL}`,
       ``,
       `This summary was generated by Ripple — a privacy-first perimenopause tracking app.`,
       `For educational purposes only. Not a substitute for medical advice.`,
@@ -226,30 +229,25 @@ export default function AppointmentPrep() {
           {/* 1. My Symptom Burden */}
           <PrepSection title="1. My Symptom Burden" icon={BarChart2}>
             <div className="space-y-4">
-              {greeneData && (
+              {latestGreene ? (
                 <div className="space-y-3">
-                  <div className={`flex items-center justify-between p-3.5 rounded-xl border ${
-                    greeneData.composite > 35 ? "bg-red-50 border-red-200" :
-                    greeneData.composite > 20 ? "bg-orange-50 border-orange-200" :
-                    greeneData.composite > 10 ? "bg-amber-50 border-amber-200" :
-                    "bg-emerald-50 border-emerald-200"
-                  }`}>
+                  <div className={`flex items-center justify-between p-3.5 rounded-xl border ${getGreeneRangeBand(describeRelativeLevel(latestGreene.total, GREENE_SUBSCALE_MAX.total)).bg}`}>
                     <div>
-                      <p className="text-xs text-[#6b7a72]">Greene Climacteric Scale</p>
-                      <p className="font-serif text-2xl font-bold text-[#1a2b22]">{greeneData.composite}<span className="text-sm font-sans text-[#6b7a72] ml-1">/63</span></p>
+                      <p className="text-xs text-[#6b7a72]">Greene Climacteric Scale · {latestGreeneDate}</p>
+                      <p className="font-serif text-2xl font-bold text-[#1a2b22]">
+                        {latestGreene.total}<span className="text-sm font-sans text-[#6b7a72] ml-1">/{GREENE_SUBSCALE_MAX.total}</span>
+                      </p>
                     </div>
-                    <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${
-                      greeneData.composite > 35 ? "bg-red-100 text-red-700" :
-                      greeneData.composite > 20 ? "bg-orange-100 text-orange-700" :
-                      greeneData.composite > 10 ? "bg-amber-100 text-amber-700" :
-                      "bg-emerald-100 text-emerald-700"
-                    }`}>{greeneData.label}</span>
+                    <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${getGreeneRangeBand(describeRelativeLevel(latestGreene.total, GREENE_SUBSCALE_MAX.total)).bg} ${getGreeneRangeBand(describeRelativeLevel(latestGreene.total, GREENE_SUBSCALE_MAX.total)).color}`}>
+                      {getGreeneRangeBand(describeRelativeLevel(latestGreene.total, GREENE_SUBSCALE_MAX.total)).label}
+                    </span>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="grid grid-cols-4 gap-2 text-center">
                     {[
-                      { label: "Vasomotor", value: greeneData.vasomotor, max: 6 },
-                      { label: "Somatic", value: greeneData.somatic, max: 15 },
-                      { label: "Psychological", value: greeneData.psychological, max: 15 },
+                      { label: "Psych.", value: latestGreene.psychological, max: GREENE_SUBSCALE_MAX.psychological },
+                      { label: "Somatic", value: latestGreene.somatic, max: GREENE_SUBSCALE_MAX.somatic },
+                      { label: "Vasomotor", value: latestGreene.vasomotor, max: GREENE_SUBSCALE_MAX.vasomotor },
+                      { label: "Sexual", value: latestGreene.sexual, max: GREENE_SUBSCALE_MAX.sexual },
                     ].map(({ label, value, max }) => (
                       <div key={label} className="bg-[#f5f0ea] rounded-xl p-3">
                         <p className="text-[9px] font-mono uppercase tracking-wider text-[#9a9490] font-bold">{label}</p>
@@ -257,7 +255,22 @@ export default function AppointmentPrep() {
                       </div>
                     ))}
                   </div>
-                  <p className="text-[10px] text-[#9a9490]">Based on {trackingDays} days of tracking</p>
+                </div>
+              ) : user ? (
+                <div className="bg-[#f5f0ea] rounded-xl p-3.5 flex items-center justify-between gap-3">
+                  <p className="text-xs text-[#6b7a72] leading-relaxed">No assessment recorded yet.</p>
+                  <button onClick={() => setActiveTab("greene_assessment")} className="shrink-0 text-xs font-mono font-bold text-[#4a8a72] hover:underline">
+                    Take the Greene Climacteric Scale assessment →
+                  </button>
+                </div>
+              ) : (
+                <div className="bg-[#f5f0ea] rounded-xl p-3.5">
+                  <p className="text-xs text-[#6b7a72] leading-relaxed">
+                    Sign in to track your symptom scale score here, or try the free{" "}
+                    <a href={GREENE_TOOL_URL} target="_blank" rel="noopener noreferrer" className="text-[#4a8a72] font-semibold hover:underline">
+                      Greene Climacteric Scale calculator
+                    </a>.
+                  </p>
                 </div>
               )}
 
@@ -440,7 +453,6 @@ export default function AppointmentPrep() {
                       <p className="text-xs text-[#3a3a32] leading-relaxed italic">
                         "{script
                           .replace("{days}", String(trackingDays))
-                          .replace("{score}", String(greeneData?.composite ?? "N/A"))
                           .replace("{topSymptom}", topSymptoms[0]?.label ?? "my symptoms")
                         }"
                       </p>
@@ -458,7 +470,7 @@ export default function AppointmentPrep() {
                 { name: "NAMS 2023 Hormone Therapy Position Statement", note: "Hormone therapy is the most effective treatment for vasomotor symptoms", url: "https://menopause.org/wp-content/uploads/professional/nams-2022-hormone-therapy-position-statement.pdf" },
                 { name: "BMS Menopause Guidelines", note: "Perimenopause can begin 4–10 years before the final menstrual period", url: "https://thebms.org.uk/publications/tools-for-clinicians/menopause/" },
                 { name: "STRAW+10 Staging Criteria", note: "Cycles varying ≥7 days define the early menopausal transition", url: "https://pubmed.ncbi.nlm.nih.gov/22367258/" },
-                { name: "Greene Climacteric Scale (1998)", note: "Validated 21-item instrument for menopausal symptom severity", url: "https://pubmed.ncbi.nlm.nih.gov/9643514/" },
+                { name: "Greene Climacteric Scale (1998)", note: "Take the validated 21-item assessment", url: GREENE_TOOL_URL },
               ].map((ref) => (
                 <a key={ref.name} href={ref.url} target="_blank" rel="noopener noreferrer" className="flex items-start justify-between gap-3 bg-[#f5f0ea] rounded-xl p-3 hover:bg-[#eef4f1] transition-colors group no-underline">
                   <div>
@@ -475,7 +487,10 @@ export default function AppointmentPrep() {
           <div className="ripple-card p-5 space-y-3">
             <p className="ripple-label">Pre-Appointment Checklist</p>
             {[
-              { label: "Review my Greene score and top symptoms above", done: hasData },
+              {
+                label: latestGreene ? "Review my Greene Climacteric Scale score and top symptoms above" : "Review my top symptoms above",
+                done: hasData,
+              },
               { label: "Copy or print this summary to bring to the appointment", done: false },
               { label: "Log today's symptoms before the appointment", done: logs.some((l) => l.id === new Date().toISOString().split("T")[0]) },
               { label: "Note any questions I want to ask", done: false },
