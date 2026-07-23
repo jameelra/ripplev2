@@ -10,7 +10,8 @@ import { trpc } from "@/lib/trpc";
 import { useVaultStore } from "../stores/vaultStore";
 import { useAuth } from "@/contexts/AuthContext";
 import { Streamdown } from "streamdown";
-import { GREENE_SUBSCALE_MAX, describeRelativeLevel, RelativeLevel } from "../../../shared/greeneClimactericScale";
+import { GREENE_SUBSCALE_MAX, describeRelativeLevel } from "../../../shared/greeneClimactericScale";
+import { getGreeneRangeBand } from "../lib/greeneDisplay";
 import {
   WIKI_PAGES,
   WIKI_TREATMENT_LINKS,
@@ -172,15 +173,6 @@ export default function EvidenceEngine() {
 
   const isProOrPremier = licenseTier === "Pro" || licenseTier === "Premier";
   const hasEnoughData = logs.length >= 3;
-
-  // Purely descriptive placement within the scale's possible range — Greene
-  // (1998) publishes no diagnostic cutoff, so this never implies "mild" vs
-  // "severe" in a clinical sense. See shared/greeneClimactericScale.ts.
-  const getGreeneRangeBand = (level: RelativeLevel) => {
-    if (level === "lower") return { label: "Lower third of range", color: "text-emerald-700", bg: "bg-emerald-50 border-emerald-200" };
-    if (level === "middle") return { label: "Middle third of range", color: "text-amber-700", bg: "bg-amber-50 border-amber-200" };
-    return { label: "Upper third of range", color: "text-orange-700", bg: "bg-orange-50 border-orange-200" };
-  };
 
   return (
     <div className="space-y-5">
