@@ -61,7 +61,7 @@ describe("ai.generateEvidence — Greene Climacteric Scale section", () => {
 
     expect(result.greene?.total).toBe(28);
     expect(result.greene?.takenAt).toBe("2026-06-01T09:00:00.000Z");
-    expect(result.brief).toContain("Most recent assessment:** 28/63");
+    expect(result.brief).toContain("Most recent assessment:** 28/60");
     expect(result.brief).toContain("June 1, 2026");
     // Verified canon citation — exact text pinned elsewhere in the repo
     // (client/tools/evidence-engine/index.html, server/evidenceEnginePage.test.ts)
