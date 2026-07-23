@@ -29,9 +29,10 @@ describe("Appointment Prep — DISMISSAL_RESPONSES citation hardening", () => {
     expect(antidepressants).not.toMatch(/overprescri/i);
   });
 
-  it("grounds the antidepressants script in NG23, scoped to no depression diagnosis", () => {
+  it("grounds the antidepressants script in NG23 recommendation 1.5.21, scoped to no depression diagnosis", () => {
     const antidepressants = extractDismissalResponse(source, "antidepressants");
     expect(antidepressants).toMatch(/NG23/);
+    expect(antidepressants).toMatch(/1\.5\.21/);
     expect(antidepressants).toMatch(/depression hasn't been diagnosed/i);
   });
 });

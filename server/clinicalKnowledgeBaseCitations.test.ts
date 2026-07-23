@@ -9,7 +9,12 @@ import { CLINICAL_KNOWLEDGE_BASE } from "../client/src/lib/clinicalKnowledgeBase
 //   3. citations: a "40% higher risk" of depression figure cited only to a
 //      Midi Health marketing page
 // This pins the replacement wording so none of the three can silently drift
-// back to an invented statistic or a non-clinical source.
+// back to an invented statistic or a non-clinical source. A candidate
+// replacement for #3 (Badawy et al. 2024, Journal of Affective Disorders)
+// was deliberately left out — it was surfaced only via search snippets and
+// could not be independently retrieved and verified this session, so it does
+// not meet this codebase's citation bar. Do not reintroduce it, or any other
+// depression-risk figure, without opening and confirming the primary source.
 
 const anxiety = CLINICAL_KNOWLEDGE_BASE.find(e => e.id === "anxiety");
 
@@ -27,8 +32,9 @@ describe("clinical knowledge base — anxiety entry citations", () => {
     expect(anxiety!.clinicalContext).not.toMatch(/overprescri/i);
   });
 
-  it("grounds the antidepressants-vs-hormone-therapy point in NG23, scoped to no depression diagnosis", () => {
+  it("grounds the antidepressants-vs-hormone-therapy point in NG23 recommendation 1.5.21, scoped to no depression diagnosis", () => {
     expect(anxiety!.clinicalContext).toMatch(/NG23/);
+    expect(anxiety!.clinicalContext).toMatch(/1\.5\.21/);
     expect(anxiety!.clinicalContext).toMatch(/depression hasn't been diagnosed|no clear evidence/i);
   });
 
@@ -42,22 +48,16 @@ describe("clinical knowledge base — anxiety entry citations", () => {
     expect(sources).not.toMatch(/midi health|joinmidi\.com/i);
   });
 
-  it("cites the depression-risk figure to a named, verifiable peer-reviewed study with a DOI", () => {
-    const citation = anxiety!.citations.find(c => c.text.includes("odds ratio"));
-    expect(citation).toBeDefined();
-    expect(citation!.source).toMatch(/Badawy/);
-    expect(citation!.source).toMatch(/Journal of Affective Disorders/);
-    expect(citation!.url).toMatch(/^https:\/\/doi\.org\//);
+  it("does not cite an unverified depression-risk figure (e.g. Badawy et al.) that was never independently retrieved", () => {
+    const sources = anxiety!.citations.map(c => `${c.text} ${c.source}`).join(" ");
+    expect(sources).not.toMatch(/badawy/i);
+    expect(sources).not.toMatch(/odds ratio/i);
   });
 
-  it("scopes the depression-risk figure to perimenopause vs premenopause, not postmenopause", () => {
-    const citation = anxiety!.citations.find(c => c.text.includes("odds ratio"));
-    expect(citation!.text).toMatch(/no significant increase.*postmenopausal/i);
-  });
-
-  it("cites the antidepressants/low-mood point to NICE NG23 by name", () => {
+  it("cites the antidepressants/low-mood point to NICE NG23 by name, with the specific recommendation number", () => {
     const citation = anxiety!.citations.find(c => c.source.includes("NG23"));
     expect(citation).toBeDefined();
     expect(citation!.url).toContain("nice.org.uk");
+    expect(citation!.text).toMatch(/1\.5\.21/);
   });
 });

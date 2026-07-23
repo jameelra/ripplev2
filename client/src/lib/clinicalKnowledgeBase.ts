@@ -462,7 +462,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
 
     mechanism: "Oestrogen has a profound modulatory effect on the serotonergic, GABAergic, and noradrenergic systems — the three primary neurotransmitter pathways involved in anxiety regulation. As oestrogen fluctuates in perimenopause, serotonin receptor sensitivity changes, GABA-mediated inhibition is reduced (compounded by progesterone decline), and the hypothalamic-pituitary-adrenal (HPA) axis becomes more reactive to stress. The result is a lowered threshold for anxiety responses. Women who have never experienced significant anxiety may find themselves experiencing it for the first time. Women with pre-existing anxiety disorders typically find their symptoms worsen significantly during perimenopause.",
     hormoneInvolved: ["Oestrogen (estradiol)", "Progesterone", "Serotonin", "GABA", "Cortisol"],
-    clinicalContext: "Perimenopausal anxiety is sometimes misdiagnosed as a primary anxiety disorder, which can lead to antidepressants being prescribed without first considering a hormonal cause. NICE's guideline on menopause (NG23) notes there is no clear evidence that antidepressants ease low mood or anxiety caused by menopause itself when depression hasn't been diagnosed, and recommends hormone therapy be considered. The distinction matters: if anxiety is driven by hormonal fluctuation, treating the hormones may be more effective than treating the anxiety symptom alone — but antidepressants remain an appropriate choice once depression or anxiety is actually diagnosed, or if hormone therapy isn't suitable or preferred.",
+    clinicalContext: "Perimenopausal anxiety is sometimes misdiagnosed as a primary anxiety disorder, which can lead to antidepressants being prescribed without first considering a hormonal cause. NICE's guideline on menopause (NG23) notes there is no clear evidence that antidepressants ease low mood or anxiety caused by menopause itself when depression hasn't been diagnosed, and recommends considering hormone therapy for depressive symptoms that don't meet the criteria for a depression diagnosis (NG23, recommendation 1.5.21). The distinction matters: if anxiety is driven by hormonal fluctuation, treating the hormones may be more effective than treating the anxiety symptom alone — but antidepressants remain an appropriate choice once depression or anxiety is actually diagnosed, or if hormone therapy isn't suitable or preferred.",
 
     whatToTrack: [
       "Onset and pattern (new anxiety vs. worsening of pre-existing anxiety)",
@@ -507,18 +507,21 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
       },
     ],
 
+    // TODO: a citable figure for how much more likely perimenopausal women
+    // are to experience depression (vs. premenopausal women) would strengthen
+    // this entry. A 2024 Journal of Affective Disorders meta-analysis
+    // (Badawy et al.) was considered here but could not be independently
+    // retrieved and verified — it was surfaced only via search snippets, not
+    // a retrieved primary source — so it was deliberately left out rather
+    // than shipped as a "verified" citation. Add it back only once the paper
+    // itself has been opened and confirmed (title, journal, OR/CI) in a
+    // session with working fetch access.
     citations: [
       {
-        text: "Perimenopausal women had a significantly higher risk of depressive symptoms or a diagnosis of depression compared with premenopausal women (odds ratio 1.40, 95% CI 1.21–1.61); no significant increase was found for postmenopausal women.",
-        source: "Badawy Y, Spector A, Li Z, Desai R. The risk of depression in the menopausal stages: A systematic review and meta-analysis. Journal of Affective Disorders. 2024;357:126–133.",
-        url: "https://doi.org/10.1016/j.jad.2024.04.041",
-        year: 2024,
-      },
-      {
-        text: "There is no clear evidence that SSRIs or SNRIs ease low mood or anxiety caused by menopause itself in women who have not been diagnosed with depression; hormone therapy should be considered instead.",
-        source: "NICE guideline NG23, Menopause: identification and management. Published November 2015, updated November 2024. National Institute for Health and Care Excellence.",
+        text: "There is no clear evidence that SSRIs or SNRIs ease low mood or anxiety caused by menopause itself in women who have not been diagnosed with depression; hormone therapy should be considered for depressive symptoms that don't meet the criteria for a depression diagnosis (recommendation 1.5.21).",
+        source: "NICE guideline NG23, Menopause: identification and management. Published November 2015, updated April 2026. National Institute for Health and Care Excellence.",
         url: "https://www.nice.org.uk/guidance/ng23",
-        year: 2024,
+        year: 2026,
       },
     ],
 
