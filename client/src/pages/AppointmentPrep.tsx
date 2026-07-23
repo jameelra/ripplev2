@@ -458,7 +458,7 @@ export default function AppointmentPrep() {
                 { name: "NAMS 2023 Hormone Therapy Position Statement", note: "Hormone therapy is the most effective treatment for vasomotor symptoms", url: "https://menopause.org/wp-content/uploads/professional/nams-2022-hormone-therapy-position-statement.pdf" },
                 { name: "BMS Menopause Guidelines", note: "Perimenopause can begin 4–10 years before the final menstrual period", url: "https://thebms.org.uk/publications/tools-for-clinicians/menopause/" },
                 { name: "STRAW+10 Staging Criteria", note: "Cycles varying ≥7 days define the early menopausal transition", url: "https://pubmed.ncbi.nlm.nih.gov/22367258/" },
-                { name: "Greene Climacteric Scale (1998)", note: "Validated 21-item instrument for menopausal symptom severity", url: "https://pubmed.ncbi.nlm.nih.gov/9550747/" },
+                { name: "Greene Climacteric Scale (1998)", note: "Validated 21-item instrument for menopausal symptom severity", url: "https://pubmed.ncbi.nlm.nih.gov/9643514/" },
               ].map((ref) => (
                 <a key={ref.name} href={ref.url} target="_blank" rel="noopener noreferrer" className="flex items-start justify-between gap-3 bg-[#f5f0ea] rounded-xl p-3 hover:bg-[#eef4f1] transition-colors group no-underline">
                   <div>

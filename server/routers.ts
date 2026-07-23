@@ -3,6 +3,7 @@ import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { billingRouter } from "./billing/router";
 import { invokeLLM } from "./_core/llm";
 import { getVaultBlob, upsertVaultBlob } from "./db";
+import { GREENE_SUBSCALE_MAX, describeRelativeLevel } from "../shared/greeneClimactericScale";
 import { z } from "zod";
 
 // Fixed vaultBlobs key for the Greene score history blob. Scoped to this one
@@ -339,31 +340,35 @@ export const appRouter = router({
           minimumDataMet: z.boolean(),
           dataPointsAnalysed: z.number(),
         }).optional(),
+        // Real, validated 21-item Greene Climacteric Scale history (see
+        // client/src/pages/GreeneAssessment.tsx) — distinct from the daily
+        // symptom log above, which uses an unrelated set of fields.
+        greeneScores: z.array(z.object({
+          takenAt: z.string(),
+          total: z.number(),
+          psychological: z.number(),
+          somatic: z.number(),
+          vasomotor: z.number(),
+          sexual: z.number(),
+        })).optional(),
       }))
       .mutation(async ({ input }) => {
-        const { logs, dismissals = [], cycleEvents = [], hrtMedications = [], triggerAnalysis } = input;
+        const { logs, dismissals = [], cycleEvents = [], hrtMedications = [], triggerAnalysis, greeneScores = [] } = input;
         if (logs.length === 0) throw new Error("No logs to generate evidence from");
 
-        // Calculate Greene Climacteric Scale scores
         const count = logs.length;
-        let vasomotor = 0, somatic = 0, psychological = 0;
         let totalSleep = 0, totalHRV = 0;
-
         logs.forEach((log) => {
-          const s = log.symptoms as Record<string, number>;
-          vasomotor += (s["hotFlashes"] || 0) + (s["nightSweats"] || 0);
-          somatic += (s["jointPain"] || 0) + (s["fatigue"] || 0) + (s["breastTenderness"] || 0) + (s["bloating"] || 0) + (s["postCarbCrash"] || 0);
-          psychological += (s["sleepLatency"] || 0) + (s["brainFog"] || 0) + (s["irritability"] || 0) + (s["anxiety"] || 0) + (s["heartPalpitations"] || 0);
           totalSleep += log.signals.sleepDuration;
           totalHRV += log.signals.hrv;
         });
-
-        const avgVasomotor = (vasomotor / count).toFixed(1);
-        const avgSomatic = (somatic / count).toFixed(1);
-        const avgPsychological = (psychological / count).toFixed(1);
-        const greeneScore = Math.min(63, Math.round((vasomotor + somatic + psychological) / count));
         const avgSleep = (totalSleep / count).toFixed(1);
         const avgHRV = Math.round(totalHRV / count);
+
+        // Most recent first, for both the summary line and the compact history table.
+        const greeneSorted = [...greeneScores].sort((a, b) => b.takenAt.localeCompare(a.takenAt));
+        const latestGreene = greeneSorted[0] ?? null;
+        const greeneHistory = greeneSorted.slice(0, 6);
 
         // Top 3 symptoms
         const symptomTotals: Record<string, number> = {};
@@ -390,16 +395,27 @@ export const appRouter = router({
 
 ---
 
-## 1. Greene Climacteric Scale Assessment
+## 1. Greene Climacteric Scale
 
-The Greene Climacteric Scale (GCS) is a validated 21-item questionnaire widely used in clinical practice to assess menopausal symptom severity.
+${latestGreene ? `The Greene Climacteric Scale (GCS) is a validated 21-item questionnaire used to track the severity of menopausal symptoms over time. It does not define a diagnostic cutoff — it describes symptom severity relative to the scale's possible range.
 
-| Symptom Cluster | Average Daily Score | Clinical Interpretation |
-|---|---|---|
-| **Vasomotor** (Hot flashes, Night sweats) | ${avgVasomotor}/6 | ${parseFloat(avgVasomotor) > 3 ? "Clinically significant" : parseFloat(avgVasomotor) > 1.5 ? "Moderate" : "Mild"} |
-| **Somatic** (Joint pain, Fatigue, Bloating) | ${avgSomatic}/15 | ${parseFloat(avgSomatic) > 7 ? "Clinically significant" : parseFloat(avgSomatic) > 3 ? "Moderate" : "Mild"} |
-| **Psychological** (Anxiety, Brain fog, Irritability) | ${avgPsychological}/15 | ${parseFloat(avgPsychological) > 7 ? "Clinically significant" : parseFloat(avgPsychological) > 3 ? "Moderate" : "Mild"} |
-| **Composite GCS Score** | **${greeneScore}/63** | ${greeneScore > 35 ? "Severe" : greeneScore > 20 ? "Moderate-Severe" : greeneScore > 10 ? "Mild-Moderate" : "Mild"} |
+**Most recent assessment:** ${latestGreene.total}/${GREENE_SUBSCALE_MAX.total}, taken ${new Date(latestGreene.takenAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })} (${describeRelativeLevel(latestGreene.total, GREENE_SUBSCALE_MAX.total)} third of the scale's possible range).
+
+| Subscale | Score |
+|---|---|
+| **Psychological** (anxiety, low mood) | ${latestGreene.psychological}/${GREENE_SUBSCALE_MAX.psychological} |
+| **Somatic** (physical symptoms) | ${latestGreene.somatic}/${GREENE_SUBSCALE_MAX.somatic} |
+| **Vasomotor** (hot flushes, night sweats) | ${latestGreene.vasomotor}/${GREENE_SUBSCALE_MAX.vasomotor} |
+| **Sexual Function** (reported separately, not summed into total) | ${latestGreene.sexual}/${GREENE_SUBSCALE_MAX.sexual} |
+
+**History** (${greeneHistory.length === greeneSorted.length ? "all assessments" : `most recent ${greeneHistory.length}`}, most recent first)
+
+| Date | Total | Psych. | Somatic | Vasomotor | Sexual |
+|---|---|---|---|---|---|
+${greeneHistory.map((g) => `| ${new Date(g.takenAt).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })} | ${g.total}/${GREENE_SUBSCALE_MAX.total} | ${g.psychological}/${GREENE_SUBSCALE_MAX.psychological} | ${g.somatic}/${GREENE_SUBSCALE_MAX.somatic} | ${g.vasomotor}/${GREENE_SUBSCALE_MAX.vasomotor} | ${g.sexual}/${GREENE_SUBSCALE_MAX.sexual} |`).join("\n")}
+
+*Greene JG. Constructing a Standard Climacteric Scale. Maturitas. 1998;29(1):25–31.*`
+: `No Greene Climacteric Scale assessments have been recorded yet. Complete the validated 21-item assessment in the Greene Assessment tab to include this section in future reports.`}
 
 ---
 
@@ -529,7 +545,7 @@ The following guidelines support evaluation of the symptoms described in this re
 
 - **Endocrine Society Clinical Practice Guideline:** Estrogen fluctuations during perimenopause are a neurological reality, not a psychosomatic perception. Vasomotor symptoms correlate with measurable changes in core body temperature regulation.
 
-- **Greene Climacteric Scale (Greene, 1998):** A validated 21-item instrument for measuring menopausal symptom severity across vasomotor, somatic, and psychological domains. Widely used in clinical research and practice.
+- **Greene JG. Constructing a Standard Climacteric Scale. Maturitas. 1998;29(1):25–31.** A validated 21-item instrument for measuring menopausal symptom severity across psychological, somatic, vasomotor, and sexual domains. Widely used in clinical research and practice.
 
 ---
 
@@ -538,10 +554,16 @@ The following guidelines support evaluation of the symptoms described in this re
         return {
           success: true,
           brief,
-          greeneScore,
-          vasomotorScore: parseFloat(avgVasomotor),
-          somaticScore: parseFloat(avgSomatic),
-          psychologicalScore: parseFloat(avgPsychological),
+          greene: latestGreene
+            ? {
+                total: latestGreene.total,
+                psychological: latestGreene.psychological,
+                somatic: latestGreene.somatic,
+                vasomotor: latestGreene.vasomotor,
+                sexual: latestGreene.sexual,
+                takenAt: latestGreene.takenAt,
+              }
+            : null,
           topSymptoms,
           trackingDays: count,
         };
