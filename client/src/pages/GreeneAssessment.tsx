@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ClipboardCheck, AlertCircle, History } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { format, parseISO } from "date-fns";
+import { ClipboardCheck, AlertCircle, History, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useVaultStore } from "../stores/vaultStore";
 import { useAuth } from "@/contexts/AuthContext";
@@ -15,6 +17,14 @@ import {
   findMissingItems,
   scoreGreeneClimactericScale,
 } from "../../../shared/greeneClimactericScale";
+import {
+  GREENE_METRIC_CONFIG,
+  GreeneMetricKey,
+  computeGreeneTrendSummary,
+  describeGreeneChange,
+} from "../../../shared/greeneTrend";
+
+const GREENE_METRIC_KEYS = Object.keys(GREENE_METRIC_CONFIG) as GreeneMetricKey[];
 
 const SUBSCALE_GROUPS: Array<{ subscales: GreeneSubscale[]; label: string; description: string }> = [
   { subscales: ["anxiety", "depression"], label: "Psychological", description: "Anxiety and mood-related symptoms." },
@@ -121,6 +131,124 @@ function Questionnaire({
         See my score
       </Button>
     </form>
+  );
+}
+
+// ─── Trend chart tooltip ──────────────────────────────────────────────────────
+function TrendTooltip({ active, payload, label, max }: any) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white border border-[#e0d5c8] rounded-xl p-3 shadow-lg text-xs">
+        <p className="font-bold text-[#1a2b22] mb-1">{label}</p>
+        <p style={{ color: payload[0].color }}>
+          <span className="font-bold">{payload[0].value}</span> / {max}
+        </p>
+      </div>
+    );
+  }
+  return null;
+}
+
+// ─── Trend section ────────────────────────────────────────────────────────────
+// Minimum-data states per Phase 2: 0 scores renders nothing (the empty-state
+// card above already prompts a first assessment); 1 score explains a trend
+// needs a second data point; 2+ shows the chart with subscale toggle and
+// neutral, factual change-since-previous/first copy — never "improving" or
+// "worsening", since this scale measures bother, not disease state.
+function GreeneTrendSection({ entries }: { entries: GreeneScoreEntry[] }) {
+  const [metric, setMetric] = useState<GreeneMetricKey>("total");
+
+  if (entries.length === 0) return null;
+
+  if (entries.length === 1) {
+    const [entry] = entries;
+    return (
+      <div className="ripple-card p-5 space-y-2">
+        <div className="flex items-center gap-2">
+          <TrendingUp className="w-4 h-4 text-[#4a8a72]" />
+          <p className="ripple-label">Trend</p>
+        </div>
+        <p className="text-sm text-[#3f4a44]">
+          Your first score is <span className="font-bold">{entry.total}/{GREENE_SUBSCALE_MAX.total}</span>, taken{" "}
+          {format(parseISO(entry.takenAt), "MMMM d, yyyy")}.
+        </p>
+        <p className="text-xs text-[#6b7a72] leading-relaxed">
+          A trend appears once you complete a second assessment — there's nothing to compare yet. A retake every 30
+          days is a reasonable cadence for spotting a trend, though there's no strict rule.
+        </p>
+      </div>
+    );
+  }
+
+  const summary = computeGreeneTrendSummary(entries, metric);
+  const config = GREENE_METRIC_CONFIG[metric];
+  const chartData = summary.points.map((p) => ({
+    date: format(parseISO(p.takenAt), "MMM d"),
+    value: p.value,
+  }));
+
+  return (
+    <div className="ripple-card p-5 space-y-4">
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <div className="flex items-center gap-2">
+          <TrendingUp className="w-4 h-4 text-[#4a8a72]" />
+          <div>
+            <p className="ripple-label">Trend</p>
+            <p className="font-serif text-base font-bold text-[#1a2b22]">{config.label} score over time</p>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-1 bg-[#f5f0ea] p-1 rounded-xl">
+          {GREENE_METRIC_KEYS.map((key) => (
+            <button
+              key={key}
+              onClick={() => setMetric(key)}
+              className={`px-2.5 py-1.5 rounded-lg text-[10px] font-bold font-mono transition-all ${
+                metric === key ? "bg-white text-[#1a2b22] shadow-sm" : "text-[#6b7a72] hover:text-[#1a2b22]"
+              }`}
+            >
+              {GREENE_METRIC_CONFIG[key].label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <ResponsiveContainer width="100%" height={200}>
+        <LineChart data={chartData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f0ebe4" />
+          <XAxis dataKey="date" tick={{ fontSize: 10, fill: "#9a9490" }} tickLine={false} axisLine={false} />
+          <YAxis domain={[0, config.max]} tick={{ fontSize: 10, fill: "#9a9490" }} tickLine={false} axisLine={false} />
+          <Tooltip content={<TrendTooltip max={config.max} />} />
+          <Line
+            type="monotone"
+            dataKey="value"
+            name={config.label}
+            stroke="#4a8a72"
+            strokeWidth={2}
+            dot={{ r: 3, fill: "#4a8a72" }}
+            activeDot={{ r: 5 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+
+      <div className="space-y-1.5 text-xs text-[#3f4a44] border-t border-[#f0ebe4] pt-3">
+        {summary.sincePrevious && (
+          <p>
+            {describeGreeneChange(
+              summary.sincePrevious.delta,
+              `your previous assessment (${format(parseISO(summary.sincePrevious.referenceTakenAt), "MMMM d, yyyy")})`
+            )}
+          </p>
+        )}
+        {summary.sinceFirst && (
+          <p>
+            {describeGreeneChange(
+              summary.sinceFirst.delta,
+              `your first assessment (${format(parseISO(summary.sinceFirst.referenceTakenAt), "MMMM d, yyyy")})`
+            )}
+          </p>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -251,6 +379,8 @@ export default function GreeneAssessment() {
           </motion.div>
         </AnimatePresence>
       )}
+
+      <GreeneTrendSection entries={greeneScores} />
 
       <div className="space-y-3">
         <div className="flex items-center gap-2">
