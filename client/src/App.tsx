@@ -9,7 +9,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   BarChart2, PlusCircle, Sparkles, Binary, Compass,
   CreditCard, LogOut, Menu, X, Lock, ShieldCheck, Crown, BookOpen,
-  FlaskConical, ShieldAlert, CalendarDays, TrendingUp, Pill, Zap, ClipboardList, Heart, ChevronDown, Settings as SettingsIcon
+  FlaskConical, ShieldAlert, CalendarDays, TrendingUp, Pill, Zap, ClipboardList, Heart, ChevronDown, Settings as SettingsIcon,
+  ClipboardCheck
 } from "lucide-react";
 import { useVaultStore, TabId } from "./stores/vaultStore";
 import { loadCloudflareBeacon, shouldLoadPublicAnalytics } from "./lib/analytics";
@@ -28,6 +29,7 @@ import CycleCalendar from "./pages/CycleCalendar";
 import CorrelationsPage from "./pages/CorrelationsPage";
 import HRTTracker from "./pages/HRTTracker";
 import TriggerTracker from "./pages/TriggerTracker";
+import GreeneAssessment from "./pages/GreeneAssessment";
 import { QuickLogFAB, QuickLogModal } from "./components/QuickLog";
 import AppointmentPrep from "./pages/AppointmentPrep";
 import MenopauseMode from "./pages/MenopauseMode";
@@ -99,6 +101,7 @@ const NAV_GROUPS: NavGroup[] = [
     label: "Clinical Tools",
     defaultOpen: true,
     items: [
+      { id: "greene_assessment", label: "Greene Assessment", icon: ClipboardCheck },
       { id: "evidence_engine",  label: "Evidence Engine",    icon: Binary },
       { id: "appointment_prep", label: "Appointment Prep",   icon: ClipboardList },
       { id: "reverse_lookup",   label: "Symptom Lookup",     icon: Compass },
@@ -325,6 +328,7 @@ function AppShell() {
       case "log_signals": return <SymptomLog />;
       case "ai_diary": return <AIDiary />;
       case "evidence_engine": return <EvidenceEngine />;
+      case "greene_assessment": return <GreeneAssessment />;
       case "reverse_lookup": return <ReverseLookup />;
       case "upgrade_hub": return <UpgradeHub />;
       case "resources": return <Resources />;

@@ -2,7 +2,13 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { billingRouter } from "./billing/router";
 import { invokeLLM } from "./_core/llm";
+import { getVaultBlob, upsertVaultBlob } from "./db";
 import { z } from "zod";
+
+// Fixed vaultBlobs key for the Greene score history blob. Scoped to this one
+// history list — not a general-purpose vault sync path. See server/db.ts for
+// the (currently Greene-only) upsertVaultBlob/getVaultBlob helpers this wraps.
+const GREENE_SCORES_BLOB_KEY = "greene_scores";
 
 // ─── Heuristic Fallbacks ──────────────────────────────────────────────────────
 function heuristicDiaryAnalysis(text: string) {
@@ -540,6 +546,25 @@ The following guidelines support evaluation of the symptoms described in this re
           trackingDays: count,
         };
       }),
+  }),
+
+  // ── Greene Climacteric Scale history (encrypted vault blob sync) ───────────
+  // The client encrypts the full history array client-side (AES-GCM, same as
+  // every other vault blob) before it ever reaches this router — the server
+  // only ever stores and returns opaque ciphertext.
+  greene: router({
+    saveScores: protectedProcedure
+      .input(z.object({ iv: z.string(), data: z.string() }))
+      .mutation(async ({ ctx, input }) => {
+        await upsertVaultBlob(ctx.user.id, GREENE_SCORES_BLOB_KEY, JSON.stringify(input));
+        return { success: true };
+      }),
+
+    loadScores: protectedProcedure.query(async ({ ctx }) => {
+      const stored = await getVaultBlob(ctx.user.id, GREENE_SCORES_BLOB_KEY);
+      if (!stored) return null;
+      return JSON.parse(stored) as { iv: string; data: string };
+    }),
   }),
 });
 
