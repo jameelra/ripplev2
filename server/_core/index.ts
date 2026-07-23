@@ -4,6 +4,7 @@ import { createServer } from "http";
 import net from "net";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerStorageProxy } from "./storageProxy";
+import { registerMailerliteProxy } from "./mailerliteProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
@@ -32,6 +33,12 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
 
+  // Railway sits in front of the app behind a reverse proxy — without this,
+  // req.ip resolves to the proxy's address for every request, and IP-based
+  // rate limiting (see server/_core/rateLimit.ts) would bucket all visitors
+  // together instead of limiting per-visitor.
+  app.set("trust proxy", true);
+
   // ── Stripe webhook MUST use raw body BEFORE express.json() ──────────────────
   app.post(
     "/api/stripe/webhook",
@@ -43,6 +50,7 @@ async function startServer() {
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   registerStorageProxy(app);
+  registerMailerliteProxy(app);
   // tRPC API
   app.use(
     "/api/trpc",
