@@ -13,7 +13,9 @@ import {
   ClipboardCheck
 } from "lucide-react";
 import { useVaultStore, TabId } from "./stores/vaultStore";
+import { useAuth } from "./contexts/AuthContext";
 import { loadCloudflareBeacon, shouldLoadPublicAnalytics } from "./lib/analytics";
+import { signOutEverywhere } from "./lib/signOutEverywhere";
 import Onboarding from "./pages/Onboarding";
 import VaultGate from "./pages/VaultGate";
 import Dashboard from "./pages/Dashboard";
@@ -206,10 +208,15 @@ function NavGroupSection({
 
 function Sidebar({ onClose }: { onClose?: () => void }) {
   const { activeTab, setActiveTab, licenseTier, lockVault } = useVaultStore();
+  const { signOut } = useAuth();
 
   const handleNav = (tab: TabId) => {
     setActiveTab(tab);
     onClose?.();
+  };
+
+  const handleLogOut = () => {
+    signOutEverywhere({ supabaseSignOut: signOut, lockVault });
   };
 
   return (
@@ -254,6 +261,13 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
         >
           <Lock className="w-3.5 h-3.5" />
           <span>Lock Vault</span>
+        </button>
+        <button
+          onClick={handleLogOut}
+          className="w-full flex items-center gap-2 text-xs text-[#6b7a72] hover:text-[#c07060] hover:bg-[#faf5f3] px-3 py-2 rounded-xl transition-all border border-transparent hover:border-[#e8d8d0]"
+        >
+          <LogOut className="w-3.5 h-3.5" />
+          <span>Log Out</span>
         </button>
         <a
           href="/tools/greene-climacteric-scale/"

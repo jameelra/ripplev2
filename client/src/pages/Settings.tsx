@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { useVaultStore } from "../stores/vaultStore";
 import { useAuth } from "@/contexts/AuthContext";
+import { signOutEverywhere } from "../lib/signOutEverywhere";
 
 // ─── Section wrapper ──────────────────────────────────────────────────────────
 function SettingsSection({
@@ -186,13 +187,8 @@ export default function Settings() {
     });
   };
 
-  const handleSignOut = async () => {
-    await signOut();
-    setToastNotification({
-      type: "info",
-      title: "Signed Out",
-      description: "You've been logged out. Your encrypted vault stays on this device.",
-    });
+  const handleSignOut = () => {
+    signOutEverywhere({ supabaseSignOut: signOut, lockVault });
   };
 
   const handleResetVault = () => {
@@ -251,7 +247,7 @@ export default function Settings() {
             />
             <SettingsRow
               label="Log Out"
-              description="You'll need to log in again to use AI features or manage billing."
+              description="Signs you out and locks your vault. Your encrypted data stays on this device — you'll need to log back in and unlock your vault to continue."
               onClick={handleSignOut}
               danger
             />
