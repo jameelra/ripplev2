@@ -10,6 +10,18 @@ import { useVaultStore } from "../stores/vaultStore";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
+import {
+  type TierId,
+  trueMonthlyCents,
+  annualTotalCents,
+  annualEffectiveMonthlyCents,
+  maxAnnualSavingsPercent,
+  displayAnnualEffectiveMonthly,
+  displayAnnualTotal,
+  sumTrueMonthlyCents,
+  sumAnnualEffectiveMonthlyCents,
+  centsToDisplay,
+} from "../../../shared/pricing";
 
 type BillingCycle = "monthly" | "annual";
 type PlanId = "Pro" | "Premier" | "HRT_Addon";
@@ -19,9 +31,7 @@ const PLANS = [
     id: "Free",
     name: "Free",
     tagline: "Start tracking today",
-    monthlyPrice: 0,
-    annualPrice: 0,
-    annualEquiv: 0,
+    tier: null as TierId | null,
     color: "text-[#6b7a72]",
     bg: "bg-[#f5f0ea]",
     border: "border-[#e0d5c8]",
@@ -47,9 +57,7 @@ const PLANS = [
     id: "Pro" as PlanId,
     name: "Pro",
     tagline: "Walk into every appointment prepared",
-    monthlyPrice: 7.99,
-    annualPrice: 59.99,
-    annualEquiv: 5.0,
+    tier: "Pro" as TierId | null,
     color: "text-[#4a8a72]",
     bg: "bg-[#eef4f1]",
     border: "border-[#4a8a72]",
@@ -75,9 +83,7 @@ const PLANS = [
     id: "Premier" as PlanId,
     name: "Premier",
     tagline: "The complete clinical companion",
-    monthlyPrice: 12.99,
-    annualPrice: 99.99,
-    annualEquiv: 8.33,
+    tier: "Premier" as TierId | null,
     color: "text-[#c07060]",
     bg: "bg-[#faf5f3]",
     border: "border-[#c07060]",
@@ -173,11 +179,26 @@ export default function UpgradeHub() {
 
   const hasActiveSubscription = subscriptionData && subscriptionData.activePlans.length > 0;
 
+  // Value-tip comparison, recomputed from shared/pricing.ts for whichever
+  // billing cycle is currently selected — this must always match the prices
+  // shown on the cards above it.
+  const valueTipComboCents = billing === "annual"
+    ? sumAnnualEffectiveMonthlyCents(["Pro", "HRT_Addon"])
+    : sumTrueMonthlyCents(["Pro", "HRT_Addon"]);
+  const valueTipPremierCents = billing === "annual"
+    ? annualEffectiveMonthlyCents("Premier")
+    : trueMonthlyCents("Premier");
+  const valueTipPeriod = billing === "annual" ? "/mo billed annually" : "/mo";
+  const valueTipDiffCents = valueTipPremierCents - valueTipComboCents;
+  const valueTipVerdict = valueTipDiffCents <= 0
+    ? "Premier includes everything in both, for the same price or less."
+    : `Premier costs ${centsToDisplay(valueTipDiffCents)}${valueTipPeriod} more than Pro + HRT Add-on, but includes everything in both.`;
+
   const faqs = [
     { q: "Will I lose my data if I downgrade?", a: "Never. Your encrypted health data belongs to you and is always accessible, regardless of your plan. Downgrading removes access to premium features, not your own data." },
     { q: "Is there really a free trial?", a: "Yes — Pro and Premier include a 7-day free trial. No credit card required to start. You will only be charged if you choose to continue after the trial." },
-    { q: "Why is the HRT Tracker in Premier and not Pro?", a: "The HRT Tracker is a sophisticated feature (80+ medications, patch countdowns, treatment response analysis) that took significant clinical research to build. It is also available as a standalone add-on for $3.33/mo if you just want the medication tracking." },
-    { q: "What is the HRT Add-on?", a: "The HRT Add-on gives you just the HRT Tracker without the full Premier tier. It is designed for women who already use another symptom tracker and just want Ripple's medication tracking. At $3.33/mo (annual), it is the most affordable dedicated HRT tracker on the market." },
+    { q: "Why is the HRT Tracker in Premier and not Pro?", a: `The HRT Tracker is a sophisticated feature (80+ medications, patch countdowns, treatment response analysis) that took significant clinical research to build. It is also available as a standalone add-on for ${displayAnnualEffectiveMonthly("HRT_Addon")} if you just want the medication tracking.` },
+    { q: "What is the HRT Add-on?", a: `The HRT Add-on gives you just the HRT Tracker without the full Premier tier. It is designed for women who already use another symptom tracker and just want Ripple's medication tracking. At ${displayAnnualEffectiveMonthly("HRT_Addon")}, it is the most affordable dedicated HRT tracker on the market.` },
     { q: "How do I cancel?", a: "Click 'Manage Subscription' below to access the Stripe customer portal, where you can cancel, change plans, or update payment details at any time." },
     { q: "Is this app a medical device?", a: "No. Ripple is a general wellness tracking application for informational purposes only. It is not a medical device and does not provide medical diagnoses or treatment recommendations." },
   ];
@@ -231,7 +252,7 @@ export default function UpgradeHub() {
           className={`flex-1 text-xs font-mono font-bold py-2.5 rounded-lg transition-all relative ${billing === "annual" ? "bg-white text-[#1a2b22] shadow-sm" : "text-[#6b7a72]"}`}
         >
           Annual
-          <span className="ml-1.5 text-[8px] bg-[#4a8a72] text-white px-1.5 py-0.5 rounded-full font-bold">Save 37%</span>
+          <span className="ml-1.5 text-[8px] bg-[#4a8a72] text-white px-1.5 py-0.5 rounded-full font-bold">Save up to {maxAnnualSavingsPercent()}%</span>
         </button>
       </div>
 
@@ -240,7 +261,6 @@ export default function UpgradeHub() {
         {PLANS.map((plan, i) => {
           const Icon = plan.icon;
           const isCurrent = licenseTier === plan.id;
-          const price = billing === "annual" ? plan.annualEquiv : plan.monthlyPrice;
           const isLoading = loadingPlan === (plan.id + billing);
 
           return (
@@ -268,17 +288,21 @@ export default function UpgradeHub() {
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  {plan.monthlyPrice === 0 ? (
+                  {plan.tier === null ? (
                     <p className="font-serif text-2xl font-bold text-[#1a2b22]">Free</p>
-                  ) : (
+                  ) : billing === "annual" ? (
                     <>
                       <p className="font-serif text-2xl font-bold text-[#1a2b22]">
-                        ${price.toFixed(2)}<span className="text-xs font-sans text-[#6b7a72]">/mo</span>
+                        {centsToDisplay(annualEffectiveMonthlyCents(plan.tier))}
+                        <span className="text-xs font-sans text-[#6b7a72]">/mo billed annually</span>
                       </p>
-                      {billing === "annual" && (
-                        <p className="text-[9px] text-[#9a9490] font-mono">${plan.annualPrice}/yr</p>
-                      )}
+                      <p className="text-[9px] text-[#9a9490] font-mono">{displayAnnualTotal(plan.tier)}</p>
+                      <p className="text-[9px] text-[#9a9490] font-mono">{centsToDisplay(trueMonthlyCents(plan.tier))}/mo if billed monthly</p>
                     </>
+                  ) : (
+                    <p className="font-serif text-2xl font-bold text-[#1a2b22]">
+                      {centsToDisplay(trueMonthlyCents(plan.tier))}<span className="text-xs font-sans text-[#6b7a72]">/mo</span>
+                    </p>
                   )}
                 </div>
               </div>
@@ -330,7 +354,7 @@ export default function UpgradeHub() {
             <div className="text-left">
               <p className="text-sm font-bold text-[#1a2b22]">HRT Add-on</p>
               <p className="text-[10px] text-[#9a9490]">
-                Just the medication tracker · {billing === "annual" ? "$3.33/mo ($39.99/yr)" : "$4.99/mo"}
+                Just the medication tracker · {billing === "annual" ? `${displayAnnualEffectiveMonthly("HRT_Addon")} (${displayAnnualTotal("HRT_Addon")})` : `${centsToDisplay(trueMonthlyCents("HRT_Addon"))}/mo`}
               </p>
             </div>
           </div>
@@ -352,10 +376,19 @@ export default function UpgradeHub() {
                 <p className="text-[10px] text-[#6b7a72] mt-0.5">For women who already have a symptom tracker</p>
               </div>
               <div className="text-right">
-                <p className="font-serif text-xl font-bold text-[#1a2b22]">
-                  ${billing === "annual" ? "3.33" : "4.99"}<span className="text-xs font-sans text-[#6b7a72]">/mo</span>
-                </p>
-                {billing === "annual" && <p className="text-[9px] text-[#9a9490] font-mono">$39.99/yr</p>}
+                {billing === "annual" ? (
+                  <>
+                    <p className="font-serif text-xl font-bold text-[#1a2b22]">
+                      {centsToDisplay(annualEffectiveMonthlyCents("HRT_Addon"))}<span className="text-xs font-sans text-[#6b7a72]">/mo billed annually</span>
+                    </p>
+                    <p className="text-[9px] text-[#9a9490] font-mono">{displayAnnualTotal("HRT_Addon")}</p>
+                    <p className="text-[9px] text-[#9a9490] font-mono">{centsToDisplay(trueMonthlyCents("HRT_Addon"))}/mo if billed monthly</p>
+                  </>
+                ) : (
+                  <p className="font-serif text-xl font-bold text-[#1a2b22]">
+                    {centsToDisplay(trueMonthlyCents("HRT_Addon"))}<span className="text-xs font-sans text-[#6b7a72]">/mo</span>
+                  </p>
+                )}
               </div>
             </div>
             <p className="text-xs text-[#4a4a42] leading-relaxed">
@@ -364,7 +397,7 @@ export default function UpgradeHub() {
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-start gap-2">
               <Info className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
               <p className="text-[10px] text-amber-800 leading-relaxed">
-                <strong>Value tip:</strong> Pro + HRT Add-on = $12.98/mo. Premier = $12.99/mo. Premier is the better value.
+                <strong>Value tip:</strong> Pro + HRT Add-on = {centsToDisplay(valueTipComboCents)}{valueTipPeriod}. Premier = {centsToDisplay(valueTipPremierCents)}{valueTipPeriod}. {valueTipVerdict}
               </p>
             </div>
             <div className="flex gap-2">
@@ -374,7 +407,7 @@ export default function UpgradeHub() {
                 variant="outline"
                 className="flex-1 text-xs font-mono border-purple-200 text-purple-700 hover:bg-purple-50"
               >
-                {loadingPlan === "HRT_Addonmonthly" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : !paymentsEnabled ? "Coming Soon" : "$4.99/mo"}
+                {loadingPlan === "HRT_Addonmonthly" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : !paymentsEnabled ? "Coming Soon" : `${centsToDisplay(trueMonthlyCents("HRT_Addon"))}/mo`}
               </Button>
               <Button
                 onClick={() => handleAddonSelect("annual")}
@@ -386,7 +419,7 @@ export default function UpgradeHub() {
                 ) : !paymentsEnabled ? (
                   "Coming Soon"
                 ) : (
-                  <><Pill className="w-3.5 h-3.5 mr-1.5" />$39.99/yr — Best Value</>
+                  <><Pill className="w-3.5 h-3.5 mr-1.5" />{displayAnnualTotal("HRT_Addon")} — Best Value</>
                 )}
               </Button>
             </div>
@@ -422,11 +455,12 @@ export default function UpgradeHub() {
         <p className="ripple-label">How we compare</p>
         <div className="space-y-2">
           {[
+            // THIRD_PARTY_PRICE_OK — a competitor's list price, not Ripple's; not subject to shared/pricing.ts
             { app: "Stabilize HRT", price: "$49.99/yr", note: "Basic HRT tracking, iOS only, no GP brief" },
             { app: "Crest (FemHQ)", price: "Free", note: "HRT tracking only, no clinical tools or GP brief" },
             { app: "Balance App", price: "Free", note: "Education only, no clinical tools" },
-            { app: "Ripple Pro", price: "$59.99/yr", note: "Evidence Engine, GP brief, Trigger Tracker, Dismissal Tracker" },
-            { app: "Ripple Premier", price: "$99.99/yr", note: "Everything + HRT Tracker, Cycle Calendar, Treatment Response" },
+            { app: "Ripple Pro", price: displayAnnualTotal("Pro"), note: "Evidence Engine, GP brief, Trigger Tracker, Dismissal Tracker" },
+            { app: "Ripple Premier", price: displayAnnualTotal("Premier"), note: "Everything + HRT Tracker, Cycle Calendar, Treatment Response" },
           ].map(({ app, price, note }) => (
             <div key={app} className={`flex items-start justify-between gap-3 p-3 rounded-xl ${app.startsWith("Ripple") ? "bg-[#eef4f1] border border-[#c8d8d0]" : "bg-[#f5f0ea]"}`}>
               <div>

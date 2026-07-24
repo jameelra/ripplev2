@@ -2,6 +2,12 @@ import { describe, expect, it } from "vitest";
 import { appRouter } from "./routers";
 import { ENV } from "./_core/env";
 import type { TrpcContext } from "./_core/context";
+import {
+  trueMonthlyCents,
+  annualTotalCents,
+  displayTrueMonthly,
+  displayAnnualTotal,
+} from "../shared/pricing";
 
 // These tests exercise the Stripe integration itself, so they assume
 // payments are turned on — the "payments disabled" path is tested
@@ -62,33 +68,33 @@ describe("billing.getPlans", () => {
     expect(proPrices.some((p) => p.billingCycle === "annual")).toBe(true);
   });
 
-  it("Pro monthly price is $7.99", async () => {
+  it("Pro monthly price matches shared/pricing.ts", async () => {
     const { ctx } = createAuthContext();
     const caller = appRouter.createCaller(ctx);
     const plans = await caller.billing.getPlans();
 
     const proMonthly = plans.find((p) => p.planId === "Pro" && p.billingCycle === "monthly");
-    expect(proMonthly?.amount).toBe(799); // cents
-    expect(proMonthly?.displayPrice).toBe("$7.99/mo");
+    expect(proMonthly?.amount).toBe(trueMonthlyCents("Pro"));
+    expect(proMonthly?.displayPrice).toBe(displayTrueMonthly("Pro"));
   });
 
-  it("Premier annual price is $99.99", async () => {
+  it("Premier annual price matches shared/pricing.ts", async () => {
     const { ctx } = createAuthContext();
     const caller = appRouter.createCaller(ctx);
     const plans = await caller.billing.getPlans();
 
     const premierAnnual = plans.find((p) => p.planId === "Premier" && p.billingCycle === "annual");
-    expect(premierAnnual?.amount).toBe(9999); // cents
-    expect(premierAnnual?.displayPrice).toBe("$99.99/yr");
+    expect(premierAnnual?.amount).toBe(annualTotalCents("Premier"));
+    expect(premierAnnual?.displayPrice).toBe(displayAnnualTotal("Premier"));
   });
 
-  it("HRT Add-on annual price is $39.99", async () => {
+  it("HRT Add-on annual price matches shared/pricing.ts", async () => {
     const { ctx } = createAuthContext();
     const caller = appRouter.createCaller(ctx);
     const plans = await caller.billing.getPlans();
 
     const hrtAnnual = plans.find((p) => p.planId === "HRT_Addon" && p.billingCycle === "annual");
-    expect(hrtAnnual?.amount).toBe(3999); // cents
+    expect(hrtAnnual?.amount).toBe(annualTotalCents("HRT_Addon"));
   });
 });
 

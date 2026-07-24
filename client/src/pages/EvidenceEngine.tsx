@@ -16,6 +16,7 @@ import {
   CLINICAL_GUIDELINE_LINKS,
   PROVIDER_DIRECTORY_LINKS,
 } from "../lib/wikiLinks";
+import { displayTrueMonthly } from "../../../shared/pricing";
 
 // ─── Wiki Resource Link ───────────────────────────────────────────────────────
 function WikiResourceLink({
@@ -163,6 +164,9 @@ export default function EvidenceEngine() {
   const isProOrPremier = licenseTier === "Pro" || licenseTier === "Premier";
   const hasEnoughData = logs.length >= 3;
 
+  const { data: paymentsEnabledData } = trpc.billing.paymentsEnabled.useQuery();
+  const paymentsEnabled = paymentsEnabledData ?? false;
+
   const getGreeneLabel = (score: number) => {
     if (score < 10) return { label: "Mild", color: "text-emerald-700", bg: "bg-emerald-50 border-emerald-200" };
     if (score < 25) return { label: "Moderate", color: "text-amber-700", bg: "bg-amber-50 border-amber-200" };
@@ -226,7 +230,7 @@ export default function EvidenceEngine() {
           <div className="bg-[#f5f0ea] rounded-xl p-3 space-y-1 text-xs text-[#4a4a42]">
             <p className="font-bold text-[#1a2b22]">Free tier includes:</p>
             <p>✓ Basic symptom summary · ✓ Top 3 symptoms overview</p>
-            <p className="font-bold text-[#1a2b22] mt-2">Pro ($9.99/mo) unlocks:</p>
+            <p className="font-bold text-[#1a2b22] mt-2">Pro ({displayTrueMonthly("Pro")}) unlocks:</p>
             <p>✓ Full Greene Climacteric Scale scores</p>
             <p>✓ Peer-reviewed NAMS/BMS citations</p>
             <p>✓ Printable clinical GP brief</p>
@@ -235,7 +239,7 @@ export default function EvidenceEngine() {
             onClick={() => setActiveTab("upgrade_hub")}
             className="w-full bg-[#c07060] hover:bg-[#a05848] text-white font-mono text-xs font-bold py-3 rounded-xl"
           >
-            Upgrade to Pro — $9.99/mo
+            {paymentsEnabled ? `Upgrade to Pro — ${displayTrueMonthly("Pro")}` : "Coming Soon — See Pro Plans"}
           </Button>
         </div>
       )}

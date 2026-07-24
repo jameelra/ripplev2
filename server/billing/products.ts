@@ -1,65 +1,43 @@
 // Billing product/price configuration for server
-export type PlanId = "Pro" | "Premier" | "HRT_Addon";
-export type BillingCycle = "monthly" | "annual";
+import { amountCentsForCycle, displayPriceForCycle } from "../../shared/pricing";
+import type { TierId, BillingCycle as PricingBillingCycle } from "../../shared/pricing";
+
+export type PlanId = TierId;
+export type BillingCycle = PricingBillingCycle;
 
 export type PriceConfig = {
   planId: PlanId;
   billingCycle: BillingCycle;
-  amount: number; // cents
+  amount: number; // cents — derived from shared/pricing.ts, never hardcoded here
   displayPrice: string;
   priceId: string;
   licenseTier: "Free" | "Pro" | "Premier";
 };
 
+function priceConfig(
+  planId: PlanId,
+  billingCycle: BillingCycle,
+  envVar: string | undefined,
+  placeholder: string,
+  licenseTier: "Free" | "Pro" | "Premier"
+): PriceConfig {
+  return {
+    planId,
+    billingCycle,
+    amount: amountCentsForCycle(planId, billingCycle),
+    displayPrice: displayPriceForCycle(planId, billingCycle),
+    priceId: envVar ?? placeholder,
+    licenseTier,
+  };
+}
+
 export const PRICES: PriceConfig[] = [
-  {
-    planId: "Pro",
-    billingCycle: "monthly",
-    amount: 799,
-    displayPrice: "$7.99/mo",
-    priceId: process.env.STRIPE_PRICE_PRO_MONTHLY ?? "placeholder_price_pro_monthly",
-    licenseTier: "Pro",
-  },
-  {
-    planId: "Pro",
-    billingCycle: "annual",
-    amount: 5999,
-    displayPrice: "$59.99/yr",
-    priceId: process.env.STRIPE_PRICE_PRO_ANNUAL ?? "placeholder_price_pro_annual",
-    licenseTier: "Pro",
-  },
-  {
-    planId: "Premier",
-    billingCycle: "monthly",
-    amount: 1299,
-    displayPrice: "$12.99/mo",
-    priceId: process.env.STRIPE_PRICE_PREMIER_MONTHLY ?? "placeholder_price_premier_monthly",
-    licenseTier: "Premier",
-  },
-  {
-    planId: "Premier",
-    billingCycle: "annual",
-    amount: 9999,
-    displayPrice: "$99.99/yr",
-    priceId: process.env.STRIPE_PRICE_PREMIER_ANNUAL ?? "placeholder_price_premier_annual",
-    licenseTier: "Premier",
-  },
-  {
-    planId: "HRT_Addon",
-    billingCycle: "monthly",
-    amount: 333,
-    displayPrice: "$3.33/mo",
-    priceId: process.env.STRIPE_PRICE_HRT_ADDON_MONTHLY ?? "placeholder_price_hrt_monthly",
-    licenseTier: "Pro",
-  },
-  {
-    planId: "HRT_Addon",
-    billingCycle: "annual",
-    amount: 3999,
-    displayPrice: "$39.99/yr",
-    priceId: process.env.STRIPE_PRICE_HRT_ADDON_ANNUAL ?? "placeholder_price_hrt_annual",
-    licenseTier: "Pro",
-  },
+  priceConfig("Pro", "monthly", process.env.STRIPE_PRICE_PRO_MONTHLY, "placeholder_price_pro_monthly", "Pro"),
+  priceConfig("Pro", "annual", process.env.STRIPE_PRICE_PRO_ANNUAL, "placeholder_price_pro_annual", "Pro"),
+  priceConfig("Premier", "monthly", process.env.STRIPE_PRICE_PREMIER_MONTHLY, "placeholder_price_premier_monthly", "Premier"),
+  priceConfig("Premier", "annual", process.env.STRIPE_PRICE_PREMIER_ANNUAL, "placeholder_price_premier_annual", "Premier"),
+  priceConfig("HRT_Addon", "monthly", process.env.STRIPE_PRICE_HRT_ADDON_MONTHLY, "placeholder_price_hrt_monthly", "Pro"),
+  priceConfig("HRT_Addon", "annual", process.env.STRIPE_PRICE_HRT_ADDON_ANNUAL, "placeholder_price_hrt_annual", "Pro"),
 ];
 
 export function getPriceConfig(planId: PlanId, billingCycle: BillingCycle) {
