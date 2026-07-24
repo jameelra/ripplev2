@@ -178,7 +178,7 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
       <div className="space-y-2.5 text-left">
         {[
           { emoji: "📈", title: "12 symptom sliders", desc: "Log hot flashes, brain fog, joint pain and more in under 60 seconds" },
-          { emoji: "📊", title: "Greene Climacteric Scale", desc: "A validated clinical score your doctor will recognise" },
+          { emoji: "📊", title: "Greene Climacteric Scale", desc: "A validated clinical score your doctor will recognize" },
           { emoji: "💊", title: "HRT Tracker", desc: "Log your medications, track adherence, see what's working" },
           { emoji: "🧹", title: "Trigger Tracker", desc: "Discover what makes your symptoms better or worse" },
         ].map(({ emoji, title, desc }) => (

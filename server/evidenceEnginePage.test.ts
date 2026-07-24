@@ -78,7 +78,7 @@ describe("Evidence Engine page — static page markup", () => {
 
   it("does not claim certainty or endorsement it can't back up", () => {
     const normalized = html.replace(/\s+/g, " ");
-    expect(normalized).toContain("Ripple isn't endorsed by, recommended by, or affiliated with any of these organisations");
+    expect(normalized).toContain("Ripple isn't endorsed by, recommended by, or affiliated with any of these organizations");
   });
 
   it("cross-links to both existing tool pages", () => {

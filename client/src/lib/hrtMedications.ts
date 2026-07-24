@@ -24,7 +24,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   // ── Oestrogen — Gels ────────────────────────────────────────────────────────
   {
     name: "Oestrogel",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "gel",
     defaultDose: "1–3 pumps (0.75–2.25mg)",
     defaultScheduleType: "daily",
@@ -35,7 +35,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   },
   {
     name: "Sandrena",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "gel",
     defaultDose: "0.5–1.5mg sachet",
     defaultScheduleType: "daily",
@@ -45,9 +45,9 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   },
   {
     name: "EstroGel",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "gel",
-    defaultDose: "1.25g (0.75mg oestradiol)",
+    defaultDose: "1.25g (0.75mg estradiol)",
     defaultScheduleType: "daily",
     defaultTimesOfDay: ["08:00"],
     region: ["US", "CA"],
@@ -55,7 +55,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   },
   {
     name: "Divigel",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "gel",
     defaultDose: "0.25–1.0g sachet",
     defaultScheduleType: "daily",
@@ -66,7 +66,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   // ── Oestrogen — Sprays ──────────────────────────────────────────────────────
   {
     name: "Lenzetto",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "spray",
     defaultDose: "1–3 sprays (0.52mg per spray)",
     defaultScheduleType: "daily",
@@ -77,7 +77,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   },
   {
     name: "Evamist",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "spray",
     defaultDose: "1–3 sprays",
     defaultScheduleType: "daily",
@@ -87,7 +87,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   // ── Oestrogen — Patches ─────────────────────────────────────────────────────
   {
     name: "Evorel 25 / 50 / 75 / 100",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "patch",
     defaultDose: "50mcg/24hr",
     defaultScheduleType: "days_of_week",
@@ -98,7 +98,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   },
   {
     name: "Estradot 25 / 37.5 / 50 / 75 / 100",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "patch",
     defaultDose: "50mcg/24hr",
     defaultScheduleType: "days_of_week",
@@ -108,7 +108,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   },
   {
     name: "FemSeven 50 / 75 / 100",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "patch",
     defaultDose: "50mcg/24hr",
     defaultScheduleType: "every_n_days",
@@ -119,7 +119,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   },
   {
     name: "Vivelle-Dot",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "patch",
     defaultDose: "0.05mg/day",
     defaultScheduleType: "days_of_week",
@@ -129,7 +129,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   },
   {
     name: "Climara",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "patch",
     defaultDose: "0.025–0.1mg/day",
     defaultScheduleType: "every_n_days",
@@ -140,7 +140,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   // ── Oestrogen — Tablets ─────────────────────────────────────────────────────
   {
     name: "Elleste Solo 1mg / 2mg",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "tablet",
     defaultDose: "1mg",
     defaultScheduleType: "daily",
@@ -149,7 +149,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   },
   {
     name: "Estrace",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "tablet",
     defaultDose: "1–2mg",
     defaultScheduleType: "daily",
@@ -159,7 +159,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   // ── Progesterone ────────────────────────────────────────────────────────────
   {
     name: "Utrogestan 100mg / 200mg",
-    activeIngredient: "Micronised Progesterone",
+    activeIngredient: "Micronized Progesterone",
     deliveryMethod: "capsule",
     defaultDose: "200mg",
     defaultScheduleType: "cycle_days",
@@ -172,7 +172,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   },
   {
     name: "Prometrium 100mg / 200mg",
-    activeIngredient: "Micronised Progesterone",
+    activeIngredient: "Micronized Progesterone",
     deliveryMethod: "capsule",
     defaultDose: "200mg",
     defaultScheduleType: "cycle_days",
@@ -196,18 +196,18 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   // ── Combined HRT ────────────────────────────────────────────────────────────
   {
     name: "Evorel Sequi",
-    activeIngredient: "Oestradiol + Norethisterone",
+    activeIngredient: "Estradiol + Norethisterone",
     deliveryMethod: "patch",
-    defaultDose: "Sequential (oestrogen phase then combined phase)",
+    defaultDose: "Sequential (estrogen phase then combined phase)",
     defaultScheduleType: "every_n_days",
     defaultIntervalDays: 3.5,
     region: ["UK"],
     category: "combined",
-    notes: "Sequential combined HRT. First 8 patches are oestrogen-only, last 8 are combined.",
+    notes: "Sequential combined HRT. First 8 patches are estrogen-only, last 8 are combined.",
   },
   {
     name: "Femoston 1/10 or 2/10",
-    activeIngredient: "Oestradiol + Dydrogesterone",
+    activeIngredient: "Estradiol + Dydrogesterone",
     deliveryMethod: "tablet",
     defaultDose: "Sequential",
     defaultScheduleType: "daily",
@@ -217,14 +217,14 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   // ── Vaginal Oestrogen ───────────────────────────────────────────────────────
   {
     name: "Vagifem 10mcg",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "vaginal_pessary",
     defaultDose: "10mcg",
     defaultScheduleType: "days_of_week",
     defaultDaysOfWeek: [0, 3],
     region: ["UK", "US", "AU", "CA"],
     category: "oestrogen",
-    notes: "Local vaginal oestrogen. Minimal systemic absorption. Safe for most women.",
+    notes: "Local vaginal estrogen. Minimal systemic absorption. Safe for most women.",
   },
   {
     name: "Ovestin Cream",
@@ -238,7 +238,7 @@ export const HRT_MEDICATION_TEMPLATES: MedicationTemplate[] = [
   },
   {
     name: "Premarin Vaginal Cream",
-    activeIngredient: "Conjugated Oestrogens",
+    activeIngredient: "Conjugated Estrogens",
     deliveryMethod: "vaginal_cream",
     defaultDose: "0.5–2g",
     defaultScheduleType: "days_of_week",
@@ -384,7 +384,7 @@ export function searchMedicationTemplates(query: string): MedicationTemplate[] {
 
 // ── Category labels ───────────────────────────────────────────────────────────
 export const MEDICATION_CATEGORY_LABELS: Record<MedicationTemplate["category"], string> = {
-  oestrogen:     "Oestrogen",
+  oestrogen:     "Estrogen",
   progesterone:  "Progesterone",
   combined:      "Combined HRT",
   testosterone:  "Testosterone",

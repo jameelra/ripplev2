@@ -224,7 +224,7 @@ export default function HRTMedicationForm({ initial, onSave, onCancel }: HRTMedi
                 <Input
                   value={activeIngredient}
                   onChange={(e) => setActiveIngredient(e.target.value)}
-                  placeholder="Active ingredient (e.g. Oestradiol)"
+                  placeholder="Active ingredient (e.g. Estradiol)"
                   className="bg-white border-[#c8d8d0] text-[#1a2b22] text-xs"
                 />
               </div>

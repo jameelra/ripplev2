@@ -36,7 +36,7 @@ function makeMedication(overrides: Partial<HRTMedication> = {}): HRTMedication {
   return {
     id: "med_test_001",
     name: "Oestrogel",
-    activeIngredient: "Oestradiol",
+    activeIngredient: "Estradiol",
     deliveryMethod: "gel",
     dose: "1.5mg",
     scheduleType: "daily",

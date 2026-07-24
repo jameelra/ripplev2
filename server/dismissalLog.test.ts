@@ -24,7 +24,7 @@ describe("dismissal log — input validation", () => {
   it("requires a response", () => {
     const error = validateEntryInput({
       date: "2026-01-01",
-      clinicName: "City Medical Centre",
+      clinicName: "City Medical Center",
       clinicianName: "",
       symptomsRaw: "",
       response: "   ",
@@ -36,7 +36,7 @@ describe("dismissal log — input validation", () => {
   it("passes when clinic name and response are present", () => {
     const error = validateEntryInput({
       date: "2026-01-01",
-      clinicName: "City Medical Centre",
+      clinicName: "City Medical Center",
       clinicianName: "",
       symptomsRaw: "",
       response: "Said it's just stress",
@@ -64,7 +64,7 @@ describe("dismissal log — entry construction", () => {
   it("trims text fields and parses symptoms from raw input", () => {
     const entry = buildEntryFromInput({
       date: "2026-03-14",
-      clinicName: "  City Medical Centre  ",
+      clinicName: "  City Medical Center  ",
       clinicianName: " Dr. Smith ",
       symptomsRaw: "hot flashes, brain fog",
       response: "  Said I'm too young for perimenopause  ",
@@ -72,7 +72,7 @@ describe("dismissal log — entry construction", () => {
     });
     expect(entry).toEqual({
       date: "2026-03-14",
-      clinicName: "City Medical Centre",
+      clinicName: "City Medical Center",
       clinicianName: "Dr. Smith",
       symptomsReported: ["hot flashes", "brain fog"],
       response: "Said I'm too young for perimenopause",
@@ -95,7 +95,7 @@ describe("dismissal log — summary generation", () => {
   const entries: DismissalLogEntry[] = [
     {
       date: "2026-01-05",
-      clinicName: "City Medical Centre",
+      clinicName: "City Medical Center",
       clinicianName: "Dr. Smith",
       symptomsReported: ["hot flashes", "brain fog"],
       response: "Said it's just stress",
@@ -114,7 +114,7 @@ describe("dismissal log — summary generation", () => {
   it("includes every entry, in the order provided, with status and response", () => {
     const summary = buildDismissalLogSummary(entries, new Date("2026-07-18T00:00:00Z"));
     expect(summary).toContain("2 recorded instances");
-    expect(summary).toContain("January 5, 2026 — City Medical Centre (Dr. Smith)");
+    expect(summary).toContain("January 5, 2026 — City Medical Center (Dr. Smith)");
     expect(summary).toContain("Status: Unresolved");
     expect(summary).toContain("Symptoms reported: hot flashes, brain fog");
     expect(summary).toContain('Response: "Said it\'s just stress"');

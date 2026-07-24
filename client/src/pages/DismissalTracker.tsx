@@ -88,7 +88,7 @@ function DismissalForm({
         <div className="space-y-1">
           <label className="text-[10px] font-mono uppercase tracking-widest text-[#6b7a72] font-bold">Clinic / Practice Name *</label>
           <Input
-            placeholder="e.g. City Medical Centre"
+            placeholder="e.g. City Medical Center"
             value={clinicName}
             onChange={(e) => setClinicName(e.target.value)}
             className="bg-[#f5f0ea] border-[#e0d5c8] text-[#1a2b22]"
@@ -412,7 +412,7 @@ export default function DismissalTracker() {
           <div className="space-y-1">
             <p className="font-serif text-base font-bold text-[#1a2b22]">No dismissal records yet</p>
             <p className="text-xs text-[#6b7a72] max-w-sm mx-auto leading-relaxed">
-              If a doctor has dismissed or minimised your symptoms, log it here. Your records will be included in your Evidence Engine brief.
+              If a doctor has dismissed or minimized your symptoms, log it here. Your records will be included in your Evidence Engine brief.
             </p>
           </div>
           <Button

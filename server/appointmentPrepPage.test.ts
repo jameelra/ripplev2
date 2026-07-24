@@ -111,7 +111,7 @@ describe("Appointment Prep page — static page markup", () => {
   it("does not claim certainty or endorsement it can't back up", () => {
     const normalized = html.replace(/\s+/g, " ");
     expect(normalized).toContain(
-      "Ripple is not endorsed by, recommended by, or affiliated with NICE or any other clinical organisation"
+      "Ripple is not endorsed by, recommended by, or affiliated with NICE or any other clinical organization"
     );
   });
 

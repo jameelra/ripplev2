@@ -85,7 +85,7 @@ function refreshLog(): void {
   }
 
   logSection.classList.remove("hidden");
-  logSummary.textContent = `${entries.length} recorded instance${entries.length !== 1 ? "s" : ""} of symptoms being dismissed or minimised.`;
+  logSummary.textContent = `${entries.length} recorded instance${entries.length !== 1 ? "s" : ""} of symptoms being dismissed or minimized.`;
   renderEntries();
   printSummary.textContent = buildDismissalLogSummary(entries);
 }

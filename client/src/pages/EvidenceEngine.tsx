@@ -550,7 +550,7 @@ export default function EvidenceEngine() {
                 <WikiResourceLink
                   href={WIKI_PAGES.providers}
                   label="Full Provider Directory on Menopause Wiki"
-                  description="Telehealth providers, academic centres, and more by country"
+                  description="Telehealth providers, academic centers, and more by country"
                   icon={BookOpen}
                   variant="treatment"
                 />

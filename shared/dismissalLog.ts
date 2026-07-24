@@ -78,7 +78,7 @@ export function buildDismissalLogSummary(entries: DismissalLogEntry[], generated
     "DISMISSAL LOG",
     `Generated ${generatedLabel} · ripplehealth.app/tools/dismissal-tracker`,
     "",
-    `${entries.length} recorded instance${entries.length !== 1 ? "s" : ""} of symptoms being dismissed or minimised`,
+    `${entries.length} recorded instance${entries.length !== 1 ? "s" : ""} of symptoms being dismissed or minimized`,
     "",
   ];
 

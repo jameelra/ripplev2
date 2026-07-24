@@ -236,7 +236,7 @@ export default function Resources() {
         <ResourceLink
           href={WIKI_PAGES.providers}
           label="Full Provider Directory on Menopause Wiki"
-          description="More providers, academic centres, and country-specific resources"
+          description="More providers, academic centers, and country-specific resources"
           icon={BookOpen}
           variant="wiki"
         />
