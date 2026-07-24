@@ -4,7 +4,7 @@
 // Do not hardcode a dollar amount, "/mo", or "/yr" string outside of here —
 // see server/pricingDrift.test.ts, which fails the build if one reappears.
 
-export type TierId = "Pro" | "Premier" | "HRT_Addon";
+export type TierId = "Pro" | "Premier";
 export type BillingCycle = "monthly" | "annual";
 
 export interface TierPricing {
@@ -17,27 +17,22 @@ export interface TierPricing {
 }
 
 // ─── Canonical amounts ──────────────────────────────────────────────────────
-// These are Ripple's own prices. They are independent of whatever Price
-// objects Stripe happens to have configured — see server/billing/products.ts
-// for the Stripe reconciliation, which is reported, not auto-corrected.
+// These are Ripple's own prices (USD, North America market). They are
+// independent of whatever Price objects Stripe happens to have configured —
+// see server/billing/products.ts for the Stripe reconciliation, which is
+// reported, not auto-corrected. Annual = 10x monthly (2 months free).
 export const PRICING: Record<TierId, TierPricing> = {
   Pro: {
     id: "Pro",
     name: "Pro",
-    monthlyCents: 799,
+    monthlyCents: 599,
     annualCents: 5999,
   },
   Premier: {
     id: "Premier",
     name: "Premier",
-    monthlyCents: 1299,
+    monthlyCents: 999,
     annualCents: 9999,
-  },
-  HRT_Addon: {
-    id: "HRT_Addon",
-    name: "HRT Add-on",
-    monthlyCents: 499,
-    annualCents: 3999,
   },
 };
 
@@ -68,16 +63,6 @@ export function annualSavingsPercent(tier: TierId): number {
 /** The largest annual savings % across all paid tiers — for a single "Save up to N%" badge. */
 export function maxAnnualSavingsPercent(): number {
   return Math.max(...TIER_IDS.map(annualSavingsPercent));
-}
-
-/** Sum of true monthly (no-discount) prices, in cents, across the given tiers. */
-export function sumTrueMonthlyCents(tiers: TierId[]): number {
-  return tiers.reduce((sum, t) => sum + trueMonthlyCents(t), 0);
-}
-
-/** Sum of annual-effective monthly prices, in cents, across the given tiers. */
-export function sumAnnualEffectiveMonthlyCents(tiers: TierId[]): number {
-  return tiers.reduce((sum, t) => sum + annualEffectiveMonthlyCents(t), 0);
 }
 
 // ─── Display helpers ─────────────────────────────────────────────────────────

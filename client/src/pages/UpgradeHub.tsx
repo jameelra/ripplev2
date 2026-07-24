@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  CheckCircle2, Crown, Sparkles, Pill, Lock,
+  CheckCircle2, Crown, Sparkles, Lock,
   ShieldCheck, Info, ChevronDown, ChevronUp, ExternalLink,
   Loader2, AlertCircle
 } from "lucide-react";
@@ -13,18 +13,14 @@ import { toast } from "sonner";
 import {
   type TierId,
   trueMonthlyCents,
-  annualTotalCents,
   annualEffectiveMonthlyCents,
   maxAnnualSavingsPercent,
-  displayAnnualEffectiveMonthly,
   displayAnnualTotal,
-  sumTrueMonthlyCents,
-  sumAnnualEffectiveMonthlyCents,
   centsToDisplay,
 } from "../../../shared/pricing";
 
 type BillingCycle = "monthly" | "annual";
-type PlanId = "Pro" | "Premier" | "HRT_Addon";
+type PlanId = "Pro" | "Premier";
 
 const PLANS = [
   {
@@ -108,7 +104,6 @@ export default function UpgradeHub() {
   const { licenseTier } = useVaultStore();
   const { user, openAuthModal } = useAuth();
   const [billing, setBilling] = useState<BillingCycle>("annual");
-  const [showAddon, setShowAddon] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
@@ -164,41 +159,12 @@ export default function UpgradeHub() {
     createCheckout.mutate({ planId, billingCycle: billing });
   };
 
-  const handleAddonSelect = async (cycle: BillingCycle) => {
-    if (!paymentsEnabled) {
-      showComingSoon();
-      return;
-    }
-    if (!user) {
-      openAuthModal();
-      return;
-    }
-    setLoadingPlan("HRT_Addon" + cycle);
-    createCheckout.mutate({ planId: "HRT_Addon", billingCycle: cycle });
-  };
-
   const hasActiveSubscription = subscriptionData && subscriptionData.activePlans.length > 0;
-
-  // Value-tip comparison, recomputed from shared/pricing.ts for whichever
-  // billing cycle is currently selected — this must always match the prices
-  // shown on the cards above it.
-  const valueTipComboCents = billing === "annual"
-    ? sumAnnualEffectiveMonthlyCents(["Pro", "HRT_Addon"])
-    : sumTrueMonthlyCents(["Pro", "HRT_Addon"]);
-  const valueTipPremierCents = billing === "annual"
-    ? annualEffectiveMonthlyCents("Premier")
-    : trueMonthlyCents("Premier");
-  const valueTipPeriod = billing === "annual" ? "/mo billed annually" : "/mo";
-  const valueTipDiffCents = valueTipPremierCents - valueTipComboCents;
-  const valueTipVerdict = valueTipDiffCents <= 0
-    ? "Premier includes everything in both, for the same price or less."
-    : `Premier costs ${centsToDisplay(valueTipDiffCents)}${valueTipPeriod} more than Pro + HRT Add-on, but includes everything in both.`;
 
   const faqs = [
     { q: "Will I lose my data if I downgrade?", a: "Never. Your encrypted health data belongs to you and is always accessible, regardless of your plan. Downgrading removes access to premium features, not your own data." },
     { q: "Is there really a free trial?", a: "Yes — Pro and Premier include a 7-day free trial. No credit card required to start. You will only be charged if you choose to continue after the trial." },
-    { q: "Why is the HRT Tracker in Premier and not Pro?", a: `The HRT Tracker is a sophisticated feature (80+ medications, patch countdowns, treatment response analysis) that took significant clinical research to build. It is also available as a standalone add-on for ${displayAnnualEffectiveMonthly("HRT_Addon")} if you just want the medication tracking.` },
-    { q: "What is the HRT Add-on?", a: `The HRT Add-on gives you just the HRT Tracker without the full Premier tier. It is designed for women who already use another symptom tracker and just want Ripple's medication tracking. At ${displayAnnualEffectiveMonthly("HRT_Addon")}, it is the most affordable dedicated HRT tracker on the market.` },
+    { q: "Why is the HRT Tracker in Premier and not Pro?", a: "The HRT Tracker is a sophisticated feature (80+ medications, patch countdowns, treatment response analysis) that took significant clinical research to build — it's part of what makes Premier the complete clinical companion." },
     { q: "How do I cancel?", a: "Click 'Manage Subscription' below to access the Stripe customer portal, where you can cancel, change plans, or update payment details at any time." },
     { q: "Is this app a medical device?", a: "No. Ripple is a general wellness tracking application for informational purposes only. It is not a medical device and does not provide medical diagnoses or treatment recommendations." },
   ];
@@ -339,92 +305,6 @@ export default function UpgradeHub() {
             </motion.div>
           );
         })}
-      </div>
-
-      {/* HRT Add-on */}
-      <div className="space-y-2">
-        <button
-          onClick={() => setShowAddon(!showAddon)}
-          className="w-full flex items-center justify-between ripple-card p-4 hover:bg-[#f5f0ea] transition-colors"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-purple-50 rounded-xl flex items-center justify-center shrink-0">
-              <Pill className="w-4 h-4 text-purple-700" />
-            </div>
-            <div className="text-left">
-              <p className="text-sm font-bold text-[#1a2b22]">HRT Add-on</p>
-              <p className="text-[10px] text-[#9a9490]">
-                Just the medication tracker · {billing === "annual" ? `${displayAnnualEffectiveMonthly("HRT_Addon")} (${displayAnnualTotal("HRT_Addon")})` : `${centsToDisplay(trueMonthlyCents("HRT_Addon"))}/mo`}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-[9px] font-mono font-bold bg-purple-50 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-full">Add-on</span>
-            {showAddon ? <ChevronUp className="w-4 h-4 text-[#9a9490]" /> : <ChevronDown className="w-4 h-4 text-[#9a9490]" />}
-          </div>
-        </button>
-
-        {showAddon && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            className="ripple-card p-5 space-y-4 border-purple-200 bg-purple-50/20"
-          >
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="font-serif text-base font-bold text-[#1a2b22]">HRT Tracker Add-on</p>
-                <p className="text-[10px] text-[#6b7a72] mt-0.5">For women who already have a symptom tracker</p>
-              </div>
-              <div className="text-right">
-                {billing === "annual" ? (
-                  <>
-                    <p className="font-serif text-xl font-bold text-[#1a2b22]">
-                      {centsToDisplay(annualEffectiveMonthlyCents("HRT_Addon"))}<span className="text-xs font-sans text-[#6b7a72]">/mo billed annually</span>
-                    </p>
-                    <p className="text-[9px] text-[#9a9490] font-mono">{displayAnnualTotal("HRT_Addon")}</p>
-                    <p className="text-[9px] text-[#9a9490] font-mono">{centsToDisplay(trueMonthlyCents("HRT_Addon"))}/mo if billed monthly</p>
-                  </>
-                ) : (
-                  <p className="font-serif text-xl font-bold text-[#1a2b22]">
-                    {centsToDisplay(trueMonthlyCents("HRT_Addon"))}<span className="text-xs font-sans text-[#6b7a72]">/mo</span>
-                  </p>
-                )}
-              </div>
-            </div>
-            <p className="text-xs text-[#4a4a42] leading-relaxed">
-              Full HRT Tracker with 80+ medications, dose logging, patch change countdowns, application site rotation, adherence tracking, and treatment response analysis.
-            </p>
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-start gap-2">
-              <Info className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
-              <p className="text-[10px] text-amber-800 leading-relaxed">
-                <strong>Value tip:</strong> Pro + HRT Add-on = {centsToDisplay(valueTipComboCents)}{valueTipPeriod}. Premier = {centsToDisplay(valueTipPremierCents)}{valueTipPeriod}. {valueTipVerdict}
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <Button
-                onClick={() => handleAddonSelect("monthly")}
-                disabled={loadingPlan === "HRT_Addonmonthly"}
-                variant="outline"
-                className="flex-1 text-xs font-mono border-purple-200 text-purple-700 hover:bg-purple-50"
-              >
-                {loadingPlan === "HRT_Addonmonthly" ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : !paymentsEnabled ? "Coming Soon" : `${centsToDisplay(trueMonthlyCents("HRT_Addon"))}/mo`}
-              </Button>
-              <Button
-                onClick={() => handleAddonSelect("annual")}
-                disabled={loadingPlan === "HRT_Addonannual"}
-                className="flex-1 bg-purple-700 hover:bg-purple-800 text-white font-mono text-xs font-bold rounded-xl"
-              >
-                {loadingPlan === "HRT_Addonannual" ? (
-                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                ) : !paymentsEnabled ? (
-                  "Coming Soon"
-                ) : (
-                  <><Pill className="w-3.5 h-3.5 mr-1.5" />{displayAnnualTotal("HRT_Addon")} — Best Value</>
-                )}
-              </Button>
-            </div>
-          </motion.div>
-        )}
       </div>
 
       {/* Payments status */}

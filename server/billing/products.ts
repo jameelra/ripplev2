@@ -36,8 +36,6 @@ export const PRICES: PriceConfig[] = [
   priceConfig("Pro", "annual", process.env.STRIPE_PRICE_PRO_ANNUAL, "placeholder_price_pro_annual", "Pro"),
   priceConfig("Premier", "monthly", process.env.STRIPE_PRICE_PREMIER_MONTHLY, "placeholder_price_premier_monthly", "Premier"),
   priceConfig("Premier", "annual", process.env.STRIPE_PRICE_PREMIER_ANNUAL, "placeholder_price_premier_annual", "Premier"),
-  priceConfig("HRT_Addon", "monthly", process.env.STRIPE_PRICE_HRT_ADDON_MONTHLY, "placeholder_price_hrt_monthly", "Pro"),
-  priceConfig("HRT_Addon", "annual", process.env.STRIPE_PRICE_HRT_ADDON_ANNUAL, "placeholder_price_hrt_annual", "Pro"),
 ];
 
 export function getPriceConfig(planId: PlanId, billingCycle: BillingCycle) {

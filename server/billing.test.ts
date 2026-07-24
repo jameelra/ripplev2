@@ -45,16 +45,16 @@ function createAuthContext(): { ctx: TrpcContext } {
 // ─── Billing Router Tests ─────────────────────────────────────────────────────
 
 describe("billing.getPlans", () => {
-  it("returns all 6 price configurations", async () => {
+  it("returns all 4 price configurations — no HRT Add-on", async () => {
     const { ctx } = createAuthContext();
     const caller = appRouter.createCaller(ctx);
     const plans = await caller.billing.getPlans();
 
-    expect(plans).toHaveLength(6);
+    expect(plans).toHaveLength(4);
     const planIds = plans.map((p) => p.planId);
     expect(planIds).toContain("Pro");
     expect(planIds).toContain("Premier");
-    expect(planIds).toContain("HRT_Addon");
+    expect(planIds).not.toContain("HRT_Addon");
   });
 
   it("includes both monthly and annual options for each plan", async () => {
@@ -88,14 +88,6 @@ describe("billing.getPlans", () => {
     expect(premierAnnual?.displayPrice).toBe(displayAnnualTotal("Premier"));
   });
 
-  it("HRT Add-on annual price matches shared/pricing.ts", async () => {
-    const { ctx } = createAuthContext();
-    const caller = appRouter.createCaller(ctx);
-    const plans = await caller.billing.getPlans();
-
-    const hrtAnnual = plans.find((p) => p.planId === "HRT_Addon" && p.billingCycle === "annual");
-    expect(hrtAnnual?.amount).toBe(annualTotalCents("HRT_Addon"));
-  });
 });
 
 describe("billing.getSubscription", () => {
