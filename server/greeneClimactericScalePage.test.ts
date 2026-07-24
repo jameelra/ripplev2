@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import fs from "fs";
 import path from "path";
-import { GREENE_ITEMS, GREENE_RESPONSE_OPTIONS } from "../shared/greeneClimactericScale";
+import { GREENE_ITEMS, GREENE_RESPONSE_OPTIONS, GREENE_SUBSCALE_MAX } from "../shared/greeneClimactericScale";
 
 // Safety net against transcription drift: the static HTML page is hand-authored
 // (deliberately, so the 21 items are visible to crawlers without JS), so this
@@ -81,5 +81,20 @@ describe("Greene Climacteric Scale — static page markup", () => {
   it("cross-links to the Balance comparison pages", () => {
     expect(html).toContain("https://ripplehealth.app/tools/balance-alternative/");
     expect(html).toContain("https://ripplehealth.app/tools/ripple-vs-balance/");
+  });
+
+  // Regression coverage for a real bug: this page's hand-written prose stated
+  // "a total score from 0 to 63" while the scoring module's actual total
+  // (items 1-20 only, sexual reported separately) maxes out at 60. Extracts
+  // the number from the prose so future edits to either side get caught,
+  // rather than re-hardcoding 60 here and letting the two drift again.
+  it("states the total-score range consistently with GREENE_SUBSCALE_MAX.total everywhere it appears", () => {
+    const matches = [...html.matchAll(/total score from 0 to (\d+)/g)];
+    expect(matches.length, "expected to find at least one 'total score from 0 to N' statement").toBeGreaterThan(0);
+    for (const match of matches) {
+      expect(Number(match[1])).toBe(GREENE_SUBSCALE_MAX.total);
+    }
+    // Also confirm the old, wrong figure isn't lingering anywhere on the page.
+    expect(html).not.toContain("total score from 0 to 63");
   });
 });

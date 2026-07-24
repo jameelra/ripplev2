@@ -1,7 +1,24 @@
 // ─── Ripple v2 Shared Types ───────────────────────────────────────────────────
 
+import type { GreeneResponseValue } from "./greeneClimactericScale";
+
 export type SeverityScore = 0 | 1 | 2 | 3; // 0: None, 1: Mild, 2: Moderate, 3: Severe
 export type LicenseTier = "Free" | "Pro" | "Premier";
+
+// ─── Greene Climacteric Scale History (in-app, validated 21-item instrument) ──
+// One entry per completed questionnaire. Never overwritten — every completion
+// is a new historical row, encrypted client-side and synced to the server as
+// an opaque vault blob (server never sees plaintext scores or responses).
+export interface GreeneScoreEntry {
+  id: string;
+  takenAt: string; // ISO timestamp
+  total: number; // 0-63 (items 1-20)
+  psychological: number; // 0-33
+  somatic: number; // 0-21
+  vasomotor: number; // 0-6
+  sexual: number; // 0-3 (item 21, standalone)
+  responses: Record<number, GreeneResponseValue>; // all 21 raw answers, for subscale recompute
+}
 
 export interface SymptomLog {
   hotFlashes: SeverityScore;
