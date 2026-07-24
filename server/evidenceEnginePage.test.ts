@@ -104,8 +104,8 @@ describe("Evidence Engine page — static page markup", () => {
     expect(html).toContain("Greene JG. Constructing a Standard Climacteric Scale");
   });
 
-  it("cites the 2022 NAMS statement as published, but doesn't call the organisation NAMS in the present tense", () => {
-    expect(html).toContain("published under the organisation's former name, NAMS, in 2022");
+  it("cites the 2022 NAMS statement as published, but doesn't call the organization NAMS in the present tense", () => {
+    expect(html).toContain("published under the organization's former name, NAMS, in 2022");
     // The present-tense references to the org elsewhere on the page should
     // use its current name.
     const currentTenseMentions = html.match(/current guidance from ([^.]+)\./g) ?? [];

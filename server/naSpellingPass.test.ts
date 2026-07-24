@@ -11,9 +11,12 @@ import { HRT_MEDICATION_TEMPLATES, MEDICATION_CATEGORY_LABELS } from "../client/
 //     Kravitz/Klinge-adjacent citation text quoting "Oestrogen")
 //   - the NG23 citation and any guideline paraphrase
 //   - full reference-list <li> citation entries on the static tool pages
-//   - two ambiguous sentences that both name a citation AND happen to use
-//     "organisation" in a parenthetical about NAMS's rename — left alone
-//     rather than guessed at
+//     ("The organisation is now named The Menopause Society.") — a
+//     formatted academic reference with journal/year/DOI, left untouched.
+//     The *ambiguous* case flagged in an earlier revision of this pass —
+//     "(published under the organisation's former name, NAMS...)" — was
+//     confirmed to be our own prose, not citation content, and is now fixed
+//     to "organization's" (see the test below).
 //   - internal, non-user-facing content (todo.md) and code comments/identifiers
 //     (the "oestrogen" HRT category discriminant used in === comparisons and
 //     object-key lookups, which is data-schema, not copy)
@@ -78,11 +81,13 @@ describe("NA spelling pass — public tool pages", () => {
     }
   });
 
-  it("leaves the two ambiguous 'organisation's former name' sentences (adjacent to a NAMS citation paraphrase) untouched", () => {
+  it("fixes the 'organisation's former name' parenthetical to 'organization's' — confirmed to be our own prose, not citation content", () => {
     const evidenceEngine = readSource("client/tools/evidence-engine/index.html");
-    expect(evidenceEngine).toContain("published under the organisation's former name, NAMS, in 2022");
+    expect(evidenceEngine).toContain("published under the organization's former name, NAMS, in 2022");
+    expect(evidenceEngine).not.toMatch(/organisation's former name/);
     const hrtTracker = readSource("client/tools/hrt-tracker/index.html");
-    expect(hrtTracker).toContain("published under the organisation's former name, NAMS)");
+    expect(hrtTracker).toContain("published under the organization's former name, NAMS)");
+    expect(hrtTracker).not.toMatch(/organisation's former name/);
   });
 
   it("leaves the full NAMS 2022 reference-list citation entries untouched", () => {
