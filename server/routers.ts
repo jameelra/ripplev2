@@ -541,10 +541,6 @@ The following guidelines support evaluation of the symptoms described in this re
 
 - **NAMS (North American Menopause Society) 2023 Position Statement:** Hormone therapy remains the most effective treatment for vasomotor symptoms and should be considered in symptomatic women. Perimenopause diagnosis should be based on clinical presentation, not solely on hormone levels.
 
-- **BMS (British Menopause Society) Guidelines:** Symptoms of perimenopause can begin 4–10 years before the final menstrual period. Cognitive symptoms, joint pain, and sleep disruption are recognised features of the perimenopausal transition.
-
-- **Endocrine Society Clinical Practice Guideline:** Estrogen fluctuations during perimenopause are a neurological reality, not a psychosomatic perception. Vasomotor symptoms correlate with measurable changes in core body temperature regulation.
-
 - **Greene JG. Constructing a Standard Climacteric Scale. Maturitas. 1998;29(1):25–31.** A validated 21-item instrument for measuring menopausal symptom severity across psychological, somatic, vasomotor, and sexual domains. Widely used in clinical research and practice.
 
 ---

@@ -172,7 +172,7 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
         <p className="text-[10px] font-mono uppercase tracking-widest text-[#c07060] font-bold">1 of 3</p>
         <h1 className="font-serif text-2xl font-bold text-[#1a2b22]">Your body is telling you something.</h1>
         <p className="text-sm text-[#6b7a72] leading-relaxed max-w-sm mx-auto">
-          Ripple helps you track perimenopause symptoms, understand your biology, and walk into GP appointments with clinical-grade evidence — not just a feeling.
+          Ripple helps you track perimenopause symptoms, understand your biology, and walk into doctor's appointments with clinical-grade evidence — not just a feeling.
         </p>
       </div>
       <div className="space-y-2.5 text-left">
@@ -252,7 +252,7 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
           { days: "Day 1",  icon: "📝", title: "Start logging",              desc: "Your first symptom log takes 60 seconds" },
           { days: "Day 7",  icon: "📈", title: "Patterns emerge",            desc: "Your PSS score and trend charts come alive" },
           { days: "Day 14", icon: "⚡",    title: "Triggers identified",        desc: "Discover what's making your symptoms worse" },
-          { days: "Day 30", icon: "🏥", title: "GP brief ready",             desc: "Walk in with a clinical-grade 8-section evidence report" },
+          { days: "Day 30", icon: "🏥", title: "Doctor brief ready",         desc: "Walk in with a clinical-grade 8-section evidence report" },
         ].map(({ days, icon, title, desc }) => (
           <div key={days} className="flex items-center gap-4 bg-[#f5f0ea] rounded-xl p-3.5 text-left">
             <div className="text-center shrink-0 w-10">
@@ -285,13 +285,13 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
         </p>
         <h1 className="font-serif text-3xl font-bold text-[#1a2b22]">Welcome to Ripple</h1>
         <p className="text-sm text-[#6b7a72] max-w-sm mx-auto leading-relaxed">
-          A discreet, privacy-first companion for tracking perimenopause symptoms, understanding your biology, and walking into GP appointments armed with clinical-grade evidence.
+          A discreet, privacy-first companion for tracking perimenopause symptoms, understanding your biology, and walking into doctor's appointments armed with clinical-grade evidence.
         </p>
       </div>
       <div className="grid gap-3 text-left">
         {[
           { icon: ShieldCheck, title: "Zero-Knowledge Privacy", desc: "Your health data is encrypted in your browser. We can never read it." },
-          { icon: Lock, title: "Clinical-Grade Evidence", desc: "Generate GP appointment briefs backed by NAMS and BMS guidelines." },
+          { icon: Lock, title: "Clinical-Grade Evidence", desc: "Generate doctor appointment briefs backed by NAMS guidelines." },
           { icon: CheckCircle2, title: "Your Data, Your Control", desc: "No time limits, no data selling, no third-party sharing." },
         ].map(({ icon: Icon, title, desc }) => (
           <div key={title} className="flex gap-3 items-start bg-[#f5f0ea] border border-[#e0d5c8] rounded-xl p-3.5">

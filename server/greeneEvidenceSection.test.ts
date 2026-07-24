@@ -126,7 +126,7 @@ describe("EvidenceEngine.tsx — print structure (sibling-container rule)", () =
     "utf-8"
   );
 
-  it("keeps the printable GP brief container a sibling of the no-print action-button row, never nested inside it", () => {
+  it("keeps the printable doctor brief container a sibling of the no-print action-button row, never nested inside it", () => {
     // Locate the no-print button row and find its matching closing </div> by
     // depth-counting div open/close tags from that point — the same
     // ancestor-safety property server/appointmentPrepPage.test.ts guards for
@@ -153,11 +153,11 @@ describe("EvidenceEngine.tsx — print structure (sibling-container rule)", () =
 
     const noPrintRegionContent = source.slice(openTagStart, closeIndex);
     // The printable brief content must NOT be inside this region.
-    expect(noPrintRegionContent).not.toContain("Clinical GP Brief");
+    expect(noPrintRegionContent).not.toContain("Clinical Doctor Brief");
     expect(noPrintRegionContent).not.toContain("<Streamdown>");
 
     // And it must actually exist as a sibling shortly after.
     const afterNoPrintRegion = source.slice(closeIndex, closeIndex + 800);
-    expect(afterNoPrintRegion).toContain("Clinical GP Brief");
+    expect(afterNoPrintRegion).toContain("Clinical Doctor Brief");
   });
 });

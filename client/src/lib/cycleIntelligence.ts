@@ -160,7 +160,7 @@ export function computeReproductiveIntelligence(
     irregularityNote = `Your cycles vary by ${variabilityRange} days — significant irregularity. This is a hallmark of perimenopause. Include this in your Evidence Engine brief.`;
   } else {
     cycleVariability = "very_irregular";
-    irregularityNote = `Your cycles vary by more than ${variabilityRange} days — highly irregular. This strongly suggests active perimenopause transition. Discuss with your GP.`;
+    irregularityNote = `Your cycles vary by more than ${variabilityRange} days — highly irregular. This strongly suggests active perimenopause transition. Discuss with your doctor.`;
   }
 
   // Predict next period from last start

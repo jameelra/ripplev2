@@ -148,7 +148,7 @@ function renderPrintSummary(score: GreeneScoreResult, responses: GreeneResponses
     </table>
     <p>
       This is a symptom-severity self-assessment, not a diagnosis. Higher scores indicate more severe or more
-      frequent symptoms. Please discuss these results with a GP or menopause specialist.
+      frequent symptoms. Please discuss these results with a doctor or menopause specialist.
     </p>
   `;
 }

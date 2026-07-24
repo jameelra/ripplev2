@@ -19,7 +19,7 @@ import { DismissalRecord } from "../../../shared/types";
 // does not state one (it previously read "Nearly 40% of women feel
 // misdiagnosed", uncited).
 export const DISMISSAL_TRACKER_RATIONALE =
-  "Many women report being misdiagnosed, dismissed, or told their symptoms are something else entirely during perimenopause. Logging dismissals creates a formal record that is automatically included in your GP appointment brief — giving you documented evidence to counter future dismissal and advocate for appropriate care.";
+  "Many women report being misdiagnosed, dismissed, or told their symptoms are something else entirely during perimenopause. Logging dismissals creates a formal record that is automatically included in your doctor appointment brief — giving you documented evidence to counter future dismissal and advocate for appropriate care.";
 
 // ─── Common dismissal responses (for quick-select) ────────────────────────────
 const COMMON_RESPONSES = [
@@ -432,7 +432,7 @@ export default function DismissalTracker() {
             <CheckCircle2 className="w-5 h-5 text-[#4a8a72] shrink-0" />
             <div>
               <p className="text-sm font-bold text-[#1a2b22]">
-                {dismissals.length} record{dismissals.length !== 1 ? "s" : ""} ready for your GP brief
+                {dismissals.length} record{dismissals.length !== 1 ? "s" : ""} ready for your doctor brief
               </p>
               <p className="text-xs text-[#6b7a72]">
                 Your dismissal history will appear in the Evidence Engine appointment brief.

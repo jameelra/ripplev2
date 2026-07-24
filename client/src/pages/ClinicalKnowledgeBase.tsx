@@ -111,7 +111,7 @@ function EntryDetail({ entry, onClose }: { entry: ClinicalEntry; onClose: () => 
           {([
             { id: "overview" as const, label: "The Science" },
             { id: "treatments" as const, label: `Treatments (${entry.treatments.length})` },
-            { id: "gp_guide" as const, label: "GP Script" },
+            { id: "gp_guide" as const, label: "Doctor Script" },
           ]).map((tab) => (
             <button
               key={tab.id}
@@ -281,7 +281,7 @@ export default function ClinicalKnowledgeBase() {
       <div>
         <h1 className="ripple-section-title">Clinical Knowledge Base</h1>
         <p className="text-sm text-[#6b7a72] mt-1">
-          Original clinical entries — 10 symptoms explained with mechanisms, treatments, and GP scripts
+          Original clinical entries — 10 symptoms explained with mechanisms, treatments, and doctor scripts
         </p>
       </div>
 
@@ -291,7 +291,7 @@ export default function ClinicalKnowledgeBase() {
         <div>
           <p className="text-xs font-bold text-[#1a2b22]">Ripple Original Clinical Content</p>
           <p className="text-[10px] text-[#6b7a72] leading-relaxed">
-            Written in Ripple's own voice, citing NAMS, BMS, NIH, and peer-reviewed literature. Proprietary intellectual property.
+            Written in Ripple's own voice, citing NAMS, NIH, and peer-reviewed literature. Proprietary intellectual property.
           </p>
         </div>
       </div>
@@ -389,7 +389,7 @@ export default function ClinicalKnowledgeBase() {
       <div className="flex items-start gap-2 text-[10px] text-[#9a9490] bg-[#f5f0ea] rounded-xl p-3.5">
         <GraduationCap className="w-3.5 h-3.5 shrink-0 mt-0.5" />
         <p className="leading-relaxed">
-          All clinical content cites peer-reviewed sources from NAMS, BMS, IMS, NIH, and published research. Content is reviewed against current clinical guidelines. For the most up-to-date information, always consult primary sources and your healthcare provider.
+          All clinical content cites peer-reviewed sources from NAMS, IMS, NIH, and published research. Content is reviewed against current clinical guidelines. For the most up-to-date information, always consult primary sources and your healthcare provider.
         </p>
       </div>
     </div>

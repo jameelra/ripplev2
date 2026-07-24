@@ -1,7 +1,7 @@
 // ─── Ripple v2 — Clinical Knowledge Base ─────────────────────────────────────
 // Original content written in Ripple's voice, citing primary clinical sources.
 // All factual claims are grounded in peer-reviewed literature and guidelines
-// from NAMS, BMS, IMS, NIH, and published clinical research.
+// from NAMS, IMS, NIH, and published clinical research.
 //
 // © Ripple v2 — Proprietary clinical content. All rights reserved.
 // This database is original intellectual property of the Ripple application.
@@ -204,12 +204,6 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
 
     citations: [
       {
-        text: "Night sweats bump up the likelihood of waking in the middle of the night by 85 percent and significantly reduce sleep quality and next-day wellbeing.",
-        source: "Midi Health — Menopause Statistics 2024",
-        url: "https://www.joinmidi.com/post/menopause-statistics",
-        year: 2024,
-      },
-      {
         text: "Vasomotor symptoms are associated with objectively measured sleep disruption and reduced slow-wave sleep.",
         source: "Kravitz HM et al., Sleep, 2008",
         url: "https://pubmed.ncbi.nlm.nih.gov/18714782/",
@@ -227,7 +221,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     name: "Brain Fog",
     aliases: ["Cognitive impairment", "Memory lapses", "Word-finding difficulty", "Concentration problems"],
     category: "Cognitive",
-    prevalence: "Affects up to 82% of perimenopausal women",
+    prevalence: "Commonly reported during perimenopause, though estimates of exactly how many women are affected vary widely across studies",
     onsetPhase: "Any phase",
     tagline: "The frustrating cognitive cloudiness of perimenopause — driven by oestrogen's profound role in brain function, not a sign of permanent decline.",
 
@@ -273,12 +267,6 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     ],
 
     citations: [
-      {
-        text: "Memory problems and forgetfulness affect 82% of women, according to a survey of 12,507 women, with peak problems at age 50 to 54.",
-        source: "Midi Health — Menopause Statistics 2024",
-        url: "https://www.joinmidi.com/post/menopause-statistics",
-        year: 2024,
-      },
       {
         text: "Neuroimaging studies show measurable reductions in brain glucose metabolism during the perimenopause transition, correlating with subjective cognitive symptoms.",
         source: "Mosconi L et al., PLOS ONE, 2017",
@@ -535,7 +523,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     name: "Fatigue",
     aliases: ["Perimenopausal fatigue", "Exhaustion", "Low energy", "Adrenal fatigue"],
     category: "Metabolic",
-    prevalence: "Affects up to 85% of perimenopausal women",
+    prevalence: "Commonly reported during perimenopause, though estimates of exactly how many women are affected vary widely across studies",
     onsetPhase: "Any phase",
     tagline: "The bone-deep exhaustion of perimenopause — a convergence of hormonal, metabolic, and sleep-related forces that drain energy at the cellular level.",
 
@@ -587,12 +575,6 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     ],
 
     citations: [
-      {
-        text: "87% of Midi patients report issues with weight gain and body composition changes, and fatigue is among the most commonly reported perimenopausal symptoms.",
-        source: "Midi Health — Menopause Statistics 2024",
-        url: "https://www.joinmidi.com/post/menopause-statistics",
-        year: 2024,
-      },
       {
         text: "Oestrogen regulates mitochondrial biogenesis and function; its decline reduces cellular energy production capacity.",
         source: "Klinge CM, J Mol Endocrinol, 2008",
@@ -682,7 +664,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     name: "Vaginal Atrophy (GSM)",
     aliases: ["Genitourinary syndrome of menopause", "GSM", "Vaginal dryness", "Vulvovaginal atrophy"],
     category: "Genitourinary",
-    prevalence: "Affects up to 45% of post-menopausal women; underreported in perimenopause",
+    prevalence: "Commonly reported in post-menopause and underreported in perimenopause, with prevalence estimates varying across studies",
     onsetPhase: "Late perimenopause",
     tagline: "Unlike vasomotor symptoms, vaginal atrophy does not improve with time — it worsens progressively without treatment, but responds remarkably well to localised oestrogen.",
 
@@ -741,12 +723,6 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
         url: "https://pubmed.ncbi.nlm.nih.gov/25160739/",
         year: 2014,
       },
-      {
-        text: "Vaginal dryness affects 45% of women in postmenopause; it is significantly underreported due to embarrassment.",
-        source: "Midi Health — Menopause Statistics 2024",
-        url: "https://www.joinmidi.com/post/menopause-statistics",
-        year: 2024,
-      },
     ],
 
     relatedSymptoms: ["weight_gain", "fatigue"],
@@ -759,13 +735,13 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     name: "Weight Gain",
     aliases: ["Perimenopausal weight gain", "Belly fat", "Visceral fat", "Metabolic changes", "Meno belly"],
     category: "Metabolic",
-    prevalence: "Affects up to 87% of perimenopausal women",
+    prevalence: "Commonly reported during perimenopause, though estimates of exactly how many women are affected vary widely across studies",
     onsetPhase: "Any phase",
     tagline: "The body composition shift of perimenopause — oestrogen decline redirects fat storage from the hips to the abdomen, and insulin resistance makes it harder to shift.",
 
     mechanism: "Oestrogen plays a central role in regulating fat distribution, insulin sensitivity, and metabolic rate. In the reproductive years, oestrogen directs fat storage to the hips, thighs, and buttocks (subcutaneous fat). As oestrogen declines, fat redistribution shifts toward the abdomen — specifically visceral fat (fat surrounding the organs). Visceral fat is metabolically active in a harmful way: it secretes inflammatory cytokines, worsens insulin resistance, and increases cardiovascular risk. Simultaneously, oestrogen decline reduces insulin sensitivity, making the body less efficient at managing blood glucose. Muscle mass also declines with age (sarcopenia), reducing basal metabolic rate. The result is weight gain even without changes in diet or activity.",
     hormoneInvolved: ["Oestrogen (estradiol)", "Insulin", "Cortisol", "Leptin"],
-    clinicalContext: "Post-menopausal women gain an average of 1.5 pounds per year. The shift to visceral fat distribution is clinically significant: visceral fat is a major risk factor for type 2 diabetes, cardiovascular disease, and certain cancers. A waist circumference above 88cm (35 inches) in women is associated with significantly increased metabolic risk. Addressing perimenopausal weight gain is therefore not merely cosmetic — it is a critical component of long-term health management.",
+    clinicalContext: "Weight gain is common during the menopause transition, though study estimates of the average amount vary. The shift to visceral fat distribution is clinically significant: visceral fat is a major risk factor for type 2 diabetes, cardiovascular disease, and certain cancers. A waist circumference above 88cm (35 inches) in women is associated with significantly increased metabolic risk. Addressing perimenopausal weight gain is therefore not merely cosmetic — it is a critical component of long-term health management.",
 
     whatToTrack: [
       "Waist circumference (more clinically meaningful than total weight)",
@@ -811,12 +787,6 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     ],
 
     citations: [
-      {
-        text: "Post-menopausal women gain an average of 1.5 pounds per year; 87% of Midi patients report issues with weight gain and body composition changes.",
-        source: "Midi Health — Menopause Statistics 2024",
-        url: "https://www.joinmidi.com/post/menopause-statistics",
-        year: 2024,
-      },
       {
         text: "Visceral fat accumulation in post-menopausal women is associated with increased risk of cardiovascular disease, type 2 diabetes, and certain cancers.",
         source: "Menopause Wiki — Weight Gain Section",
