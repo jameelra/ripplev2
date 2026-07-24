@@ -317,7 +317,7 @@ export default function ReverseLookup() {
           <a href={WIKI_PAGES.home} target="_blank" rel="noopener noreferrer" className="text-[#4a8a72] font-semibold hover:underline">
             Menopause Wiki
           </a>
-          , the official knowledge base for r/menopause and r/perimenopause, drawing on NAMS, BMS, and peer-reviewed clinical literature. For educational purposes only — not a substitute for medical advice.
+          , the official knowledge base for r/menopause and r/perimenopause, drawing on NAMS and peer-reviewed clinical literature. For educational purposes only — not a substitute for medical advice.
         </p>
       </div>
     </div>

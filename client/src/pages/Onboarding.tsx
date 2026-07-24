@@ -291,7 +291,7 @@ export default function Onboarding({ onComplete }: { onComplete: () => void }) {
       <div className="grid gap-3 text-left">
         {[
           { icon: ShieldCheck, title: "Zero-Knowledge Privacy", desc: "Your health data is encrypted in your browser. We can never read it." },
-          { icon: Lock, title: "Clinical-Grade Evidence", desc: "Generate GP appointment briefs backed by NAMS and BMS guidelines." },
+          { icon: Lock, title: "Clinical-Grade Evidence", desc: "Generate GP appointment briefs backed by NAMS guidelines." },
           { icon: CheckCircle2, title: "Your Data, Your Control", desc: "No time limits, no data selling, no third-party sharing." },
         ].map(({ icon: Icon, title, desc }) => (
           <div key={title} className="flex gap-3 items-start bg-[#f5f0ea] border border-[#e0d5c8] rounded-xl p-3.5">

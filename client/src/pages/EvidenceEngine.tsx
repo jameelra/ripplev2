@@ -195,7 +195,7 @@ export default function EvidenceEngine() {
           <div className="space-y-1">
             <p className="text-sm font-bold text-[#1a2b22]">What is the Evidence Engine?</p>
             <p className="text-xs text-[#6b7a72] leading-relaxed">
-              It compiles your tracked symptom data into a structured clinical brief — including validated Greene Climacteric Scale scores, biometric averages, and peer-reviewed citations from NAMS, BMS, and the Endocrine Society. Print it or share it with your doctor.
+              It compiles your tracked symptom data into a structured clinical brief — including validated Greene Climacteric Scale scores, biometric averages, and peer-reviewed citations from NAMS. Print it or share it with your doctor.
             </p>
           </div>
         </div>
@@ -236,7 +236,7 @@ export default function EvidenceEngine() {
             <p>✓ Basic symptom summary · ✓ Top 3 symptoms overview</p>
             <p className="font-bold text-[#1a2b22] mt-2">Pro ({displayTrueMonthly("Pro")}) unlocks:</p>
             <p>✓ Full Greene Climacteric Scale scores</p>
-            <p>✓ Peer-reviewed NAMS/BMS citations</p>
+            <p>✓ Peer-reviewed NAMS citations</p>
             <p>✓ Printable clinical GP brief</p>
           </div>
           <Button

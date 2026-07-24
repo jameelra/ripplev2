@@ -291,7 +291,7 @@ export default function ClinicalKnowledgeBase() {
         <div>
           <p className="text-xs font-bold text-[#1a2b22]">Ripple Original Clinical Content</p>
           <p className="text-[10px] text-[#6b7a72] leading-relaxed">
-            Written in Ripple's own voice, citing NAMS, BMS, NIH, and peer-reviewed literature. Proprietary intellectual property.
+            Written in Ripple's own voice, citing NAMS, NIH, and peer-reviewed literature. Proprietary intellectual property.
           </p>
         </div>
       </div>
@@ -389,7 +389,7 @@ export default function ClinicalKnowledgeBase() {
       <div className="flex items-start gap-2 text-[10px] text-[#9a9490] bg-[#f5f0ea] rounded-xl p-3.5">
         <GraduationCap className="w-3.5 h-3.5 shrink-0 mt-0.5" />
         <p className="leading-relaxed">
-          All clinical content cites peer-reviewed sources from NAMS, BMS, IMS, NIH, and published research. Content is reviewed against current clinical guidelines. For the most up-to-date information, always consult primary sources and your healthcare provider.
+          All clinical content cites peer-reviewed sources from NAMS, IMS, NIH, and published research. Content is reviewed against current clinical guidelines. For the most up-to-date information, always consult primary sources and your healthcare provider.
         </p>
       </div>
     </div>
