@@ -149,8 +149,8 @@ describe("HRT Tracker page — static page markup", () => {
     expect(sourceItems.length).toBe(4);
   });
 
-  it("cites the 2022 NAMS statement as published, but doesn't call the organisation NAMS in the present tense", () => {
-    expect(html).toContain("published under the organisation's former name, NAMS");
+  it("cites the 2022 NAMS statement as published, but doesn't call the organization NAMS in the present tense", () => {
+    expect(html).toContain("published under the organization's former name, NAMS");
     const currentTenseMentions = html.match(/current guidance from ([^.]+)\./g) ?? [];
     for (const mention of currentTenseMentions) {
       expect(mention).toContain("The Menopause Society");

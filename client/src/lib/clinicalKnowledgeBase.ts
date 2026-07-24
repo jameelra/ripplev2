@@ -71,10 +71,10 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     category: "Vasomotor",
     prevalence: "Affects up to 80% of perimenopausal women",
     onsetPhase: "Late perimenopause",
-    tagline: "The most recognised symptom of perimenopause — a sudden, intense wave of heat driven by oestrogen-induced changes in the brain's thermostat.",
+    tagline: "The most recognized symptom of perimenopause — a sudden, intense wave of heat driven by estrogen-induced changes in the brain's thermostat.",
 
-    mechanism: "Hot flashes occur when declining oestrogen levels disrupt the hypothalamus — the brain's temperature-regulation centre. As oestrogen fluctuates, the hypothalamic thermoneutral zone (the range within which the body maintains stable temperature) narrows dramatically. Even minor rises in core body temperature trigger an exaggerated heat-dissipation response: blood vessels near the skin dilate, heart rate increases, and sweating begins — producing the characteristic flush. The neurotransmitter kisspeptin-neurokinin B-dynorphin (KNDy) neurons in the hypothalamus are now understood to be the primary drivers of this cascade, which is why the non-hormonal drug fezolinetant (a neurokinin 3 receptor antagonist) can reduce hot flashes without affecting oestrogen.",
-    hormoneInvolved: ["Oestrogen (estradiol)", "Neurokinin B", "Kisspeptin"],
+    mechanism: "Hot flashes occur when declining estrogen levels disrupt the hypothalamus — the brain's temperature-regulation center. As estrogen fluctuates, the hypothalamic thermoneutral zone (the range within which the body maintains stable temperature) narrows dramatically. Even minor rises in core body temperature trigger an exaggerated heat-dissipation response: blood vessels near the skin dilate, heart rate increases, and sweating begins — producing the characteristic flush. The neurotransmitter kisspeptin-neurokinin B-dynorphin (KNDy) neurons in the hypothalamus are now understood to be the primary drivers of this cascade, which is why the non-hormonal drug fezolinetant (a neurokinin 3 receptor antagonist) can reduce hot flashes without affecting estrogen.",
+    hormoneInvolved: ["Estrogen (estradiol)", "Neurokinin B", "Kisspeptin"],
     clinicalContext: "Hot flashes typically begin in perimenopause and can persist for 7–10 years or longer in some women. They are more severe and longer-lasting in women who experience surgical menopause. Frequency ranges from a few episodes per week to more than 10 per day. Severe hot flashes are associated with disrupted sleep, reduced quality of life, and increased cardiovascular risk markers.",
 
     whatToTrack: [
@@ -92,13 +92,13 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
         name: "Menopausal Hormone Therapy (MHT/HRT)",
         type: "Hormonal",
         evidence: "Strong",
-        description: "The most effective treatment for vasomotor symptoms, with 75–90% reduction in frequency and severity. Transdermal oestradiol (patch, gel, spray) is preferred over oral for cardiovascular safety. Micronised progesterone is recommended for women with a uterus.",
+        description: "The most effective treatment for vasomotor symptoms, with 75–90% reduction in frequency and severity. Transdermal estradiol (patch, gel, spray) is preferred over oral for cardiovascular safety. Micronized progesterone is recommended for women with a uterus.",
       },
       {
         name: "Fezolinetant (Veoza)",
         type: "Non-Hormonal",
         evidence: "Strong",
-        description: "A neurokinin 3 receptor antagonist that directly targets the hypothalamic pathway driving hot flashes. FDA-approved in 2023. Reduces frequency by ~60% without affecting oestrogen levels — suitable for women who cannot take hormones.",
+        description: "A neurokinin 3 receptor antagonist that directly targets the hypothalamic pathway driving hot flashes. FDA-approved in 2023. Reduces frequency by ~60% without affecting estrogen levels — suitable for women who cannot take hormones.",
       },
       {
         name: "SSRIs / SNRIs (escitalopram, venlafaxine)",
@@ -107,7 +107,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
         description: "Low-dose antidepressants reduce hot flash frequency by 40–60%. Paroxetine (Brisdelle) is FDA-approved specifically for vasomotor symptoms. Note: paroxetine interacts with tamoxifen.",
       },
       {
-        name: "Cognitive Behavioural Therapy (CBT)",
+        name: "Cognitive Behavioral Therapy (CBT)",
         type: "Non-Hormonal",
         evidence: "Moderate",
         description: "CBT reduces the distress and interference caused by hot flashes, even if it does not always reduce frequency. Particularly effective for women who cannot or choose not to use hormones.",
@@ -122,7 +122,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
         name: "Black cohosh",
         type: "Supplement",
         evidence: "Emerging",
-        description: "Some evidence for modest reduction in mild-to-moderate hot flashes. Not recommended as a first-line treatment. Quality and standardisation vary significantly between products.",
+        description: "Some evidence for modest reduction in mild-to-moderate hot flashes. Not recommended as a first-line treatment. Quality and standardization vary significantly between products.",
       },
     ],
 
@@ -162,7 +162,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     tagline: "Hot flashes that strike during sleep — waking you drenched, cold, and unable to return to rest.",
 
     mechanism: "Night sweats are nocturnal vasomotor symptoms sharing the same hypothalamic mechanism as daytime hot flashes. During sleep, the body's thermoregulatory processes are already altered, making the narrowed thermoneutral zone particularly disruptive. A night sweat episode typically involves a sudden rise in skin temperature, profuse sweating, followed by chills as the body overcorrects. The sleep disruption caused is compounded by the cortisol and adrenaline surge that accompanies the thermoregulatory response — making it difficult to return to deep sleep even after the sweat passes.",
-    hormoneInvolved: ["Oestrogen (estradiol)", "Cortisol", "Adrenaline"],
+    hormoneInvolved: ["Estrogen (estradiol)", "Cortisol", "Adrenaline"],
     clinicalContext: "Night sweats are closely linked to poor sleep quality and are a major contributor to the fatigue, brain fog, and mood disturbances seen in perimenopause. Women who experience frequent night sweats have measurably lower sleep efficiency scores and spend less time in restorative deep and REM sleep. Chronic sleep deprivation from night sweats is associated with increased cardiovascular risk, impaired glucose metabolism, and worsened mood disorders.",
 
     whatToTrack: [
@@ -180,7 +180,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
         name: "Menopausal Hormone Therapy (MHT/HRT)",
         type: "Hormonal",
         evidence: "Strong",
-        description: "Highly effective for nocturnal vasomotor symptoms. Transdermal oestradiol is preferred. Many women notice improvement in sleep quality within 2–4 weeks of starting treatment.",
+        description: "Highly effective for nocturnal vasomotor symptoms. Transdermal estradiol is preferred. Many women notice improvement in sleep quality within 2–4 weeks of starting treatment.",
       },
       {
         name: "Bedroom cooling strategies",
@@ -223,10 +223,10 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     category: "Cognitive",
     prevalence: "Commonly reported during perimenopause, though estimates of exactly how many women are affected vary widely across studies",
     onsetPhase: "Any phase",
-    tagline: "The frustrating cognitive cloudiness of perimenopause — driven by oestrogen's profound role in brain function, not a sign of permanent decline.",
+    tagline: "The frustrating cognitive cloudiness of perimenopause — driven by estrogen's profound role in brain function, not a sign of permanent decline.",
 
-    mechanism: "Oestrogen is a potent neuroprotective hormone. It supports the production of acetylcholine (the primary neurotransmitter for memory and learning), promotes synaptic plasticity, and regulates cerebral glucose metabolism — the brain's primary fuel source. As oestrogen fluctuates during perimenopause, the brain's energy efficiency temporarily declines. Neuroimaging studies by Dr. Lisa Mosconi at Weill Cornell have shown measurable reductions in brain glucose metabolism during the perimenopause transition, which correlate with the subjective experience of cognitive slowing. Crucially, this is a transitional state — cognitive function typically improves as the brain adapts to lower oestrogen levels post-menopause.",
-    hormoneInvolved: ["Oestrogen (estradiol)", "Acetylcholine", "Progesterone"],
+    mechanism: "Estrogen is a potent neuroprotective hormone. It supports the production of acetylcholine (the primary neurotransmitter for memory and learning), promotes synaptic plasticity, and regulates cerebral glucose metabolism — the brain's primary fuel source. As estrogen fluctuates during perimenopause, the brain's energy efficiency temporarily declines. Neuroimaging studies by Dr. Lisa Mosconi at Weill Cornell have shown measurable reductions in brain glucose metabolism during the perimenopause transition, which correlate with the subjective experience of cognitive slowing. Crucially, this is a transitional state — cognitive function typically improves as the brain adapts to lower estrogen levels post-menopause.",
+    hormoneInvolved: ["Estrogen (estradiol)", "Acetylcholine", "Progesterone"],
     clinicalContext: "Brain fog in perimenopause is real, measurable, and distinct from age-related cognitive decline. The SWAN study found that women in perimenopause performed worse on tests of verbal memory, processing speed, and attention compared to their pre-menopausal baseline — but that these deficits were largely reversed post-menopause. Sleep deprivation from night sweats significantly compounds cognitive symptoms. Women should be reassured that perimenopausal brain fog is not an early sign of dementia.",
 
     whatToTrack: [
@@ -236,8 +236,8 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
       "Processing speed (feeling mentally slow)",
       "Correlation with sleep quality the previous night",
     ],
-    whenToSeeADoctor: "Seek medical advice if cognitive symptoms are affecting your work performance, if you are forgetting important appointments or commitments, or if symptoms are worsening rather than fluctuating. Rule out thyroid dysfunction, vitamin B12 deficiency, and anaemia, which can mimic perimenopausal brain fog.",
-    gpConversationScript: "I have been experiencing significant cognitive symptoms including word-finding difficulties, short-term memory lapses, and difficulty concentrating. These began around the same time as my other perimenopausal symptoms and are affecting my work performance. I understand that oestrogen plays a key role in brain function. I would like to discuss whether hormone therapy might help, and I would also like to rule out thyroid dysfunction and vitamin deficiencies.",
+    whenToSeeADoctor: "Seek medical advice if cognitive symptoms are affecting your work performance, if you are forgetting important appointments or commitments, or if symptoms are worsening rather than fluctuating. Rule out thyroid dysfunction, vitamin B12 deficiency, and anemia, which can mimic perimenopausal brain fog.",
+    gpConversationScript: "I have been experiencing significant cognitive symptoms including word-finding difficulties, short-term memory lapses, and difficulty concentrating. These began around the same time as my other perimenopausal symptoms and are affecting my work performance. I understand that estrogen plays a key role in brain function. I would like to discuss whether hormone therapy might help, and I would also like to rule out thyroid dysfunction and vitamin deficiencies.",
 
     treatments: [
       {
@@ -247,7 +247,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
         description: "Evidence suggests MHT initiated during perimenopause (the 'window of opportunity') may preserve cognitive function and reduce Alzheimer's risk. Starting MHT more than 10 years after menopause does not carry the same benefit.",
       },
       {
-        name: "Sleep optimisation",
+        name: "Sleep optimization",
         type: "Lifestyle",
         evidence: "Strong",
         description: "Treating the underlying night sweats and sleep disruption is often the most impactful intervention for brain fog. Cognitive function is highly sensitive to sleep quality.",
@@ -262,7 +262,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
         name: "Vitamin B12 and iron screening",
         type: "Non-Hormonal",
         evidence: "Strong",
-        description: "B12 deficiency and anaemia are common in midlife women and produce cognitive symptoms that closely mimic perimenopausal brain fog. Screening and supplementation where deficient can produce rapid improvement.",
+        description: "B12 deficiency and anemia are common in midlife women and produce cognitive symptoms that closely mimic perimenopausal brain fog. Screening and supplementation where deficient can produce rapid improvement.",
       },
     ],
 
@@ -293,10 +293,10 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     category: "Musculoskeletal",
     prevalence: "Affects up to 50% of perimenopausal women",
     onsetPhase: "Any phase",
-    tagline: "The aching, stiff joints of perimenopause — oestrogen acts as a natural anti-inflammatory, and its decline leaves joints vulnerable.",
+    tagline: "The aching, stiff joints of perimenopause — estrogen acts as a natural anti-inflammatory, and its decline leaves joints vulnerable.",
 
-    mechanism: "Oestrogen receptors are present throughout the musculoskeletal system — in cartilage, synovial membranes, tendons, and ligaments. Oestrogen acts as a natural anti-inflammatory, suppressing pro-inflammatory cytokines (particularly TNF-α and IL-6) that degrade cartilage and inflame synovial tissue. As oestrogen declines, this protective effect is lost. The result is increased synovial inflammation, reduced joint lubrication, and heightened pain sensitivity. The glenohumeral joint (shoulder) is particularly rich in oestrogen receptors, which is why frozen shoulder (adhesive capsulitis) has a striking peak incidence in perimenopausal women. Joint symptoms in perimenopause are often mistaken for early rheumatoid arthritis or osteoarthritis.",
-    hormoneInvolved: ["Oestrogen (estradiol)", "TNF-α", "IL-6"],
+    mechanism: "Estrogen receptors are present throughout the musculoskeletal system — in cartilage, synovial membranes, tendons, and ligaments. Estrogen acts as a natural anti-inflammatory, suppressing pro-inflammatory cytokines (particularly TNF-α and IL-6) that degrade cartilage and inflame synovial tissue. As estrogen declines, this protective effect is lost. The result is increased synovial inflammation, reduced joint lubrication, and heightened pain sensitivity. The glenohumeral joint (shoulder) is particularly rich in estrogen receptors, which is why frozen shoulder (adhesive capsulitis) has a striking peak incidence in perimenopausal women. Joint symptoms in perimenopause are often mistaken for early rheumatoid arthritis or osteoarthritis.",
+    hormoneInvolved: ["Estrogen (estradiol)", "TNF-α", "IL-6"],
     clinicalContext: "Perimenopausal joint pain typically presents as symmetrical, migratory pain affecting multiple joints — particularly the hands, knees, hips, and shoulders. Morning stiffness lasting less than 30 minutes is characteristic. Unlike rheumatoid arthritis, perimenopausal arthralgia does not typically cause joint swelling or elevated inflammatory markers (CRP, ESR). However, women with pre-existing inflammatory conditions may find their symptoms worsen significantly during perimenopause.",
 
     whatToTrack: [
@@ -307,14 +307,14 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
       "Response to anti-inflammatory medications",
     ],
     whenToSeeADoctor: "Seek medical advice if joints are visibly swollen, if morning stiffness lasts more than 30 minutes, if you have a family history of rheumatoid arthritis, or if symptoms are rapidly worsening. Blood tests (RF, anti-CCP, CRP, ESR) can help distinguish perimenopausal arthralgia from inflammatory arthritis.",
-    gpConversationScript: "I have been experiencing joint pain and morning stiffness affecting my [hands/knees/shoulders] for the past [X] months. The stiffness typically resolves within 20–30 minutes of getting up. I understand that oestrogen has a significant anti-inflammatory role in the musculoskeletal system, and I believe this may be related to my perimenopause transition. I would like to discuss whether hormone therapy might help, and I would also like to rule out inflammatory arthritis with appropriate blood tests.",
+    gpConversationScript: "I have been experiencing joint pain and morning stiffness affecting my [hands/knees/shoulders] for the past [X] months. The stiffness typically resolves within 20–30 minutes of getting up. I understand that estrogen has a significant anti-inflammatory role in the musculoskeletal system, and I believe this may be related to my perimenopause transition. I would like to discuss whether hormone therapy might help, and I would also like to rule out inflammatory arthritis with appropriate blood tests.",
 
     treatments: [
       {
         name: "Menopausal Hormone Therapy (MHT/HRT)",
         type: "Hormonal",
         evidence: "Moderate",
-        description: "Restoring oestrogen levels can significantly reduce perimenopausal joint pain by restoring the anti-inflammatory protection. Many women report rapid improvement in joint symptoms after starting MHT.",
+        description: "Restoring estrogen levels can significantly reduce perimenopausal joint pain by restoring the anti-inflammatory protection. Many women report rapid improvement in joint symptoms after starting MHT.",
       },
       {
         name: "Resistance training and weight-bearing exercise",
@@ -371,8 +371,8 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     onsetPhase: "Any phase",
     tagline: "Perimenopause rewires your sleep architecture — progesterone loss removes your natural sleep aid, and night sweats shatter the rest that remains.",
 
-    mechanism: "Sleep disruption in perimenopause has multiple, compounding causes. Progesterone is a natural GABA-A receptor agonist — it has a calming, sedative effect that promotes sleep onset and maintenance. As progesterone declines (often the first hormone to fall in perimenopause), this natural sleep aid is lost. Oestrogen fluctuations disrupt the circadian regulation of melatonin, the hormone that signals sleep onset. Vasomotor symptoms (night sweats) then fragment sleep architecture by triggering cortisol and adrenaline surges. The result is a triple assault: difficulty falling asleep, difficulty staying asleep, and early morning waking — often at 3–4am when cortisol naturally begins to rise.",
-    hormoneInvolved: ["Progesterone", "Oestrogen (estradiol)", "Melatonin", "Cortisol"],
+    mechanism: "Sleep disruption in perimenopause has multiple, compounding causes. Progesterone is a natural GABA-A receptor agonist — it has a calming, sedative effect that promotes sleep onset and maintenance. As progesterone declines (often the first hormone to fall in perimenopause), this natural sleep aid is lost. Estrogen fluctuations disrupt the circadian regulation of melatonin, the hormone that signals sleep onset. Vasomotor symptoms (night sweats) then fragment sleep architecture by triggering cortisol and adrenaline surges. The result is a triple assault: difficulty falling asleep, difficulty staying asleep, and early morning waking — often at 3–4am when cortisol naturally begins to rise.",
+    hormoneInvolved: ["Progesterone", "Estrogen (estradiol)", "Melatonin", "Cortisol"],
     clinicalContext: "Chronic sleep deprivation from perimenopausal insomnia has cascading effects on virtually every other symptom. It worsens brain fog, amplifies emotional reactivity, reduces pain tolerance (worsening joint pain), impairs glucose metabolism (contributing to weight gain), and increases cardiovascular risk. Treating sleep disruption is therefore one of the highest-leverage interventions in perimenopausal care.",
 
     whatToTrack: [
@@ -384,29 +384,29 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
       "Next-day cognitive and mood impact",
     ],
     whenToSeeADoctor: "Seek medical advice if you are sleeping fewer than 6 hours per night on most nights, if sleep deprivation is affecting your safety (e.g. driving), or if you have symptoms of sleep apnoea (loud snoring, gasping, witnessed apnoeas).",
-    gpConversationScript: "I have been experiencing significant sleep disruption for the past [X] months. I am waking [X] times per night, often at around 3–4am, and struggling to return to sleep. I believe this is partly driven by night sweats and partly by progesterone decline affecting my GABA sleep pathways. I would like to discuss whether micronised progesterone (which has a sedative effect) or other hormone therapy options might help address the underlying hormonal cause.",
+    gpConversationScript: "I have been experiencing significant sleep disruption for the past [X] months. I am waking [X] times per night, often at around 3–4am, and struggling to return to sleep. I believe this is partly driven by night sweats and partly by progesterone decline affecting my GABA sleep pathways. I would like to discuss whether micronized progesterone (which has a sedative effect) or other hormone therapy options might help address the underlying hormonal cause.",
 
     treatments: [
       {
-        name: "Micronised progesterone (Utrogestan)",
+        name: "Micronized progesterone (Utrogestan)",
         type: "Hormonal",
         evidence: "Strong",
-        description: "Oral micronised progesterone taken at night has a direct sedative effect via GABA-A receptors. It improves sleep onset, reduces night wakings, and increases slow-wave sleep. Particularly beneficial for women whose primary sleep complaint is insomnia rather than vasomotor symptoms.",
+        description: "Oral micronized progesterone taken at night has a direct sedative effect via GABA-A receptors. It improves sleep onset, reduces night wakings, and increases slow-wave sleep. Particularly beneficial for women whose primary sleep complaint is insomnia rather than vasomotor symptoms.",
       },
       {
         name: "Menopausal Hormone Therapy (MHT/HRT)",
         type: "Hormonal",
         evidence: "Strong",
-        description: "By treating the underlying vasomotor symptoms, MHT reduces the primary cause of nocturnal waking. Combined oestrogen and progesterone therapy typically produces significant sleep improvement within 4–8 weeks.",
+        description: "By treating the underlying vasomotor symptoms, MHT reduces the primary cause of nocturnal waking. Combined estrogen and progesterone therapy typically produces significant sleep improvement within 4–8 weeks.",
       },
       {
-        name: "Cognitive Behavioural Therapy for Insomnia (CBT-I)",
+        name: "Cognitive Behavioral Therapy for Insomnia (CBT-I)",
         type: "Non-Hormonal",
         evidence: "Strong",
-        description: "CBT-I is the gold-standard first-line treatment for chronic insomnia. It addresses the conditioned arousal and sleep-disrupting behaviours that develop after months of poor sleep. More effective than sleeping pills for long-term outcomes.",
+        description: "CBT-I is the gold-standard first-line treatment for chronic insomnia. It addresses the conditioned arousal and sleep-disrupting behaviors that develop after months of poor sleep. More effective than sleeping pills for long-term outcomes.",
       },
       {
-        name: "Sleep hygiene optimisation",
+        name: "Sleep hygiene optimization",
         type: "Lifestyle",
         evidence: "Moderate",
         description: "Consistent sleep and wake times, a cool dark bedroom (16–18°C), avoiding screens 1 hour before bed, limiting caffeine after noon, and avoiding alcohol (which fragments sleep architecture) can produce meaningful improvements.",
@@ -442,14 +442,14 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
   {
     id: "anxiety",
     name: "Anxiety",
-    aliases: ["Perimenopausal anxiety", "Racing thoughts", "Panic attacks", "Generalised anxiety"],
+    aliases: ["Perimenopausal anxiety", "Racing thoughts", "Panic attacks", "Generalized anxiety"],
     category: "Psychological",
     prevalence: "Commonly reported during perimenopause, though estimates of exactly how many women are affected vary widely across studies",
     onsetPhase: "Any phase",
-    tagline: "New or worsening anxiety in perimenopause is a neurobiological reality — oestrogen modulates the very brain systems that regulate fear and stress.",
+    tagline: "New or worsening anxiety in perimenopause is a neurobiological reality — estrogen modulates the very brain systems that regulate fear and stress.",
 
-    mechanism: "Oestrogen has a profound modulatory effect on the serotonergic, GABAergic, and noradrenergic systems — the three primary neurotransmitter pathways involved in anxiety regulation. As oestrogen fluctuates in perimenopause, serotonin receptor sensitivity changes, GABA-mediated inhibition is reduced (compounded by progesterone decline), and the hypothalamic-pituitary-adrenal (HPA) axis becomes more reactive to stress. The result is a lowered threshold for anxiety responses. Women who have never experienced significant anxiety may find themselves experiencing it for the first time. Women with pre-existing anxiety disorders typically find their symptoms worsen significantly during perimenopause.",
-    hormoneInvolved: ["Oestrogen (estradiol)", "Progesterone", "Serotonin", "GABA", "Cortisol"],
+    mechanism: "Estrogen has a profound modulatory effect on the serotonergic, GABAergic, and noradrenergic systems — the three primary neurotransmitter pathways involved in anxiety regulation. As estrogen fluctuates in perimenopause, serotonin receptor sensitivity changes, GABA-mediated inhibition is reduced (compounded by progesterone decline), and the hypothalamic-pituitary-adrenal (HPA) axis becomes more reactive to stress. The result is a lowered threshold for anxiety responses. Women who have never experienced significant anxiety may find themselves experiencing it for the first time. Women with pre-existing anxiety disorders typically find their symptoms worsen significantly during perimenopause.",
+    hormoneInvolved: ["Estrogen (estradiol)", "Progesterone", "Serotonin", "GABA", "Cortisol"],
     clinicalContext: "Perimenopausal anxiety is sometimes misdiagnosed as a primary anxiety disorder, which can lead to antidepressants being prescribed without first considering a hormonal cause. NICE's guideline on menopause (NG23) notes there is no clear evidence that antidepressants ease low mood or anxiety caused by menopause itself when depression hasn't been diagnosed, and recommends considering hormone therapy for depressive symptoms that don't meet the criteria for a depression diagnosis (NG23, recommendation 1.5.21). The distinction matters: if anxiety is driven by hormonal fluctuation, treating the hormones may be more effective than treating the anxiety symptom alone — but antidepressants remain an appropriate choice once depression or anxiety is actually diagnosed, or if hormone therapy isn't suitable or preferred.",
 
     whatToTrack: [
@@ -460,14 +460,14 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
       "Whether anxiety is worse in the week before your period (suggests progesterone sensitivity)",
     ],
     whenToSeeADoctor: "Seek medical advice if anxiety is significantly impairing your daily functioning, if you are experiencing panic attacks, if you have thoughts of self-harm, or if anxiety is not improving with lifestyle measures.",
-    gpConversationScript: "I have been experiencing significant anxiety that began around the same time as my other perimenopausal symptoms. I have no prior history of anxiety disorder. I understand that oestrogen and progesterone both modulate the serotonergic and GABAergic systems that regulate anxiety. Before prescribing antidepressants, I would like to discuss whether a hormonal assessment and trial of MHT might be more appropriate given the likely hormonal aetiology.",
+    gpConversationScript: "I have been experiencing significant anxiety that began around the same time as my other perimenopausal symptoms. I have no prior history of anxiety disorder. I understand that estrogen and progesterone both modulate the serotonergic and GABAergic systems that regulate anxiety. Before prescribing antidepressants, I would like to discuss whether a hormonal assessment and trial of MHT might be more appropriate given the likely hormonal aetiology.",
 
     treatments: [
       {
         name: "Menopausal Hormone Therapy (MHT/HRT)",
         type: "Hormonal",
         evidence: "Moderate",
-        description: "Stabilising oestrogen and progesterone levels can significantly reduce hormonally-driven anxiety. Micronised progesterone is particularly beneficial for anxiety and sleep. Transdermal oestradiol avoids the first-pass hepatic metabolism that can affect mood.",
+        description: "Stabilizing estrogen and progesterone levels can significantly reduce hormonally-driven anxiety. Micronized progesterone is particularly beneficial for anxiety and sleep. Transdermal estradiol avoids the first-pass hepatic metabolism that can affect mood.",
       },
       {
         name: "Mindfulness-Based Stress Reduction (MBSR)",
@@ -527,9 +527,9 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     onsetPhase: "Any phase",
     tagline: "The bone-deep exhaustion of perimenopause — a convergence of hormonal, metabolic, and sleep-related forces that drain energy at the cellular level.",
 
-    mechanism: "Perimenopausal fatigue is multifactorial. Oestrogen regulates mitochondrial function — the cellular machinery that produces ATP (energy). As oestrogen declines, mitochondrial efficiency decreases, reducing cellular energy production. Progesterone decline disrupts sleep, creating a chronic sleep debt that compounds metabolic fatigue. Thyroid function, which is closely linked to oestrogen, often becomes dysregulated in perimenopause — subclinical hypothyroidism is common and produces profound fatigue. Additionally, the HPA axis dysregulation of perimenopause alters cortisol rhythms, leading to the characteristic pattern of morning fatigue and afternoon energy crashes.",
-    hormoneInvolved: ["Oestrogen (estradiol)", "Progesterone", "Thyroid hormones", "Cortisol"],
-    clinicalContext: "Perimenopausal fatigue is one of the most common reasons women seek medical attention during this transition, yet it is frequently dismissed as 'normal ageing' or attributed to lifestyle factors. Before attributing fatigue to perimenopause, it is essential to rule out thyroid dysfunction (TSH, free T4, free T3), iron deficiency anaemia (ferritin, haemoglobin), vitamin B12 deficiency, and vitamin D deficiency — all of which are common in midlife women and produce fatigue that closely mimics the perimenopausal variety.",
+    mechanism: "Perimenopausal fatigue is multifactorial. Estrogen regulates mitochondrial function — the cellular machinery that produces ATP (energy). As estrogen declines, mitochondrial efficiency decreases, reducing cellular energy production. Progesterone decline disrupts sleep, creating a chronic sleep debt that compounds metabolic fatigue. Thyroid function, which is closely linked to estrogen, often becomes dysregulated in perimenopause — subclinical hypothyroidism is common and produces profound fatigue. Additionally, the HPA axis dysregulation of perimenopause alters cortisol rhythms, leading to the characteristic pattern of morning fatigue and afternoon energy crashes.",
+    hormoneInvolved: ["Estrogen (estradiol)", "Progesterone", "Thyroid hormones", "Cortisol"],
+    clinicalContext: "Perimenopausal fatigue is one of the most common reasons women seek medical attention during this transition, yet it is frequently dismissed as 'normal ageing' or attributed to lifestyle factors. Before attributing fatigue to perimenopause, it is essential to rule out thyroid dysfunction (TSH, free T4, free T3), iron deficiency anemia (ferritin, hemoglobin), vitamin B12 deficiency, and vitamin D deficiency — all of which are common in midlife women and produce fatigue that closely mimics the perimenopausal variety.",
 
     whatToTrack: [
       "Pattern of fatigue (morning vs. afternoon vs. all-day)",
@@ -539,7 +539,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
       "Response to caffeine (high caffeine dependence suggests adrenal dysregulation)",
     ],
     whenToSeeADoctor: "Seek medical advice if fatigue is severe enough to affect your ability to work or care for yourself, if it is accompanied by unexplained weight gain, hair loss, or cold intolerance (thyroid symptoms), or if it has not improved after addressing sleep and lifestyle factors.",
-    gpConversationScript: "I have been experiencing persistent, debilitating fatigue for the past [X] months that is significantly affecting my quality of life and work performance. I would like to rule out thyroid dysfunction, iron deficiency anaemia, vitamin B12 deficiency, and vitamin D deficiency with appropriate blood tests. I would also like to discuss whether my perimenopausal hormonal changes are contributing, and whether hormone therapy might help address the underlying cause.",
+    gpConversationScript: "I have been experiencing persistent, debilitating fatigue for the past [X] months that is significantly affecting my quality of life and work performance. I would like to rule out thyroid dysfunction, iron deficiency anemia, vitamin B12 deficiency, and vitamin D deficiency with appropriate blood tests. I would also like to discuss whether my perimenopausal hormonal changes are contributing, and whether hormone therapy might help address the underlying cause.",
 
     treatments: [
       {
@@ -552,7 +552,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
         name: "Menopausal Hormone Therapy (MHT/HRT)",
         type: "Hormonal",
         evidence: "Moderate",
-        description: "By improving sleep quality and restoring oestrogen's mitochondrial support, MHT often produces significant improvement in energy levels. Many women report this as one of the most noticeable benefits of starting hormone therapy.",
+        description: "By improving sleep quality and restoring estrogen's mitochondrial support, MHT often produces significant improvement in energy levels. Many women report this as one of the most noticeable benefits of starting hormone therapy.",
       },
       {
         name: "Resistance training",
@@ -561,10 +561,10 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
         description: "Counter-intuitively, exercise — particularly resistance training — is one of the most effective treatments for fatigue. It improves mitochondrial function, insulin sensitivity, and sleep quality.",
       },
       {
-        name: "Blood sugar stabilisation",
+        name: "Blood sugar stabilization",
         type: "Lifestyle",
         evidence: "Strong",
-        description: "Oestrogen decline reduces insulin sensitivity. Eating protein and fat with every meal, avoiding refined carbohydrates, and not skipping meals stabilises blood glucose and prevents the energy crashes characteristic of perimenopausal fatigue.",
+        description: "Estrogen decline reduces insulin sensitivity. Eating protein and fat with every meal, avoiding refined carbohydrates, and not skipping meals stabilizes blood glucose and prevents the energy crashes characteristic of perimenopausal fatigue.",
       },
       {
         name: "Vitamin D3 + K2",
@@ -595,11 +595,11 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     category: "Cardiovascular",
     prevalence: "Affects up to 28% of perimenopausal women",
     onsetPhase: "Any phase",
-    tagline: "The unsettling flutter or race of a perimenopausal heart — oestrogen's withdrawal from cardiac pacemaker cells creates benign but alarming autonomic surges.",
+    tagline: "The unsettling flutter or race of a perimenopausal heart — estrogen's withdrawal from cardiac pacemaker cells creates benign but alarming autonomic surges.",
 
-    mechanism: "Oestrogen has direct effects on the cardiovascular system, including modulation of the autonomic nervous system and cardiac ion channels. Oestrogen receptors are present on cardiac pacemaker cells in the sinoatrial node. As oestrogen fluctuates, the autonomic balance shifts toward sympathetic dominance — increasing heart rate variability instability and creating conditions for benign ectopic beats (extra heartbeats that feel like a flutter or skip). The hot flash response itself — a sympathetic surge with adrenaline release — can directly trigger palpitations. Progesterone decline also reduces the parasympathetic (calming) tone that normally counterbalances sympathetic activity.",
-    hormoneInvolved: ["Oestrogen (estradiol)", "Progesterone", "Adrenaline", "Autonomic nervous system"],
-    clinicalContext: "Perimenopausal palpitations are almost always benign — typically premature atrial or ventricular contractions (PACs/PVCs) that feel alarming but carry no cardiac risk in women with otherwise normal hearts. However, it is essential to rule out cardiac arrhythmias, thyroid dysfunction, and anaemia before attributing palpitations to perimenopause. Women with pre-existing cardiac conditions should always have palpitations evaluated by a cardiologist.",
+    mechanism: "Estrogen has direct effects on the cardiovascular system, including modulation of the autonomic nervous system and cardiac ion channels. Estrogen receptors are present on cardiac pacemaker cells in the sinoatrial node. As estrogen fluctuates, the autonomic balance shifts toward sympathetic dominance — increasing heart rate variability instability and creating conditions for benign ectopic beats (extra heartbeats that feel like a flutter or skip). The hot flash response itself — a sympathetic surge with adrenaline release — can directly trigger palpitations. Progesterone decline also reduces the parasympathetic (calming) tone that normally counterbalances sympathetic activity.",
+    hormoneInvolved: ["Estrogen (estradiol)", "Progesterone", "Adrenaline", "Autonomic nervous system"],
+    clinicalContext: "Perimenopausal palpitations are almost always benign — typically premature atrial or ventricular contractions (PACs/PVCs) that feel alarming but carry no cardiac risk in women with otherwise normal hearts. However, it is essential to rule out cardiac arrhythmias, thyroid dysfunction, and anemia before attributing palpitations to perimenopause. Women with pre-existing cardiac conditions should always have palpitations evaluated by a cardiologist.",
 
     whatToTrack: [
       "Frequency and duration of episodes",
@@ -610,14 +610,14 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
       "Thyroid symptoms",
     ],
     whenToSeeADoctor: "Seek urgent medical advice if palpitations are accompanied by chest pain, shortness of breath, dizziness, or fainting. Seek non-urgent advice if palpitations are new, frequent (more than 6 per minute), or if you have a personal or family history of cardiac arrhythmia.",
-    gpConversationScript: "I have been experiencing heart palpitations — a fluttering or racing sensation — that began around the same time as my other perimenopausal symptoms. I understand these are often benign ectopic beats driven by autonomic changes from oestrogen fluctuation. I would like an ECG and thyroid function tests to rule out arrhythmia and thyroid dysfunction, and to discuss whether hormone therapy might help stabilise my autonomic nervous system.",
+    gpConversationScript: "I have been experiencing heart palpitations — a fluttering or racing sensation — that began around the same time as my other perimenopausal symptoms. I understand these are often benign ectopic beats driven by autonomic changes from estrogen fluctuation. I would like an ECG and thyroid function tests to rule out arrhythmia and thyroid dysfunction, and to discuss whether hormone therapy might help stabilize my autonomic nervous system.",
 
     treatments: [
       {
         name: "Menopausal Hormone Therapy (MHT/HRT)",
         type: "Hormonal",
         evidence: "Moderate",
-        description: "Stabilising oestrogen levels often reduces the frequency of palpitations by restoring autonomic balance. Many women report significant improvement after starting MHT.",
+        description: "Stabilizing estrogen levels often reduces the frequency of palpitations by restoring autonomic balance. Many women report significant improvement after starting MHT.",
       },
       {
         name: "Caffeine and alcohol reduction",
@@ -629,7 +629,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
         name: "Vagal nerve stimulation techniques",
         type: "Non-Hormonal",
         evidence: "Moderate",
-        description: "Cold water on the face, the Valsalva manoeuvre (bearing down), or slow diaphragmatic breathing can terminate an episode of palpitations by increasing vagal tone.",
+        description: "Cold water on the face, the Valsalva maneuver (bearing down), or slow diaphragmatic breathing can terminate an episode of palpitations by increasing vagal tone.",
       },
       {
         name: "Magnesium glycinate",
@@ -666,11 +666,11 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     category: "Genitourinary",
     prevalence: "Commonly reported in post-menopause and underreported in perimenopause, with prevalence estimates varying across studies",
     onsetPhase: "Late perimenopause",
-    tagline: "Unlike vasomotor symptoms, vaginal atrophy does not improve with time — it worsens progressively without treatment, but responds remarkably well to localised oestrogen.",
+    tagline: "Unlike vasomotor symptoms, vaginal atrophy does not improve with time — it worsens progressively without treatment, but responds remarkably well to localized estrogen.",
 
-    mechanism: "The vaginal epithelium, urethra, bladder, and pelvic floor are all richly supplied with oestrogen receptors. Oestrogen maintains the thickness, elasticity, and lubrication of vaginal tissue, and supports the Lactobacillus-dominant vaginal microbiome that maintains a protective acidic pH. As oestrogen declines, the vaginal epithelium thins and loses its rugae (folds), collagen content decreases, lubrication diminishes, and the vaginal pH rises — creating conditions for recurrent infections and inflammation. The urethra and bladder are similarly affected, contributing to urinary urgency, frequency, and recurrent UTIs.",
-    hormoneInvolved: ["Oestrogen (estradiol)", "Lactobacillus microbiome"],
-    clinicalContext: "GSM is the preferred clinical term because it captures the full spectrum of genitourinary symptoms — not just vaginal dryness. It is critically underreported because women are embarrassed to discuss it and because many healthcare providers do not ask about it. Unlike vasomotor symptoms, GSM does not resolve spontaneously — it worsens progressively without treatment. However, it responds extremely well to localised (topical) oestrogen, which carries minimal systemic absorption and is safe for virtually all women, including those with a history of breast cancer (with oncologist guidance).",
+    mechanism: "The vaginal epithelium, urethra, bladder, and pelvic floor are all richly supplied with estrogen receptors. Estrogen maintains the thickness, elasticity, and lubrication of vaginal tissue, and supports the Lactobacillus-dominant vaginal microbiome that maintains a protective acidic pH. As estrogen declines, the vaginal epithelium thins and loses its rugae (folds), collagen content decreases, lubrication diminishes, and the vaginal pH rises — creating conditions for recurrent infections and inflammation. The urethra and bladder are similarly affected, contributing to urinary urgency, frequency, and recurrent UTIs.",
+    hormoneInvolved: ["Estrogen (estradiol)", "Lactobacillus microbiome"],
+    clinicalContext: "GSM is the preferred clinical term because it captures the full spectrum of genitourinary symptoms — not just vaginal dryness. It is critically underreported because women are embarrassed to discuss it and because many healthcare providers do not ask about it. Unlike vasomotor symptoms, GSM does not resolve spontaneously — it worsens progressively without treatment. However, it responds extremely well to localized (topical) estrogen, which carries minimal systemic absorption and is safe for virtually all women, including those with a history of breast cancer (with oncologist guidance).",
 
     whatToTrack: [
       "Vaginal dryness (at rest and during sexual activity)",
@@ -681,11 +681,11 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
       "Changes in vaginal discharge",
     ],
     whenToSeeADoctor: "Seek medical advice if you are experiencing pain during sexual intercourse, recurrent UTIs (more than 2 per year), urinary incontinence, or significant vaginal discomfort. These symptoms are highly treatable and should not be accepted as an inevitable consequence of ageing.",
-    gpConversationScript: "I have been experiencing vaginal dryness, discomfort, and pain during intercourse that has been worsening over the past [X] months. I understand this is the genitourinary syndrome of menopause (GSM), caused by oestrogen decline in the vaginal tissues. I would like to discuss localised vaginal oestrogen therapy, which I understand has minimal systemic absorption and is safe and highly effective. I would also like to discuss whether I might benefit from systemic hormone therapy in addition.",
+    gpConversationScript: "I have been experiencing vaginal dryness, discomfort, and pain during intercourse that has been worsening over the past [X] months. I understand this is the genitourinary syndrome of menopause (GSM), caused by estrogen decline in the vaginal tissues. I would like to discuss localized vaginal estrogen therapy, which I understand has minimal systemic absorption and is safe and highly effective. I would also like to discuss whether I might benefit from systemic hormone therapy in addition.",
 
     treatments: [
       {
-        name: "Localised vaginal oestrogen (cream, pessary, ring)",
+        name: "Localized vaginal estrogen (cream, pessary, ring)",
         type: "Hormonal",
         evidence: "Strong",
         description: "The gold-standard treatment for GSM. Minimal systemic absorption means it is safe for virtually all women, including those with a history of hormone-sensitive cancers (with oncologist guidance). Produces significant improvement in vaginal tissue health, lubrication, and urinary symptoms within 4–12 weeks. Must be used continuously — stopping leads to recurrence.",
@@ -694,7 +694,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
         name: "Ospemifene (Osphena)",
         type: "Non-Hormonal",
         evidence: "Strong",
-        description: "An oral SERM (selective oestrogen receptor modulator) that acts as an oestrogen agonist in vaginal tissue without stimulating breast or uterine tissue. FDA-approved for dyspareunia due to GSM.",
+        description: "An oral SERM (selective estrogen receptor modulator) that acts as an estrogen agonist in vaginal tissue without stimulating breast or uterine tissue. FDA-approved for dyspareunia due to GSM.",
       },
       {
         name: "Vaginal moisturisers (Replens, hyaluronic acid)",
@@ -737,10 +737,10 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
     category: "Metabolic",
     prevalence: "Commonly reported during perimenopause, though estimates of exactly how many women are affected vary widely across studies",
     onsetPhase: "Any phase",
-    tagline: "The body composition shift of perimenopause — oestrogen decline redirects fat storage from the hips to the abdomen, and insulin resistance makes it harder to shift.",
+    tagline: "The body composition shift of perimenopause — estrogen decline redirects fat storage from the hips to the abdomen, and insulin resistance makes it harder to shift.",
 
-    mechanism: "Oestrogen plays a central role in regulating fat distribution, insulin sensitivity, and metabolic rate. In the reproductive years, oestrogen directs fat storage to the hips, thighs, and buttocks (subcutaneous fat). As oestrogen declines, fat redistribution shifts toward the abdomen — specifically visceral fat (fat surrounding the organs). Visceral fat is metabolically active in a harmful way: it secretes inflammatory cytokines, worsens insulin resistance, and increases cardiovascular risk. Simultaneously, oestrogen decline reduces insulin sensitivity, making the body less efficient at managing blood glucose. Muscle mass also declines with age (sarcopenia), reducing basal metabolic rate. The result is weight gain even without changes in diet or activity.",
-    hormoneInvolved: ["Oestrogen (estradiol)", "Insulin", "Cortisol", "Leptin"],
+    mechanism: "Estrogen plays a central role in regulating fat distribution, insulin sensitivity, and metabolic rate. In the reproductive years, estrogen directs fat storage to the hips, thighs, and buttocks (subcutaneous fat). As estrogen declines, fat redistribution shifts toward the abdomen — specifically visceral fat (fat surrounding the organs). Visceral fat is metabolically active in a harmful way: it secretes inflammatory cytokines, worsens insulin resistance, and increases cardiovascular risk. Simultaneously, estrogen decline reduces insulin sensitivity, making the body less efficient at managing blood glucose. Muscle mass also declines with age (sarcopenia), reducing basal metabolic rate. The result is weight gain even without changes in diet or activity.",
+    hormoneInvolved: ["Estrogen (estradiol)", "Insulin", "Cortisol", "Leptin"],
     clinicalContext: "Weight gain is common during the menopause transition, though study estimates of the average amount vary. The shift to visceral fat distribution is clinically significant: visceral fat is a major risk factor for type 2 diabetes, cardiovascular disease, and certain cancers. A waist circumference above 88cm (35 inches) in women is associated with significantly increased metabolic risk. Addressing perimenopausal weight gain is therefore not merely cosmetic — it is a critical component of long-term health management.",
 
     whatToTrack: [
@@ -751,14 +751,14 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
       "Dietary patterns, particularly refined carbohydrate and alcohol intake",
     ],
     whenToSeeADoctor: "Seek medical advice if your waist circumference exceeds 88cm (35 inches), if you have a family history of type 2 diabetes or cardiovascular disease, if you are experiencing unexplained rapid weight gain, or if lifestyle changes are not producing results.",
-    gpConversationScript: "I have been experiencing significant weight gain and a shift in body composition — particularly increased abdominal fat — over the past [X] months despite no changes in my diet or activity level. I understand that oestrogen decline redistributes fat to the abdomen and reduces insulin sensitivity. I would like to discuss whether hormone therapy might help address the metabolic component of this change, and I would also like to check my fasting glucose and HbA1c.",
+    gpConversationScript: "I have been experiencing significant weight gain and a shift in body composition — particularly increased abdominal fat — over the past [X] months despite no changes in my diet or activity level. I understand that estrogen decline redistributes fat to the abdomen and reduces insulin sensitivity. I would like to discuss whether hormone therapy might help address the metabolic component of this change, and I would also like to check my fasting glucose and HbA1c.",
 
     treatments: [
       {
         name: "Menopausal Hormone Therapy (MHT/HRT)",
         type: "Hormonal",
         evidence: "Moderate",
-        description: "MHT does not cause weight gain (a common misconception) and may help prevent the shift to visceral fat distribution. Transdermal oestradiol has a more favourable metabolic profile than oral oestrogen.",
+        description: "MHT does not cause weight gain (a common misconception) and may help prevent the shift to visceral fat distribution. Transdermal estradiol has a more favorable metabolic profile than oral estrogen.",
       },
       {
         name: "Resistance training",
@@ -767,7 +767,7 @@ export const CLINICAL_KNOWLEDGE_BASE: ClinicalEntry[] = [
         description: "The single most effective intervention for perimenopausal body composition. Resistance training preserves and builds muscle mass, increases basal metabolic rate, improves insulin sensitivity, and specifically reduces visceral fat.",
       },
       {
-        name: "Protein-prioritised diet",
+        name: "Protein-prioritized diet",
         type: "Lifestyle",
         evidence: "Strong",
         description: "Adequate protein intake (1.2–1.6g per kg body weight) is essential for preserving muscle mass during perimenopause. Protein also has the highest thermic effect of food and promotes satiety.",

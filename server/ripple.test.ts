@@ -112,7 +112,7 @@ describe("ai.generateEvidence", () => {
       {
         id: "med_001",
         name: "Oestrogel",
-        activeIngredient: "Oestradiol",
+        activeIngredient: "Estradiol",
         deliveryMethod: "gel",
         dose: "1.5mg",
         scheduleType: "daily",
