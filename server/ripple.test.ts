@@ -84,7 +84,7 @@ describe("ai.reverseLookup", () => {
 });
 
 describe("ai.generateEvidence", () => {
-  it("generates a GP brief with Greene scores from log data", async () => {
+  it("generates a doctor brief with Greene scores from log data", async () => {
     const { ctx } = createAuthContext();
     const caller = appRouter.createCaller(ctx);
     const mockLogs = Array.from({ length: 5 }, (_, i) => ({

@@ -41,7 +41,7 @@ const PLANS = [
       { text: "Symptom Library (10 clinical entries)", on: true },
       { text: "Menopause Wiki deep-links", on: true },
       { text: "Zero-knowledge AES-GCM encryption", on: true },
-      { text: "Evidence Engine (GP brief)", on: false },
+      { text: "Evidence Engine (doctor brief)", on: false },
       { text: "AI Diary analysis", on: false },
       { text: "Trigger Tracker", on: false },
       { text: "HRT Tracker", on: false },
@@ -61,9 +61,9 @@ const PLANS = [
     badge: "Most Popular",
     features: [
       { text: "Everything in Free", on: true },
-      { text: "Evidence Engine — 8-section GP brief", on: true, bold: true },
+      { text: "Evidence Engine — 8-section doctor brief", on: true, bold: true },
       { text: "Greene Climacteric Scale scoring", on: true },
-      { text: "Appointment Prep with GP scripts", on: true, bold: true },
+      { text: "Appointment Prep with doctor scripts", on: true, bold: true },
       { text: "AI Diary analysis (LLM-powered)", on: true },
       { text: "Reverse Symptom Lookup (AI-enhanced)", on: true },
       { text: "Dismissal Tracker", on: true, bold: true },
@@ -336,10 +336,10 @@ export default function UpgradeHub() {
         <div className="space-y-2">
           {[
             // THIRD_PARTY_PRICE_OK — a competitor's list price, not Ripple's; not subject to shared/pricing.ts
-            { app: "Stabilize HRT", price: "$49.99/yr", note: "Basic HRT tracking, iOS only, no GP brief" },
-            { app: "Crest (FemHQ)", price: "Free", note: "HRT tracking only, no clinical tools or GP brief" },
+            { app: "Stabilize HRT", price: "$49.99/yr", note: "Basic HRT tracking, iOS only, no doctor brief" },
+            { app: "Crest (FemHQ)", price: "Free", note: "HRT tracking only, no clinical tools or doctor brief" },
             { app: "Balance App", price: "Free", note: "Education only, no clinical tools" },
-            { app: "Ripple Pro", price: displayAnnualTotal("Pro"), note: "Evidence Engine, GP brief, Trigger Tracker, Dismissal Tracker" },
+            { app: "Ripple Pro", price: displayAnnualTotal("Pro"), note: "Evidence Engine, doctor brief, Trigger Tracker, Dismissal Tracker" },
             { app: "Ripple Premier", price: displayAnnualTotal("Premier"), note: "Everything + HRT Tracker, Cycle Calendar, Treatment Response" },
           ].map(({ app, price, note }) => (
             <div key={app} className={`flex items-start justify-between gap-3 p-3 rounded-xl ${app.startsWith("Ripple") ? "bg-[#eef4f1] border border-[#c8d8d0]" : "bg-[#f5f0ea]"}`}>

@@ -527,7 +527,7 @@ export default function Dashboard() {
             <CheckCircle2 className="w-5 h-5 text-[#4a8a72] shrink-0" />
             <div>
               <p className="text-sm font-bold text-[#1a2b22]">Evidence Report Ready</p>
-              <p className="text-xs text-[#6b7a72]">You have enough data to generate a clinical-grade GP brief.</p>
+              <p className="text-xs text-[#6b7a72]">You have enough data to generate a clinical-grade doctor brief.</p>
             </div>
           </div>
           <button

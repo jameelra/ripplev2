@@ -160,7 +160,7 @@ export default function MenopauseMode() {
             </div>
           </div>
           <p className="text-[10px] text-[#9a9490] leading-relaxed">
-            Surgical menopause symptoms are often more intense than natural perimenopause. Your symptom tracking data is especially important for your GP to understand your experience.
+            Surgical menopause symptoms are often more intense than natural perimenopause. Your symptom tracking data is especially important for your doctor to understand your experience.
           </p>
         </div>
       )}
@@ -217,9 +217,9 @@ export default function MenopauseMode() {
           {[
             { icon: "✅", text: "Period and cycle tracking UI is hidden throughout the app" },
             { icon: "✅", text: "Cycle Calendar is replaced with a Days Since Surgery counter" },
-            { icon: "✅", text: "GP brief notes surgical menopause context" },
+            { icon: "✅", text: "Doctor brief notes surgical menopause context" },
             { icon: "✅", text: "Symptom tracking, HRT tracker, and all other features remain fully active" },
-            { icon: "✅", text: "Evidence Engine generates a surgical-menopause-aware GP brief" },
+            { icon: "✅", text: "Evidence Engine generates a surgical-menopause-aware doctor brief" },
           ].map((item, i) => (
             <div key={i} className="flex items-start gap-2">
               <span className="shrink-0">{item.icon}</span>

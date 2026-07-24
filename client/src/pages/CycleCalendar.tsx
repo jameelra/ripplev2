@@ -405,7 +405,7 @@ export default function CycleCalendar() {
           <div className="flex items-start gap-2 bg-[#f5f0ea] rounded-xl p-3">
             <Info className="w-3.5 h-3.5 text-[#9a9490] shrink-0 mt-0.5" />
             <p className="text-[10px] text-[#9a9490] leading-relaxed">
-              In perimenopause, cycles become irregular. Tracking these changes builds the evidence base for your GP brief.
+              In perimenopause, cycles become irregular. Tracking these changes builds the evidence base for your doctor brief.
             </p>
           </div>
         </div>

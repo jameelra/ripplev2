@@ -93,7 +93,7 @@ export function buildDismissalLogSummary(entries: DismissalLogEntry[], generated
   });
 
   lines.push("This is a personal record of appointments, not a medical or diagnostic document.");
-  lines.push("Bring it to your next appointment as a starting point for discussion with your GP or menopause specialist.");
+  lines.push("Bring it to your next appointment as a starting point for discussion with your doctor or menopause specialist.");
 
   return lines.join("\n");
 }

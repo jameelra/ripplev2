@@ -347,7 +347,7 @@ export default function SymptomLog() {
                 <p className="text-xs font-bold text-amber-800">Cycle Pattern Note</p>
               </div>
               <p className="text-xs text-amber-700 leading-relaxed">
-                Irregular cycles are a hallmark of perimenopause. Your logged patterns will be included in your Evidence Engine report to help your GP understand your transition timeline.
+                Irregular cycles are a hallmark of perimenopause. Your logged patterns will be included in your Evidence Engine report to help your doctor understand your transition timeline.
               </p>
             </div>
           )}

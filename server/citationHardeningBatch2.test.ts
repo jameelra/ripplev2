@@ -45,7 +45,7 @@ describe("citation hardening batch 2 — BMS and Endocrine Society removed", () 
     expect(source).toContain("Peer-reviewed NAMS citations");
   });
 
-  it("AppointmentPrep.tsx's GP brief text and clinical-references list no longer reference BMS", () => {
+  it("AppointmentPrep.tsx's doctor brief text and clinical-references list no longer reference BMS", () => {
     const source = readSource("client/src/pages/AppointmentPrep.tsx");
     expect(source).not.toContain("BMS Menopause Guidelines");
     // NAMS 2023 Hormone Therapy Position Statement is unaffected by this pass.

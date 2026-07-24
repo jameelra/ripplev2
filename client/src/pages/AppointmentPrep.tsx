@@ -151,7 +151,7 @@ export default function AppointmentPrep() {
         ? unresolvedDismissals.map((d) => `  • ${d.date} at ${d.clinicName}: "${d.response}"`).join("\n")
         : "  None recorded",
       ``,
-      `─── GP CONVERSATION SCRIPTS ───────────────────────────────`,
+      `─── DOCTOR CONVERSATION SCRIPTS ───────────────────────────`,
       ...topSymptoms.filter((s) => s.cknEntry).map((s) => `  For ${s.label}:\n  "${s.cknEntry!.gpConversationScript}"`),
       ``,
       `─── WHAT I WANT TO DISCUSS ────────────────────────────────`,
@@ -188,7 +188,7 @@ export default function AppointmentPrep() {
       <div>
         <h1 className="ripple-section-title">Appointment Prep</h1>
         <p className="text-sm text-[#6b7a72] mt-1">
-          Your pre-appointment summary — review this the night before your GP visit
+          Your pre-appointment summary — review this the night before your doctor visit
         </p>
       </div>
 
@@ -296,7 +296,7 @@ export default function AppointmentPrep() {
               {/* GP script for top symptom */}
               {topSymptoms[0]?.cknEntry && (
                 <div className="bg-[#eef4f1] border border-[#c8d8d0] rounded-xl p-4 space-y-2">
-                  <p className="text-[10px] font-mono uppercase tracking-wider text-[#4a8a72] font-bold">GP Script for {topSymptoms[0].label}</p>
+                  <p className="text-[10px] font-mono uppercase tracking-wider text-[#4a8a72] font-bold">Doctor Script for {topSymptoms[0].label}</p>
                   <p className="text-xs text-[#3a3a32] leading-relaxed italic">"{topSymptoms[0].cknEntry.gpConversationScript}"</p>
                   <button
                     onClick={() => navigator.clipboard.writeText(topSymptoms[0].cknEntry!.gpConversationScript)}
@@ -507,7 +507,7 @@ export default function AppointmentPrep() {
           <div className="flex items-start gap-2 text-[10px] text-[#9a9490] bg-[#f5f0ea] rounded-xl p-3.5">
             <Info className="w-3.5 h-3.5 shrink-0 mt-0.5" />
             <p className="leading-relaxed">
-              This summary is for personal reference only. All clinical data is encrypted in your vault and has not been shared with any third party. For the full clinical GP brief with peer-reviewed citations, use the{" "}
+              This summary is for personal reference only. All clinical data is encrypted in your vault and has not been shared with any third party. For the full clinical doctor brief with peer-reviewed citations, use the{" "}
               <button onClick={() => setActiveTab("evidence_engine")} className="text-[#4a8a72] font-semibold hover:underline">Evidence Engine</button>.
             </p>
           </div>

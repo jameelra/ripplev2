@@ -71,7 +71,7 @@ export function buildHrtTrackingLog(selections: HrtTrackingLogSelections, genera
   }
 
   lines.push("This is a personal tracking log, not a treatment plan or a medical record.");
-  lines.push("Bring it to your next HRT review with your GP or menopause specialist.");
+  lines.push("Bring it to your next HRT review with your doctor or menopause specialist.");
 
   return lines.join("\n");
 }

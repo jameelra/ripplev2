@@ -184,7 +184,7 @@ export default function EvidenceEngine() {
       <div>
         <h1 className="ripple-section-title">Evidence Engine</h1>
         <p className="text-sm text-[#6b7a72] mt-1">
-          Generate a clinical-grade GP brief with Greene Climacteric Scale scores and peer-reviewed citations
+          Generate a clinical-grade doctor brief with Greene Climacteric Scale scores and peer-reviewed citations
         </p>
       </div>
 
@@ -229,7 +229,7 @@ export default function EvidenceEngine() {
             <p className="text-sm font-bold text-[#1a2b22]">Pro Feature</p>
           </div>
           <p className="text-xs text-[#6b7a72] leading-relaxed">
-            The full Evidence Engine with Greene Climacteric Scale scoring, peer-reviewed citations, and printable GP briefs is available on the Pro plan.
+            The full Evidence Engine with Greene Climacteric Scale scoring, peer-reviewed citations, and printable doctor briefs is available on the Pro plan.
           </p>
           <div className="bg-[#f5f0ea] rounded-xl p-3 space-y-1 text-xs text-[#4a4a42]">
             <p className="font-bold text-[#1a2b22]">Free tier includes:</p>
@@ -237,7 +237,7 @@ export default function EvidenceEngine() {
             <p className="font-bold text-[#1a2b22] mt-2">Pro ({displayTrueMonthly("Pro")}) unlocks:</p>
             <p>✓ Full Greene Climacteric Scale scores</p>
             <p>✓ Peer-reviewed NAMS citations</p>
-            <p>✓ Printable clinical GP brief</p>
+            <p>✓ Printable clinical doctor brief</p>
           </div>
           <Button
             onClick={() => setActiveTab("upgrade_hub")}
@@ -262,8 +262,8 @@ export default function EvidenceEngine() {
             </p>
             <p className="text-xs text-[#6b7a72] mt-0.5 leading-relaxed">
               {hrtMedications.filter((m) => m.isActive).length > 0
-                ? `${hrtMedications.filter((m) => m.isActive).map((m) => m.name).join(", ")} — will appear in Section 4 of your GP brief.`
-                : "Add your medications in the HRT Tracker to include your treatment regimen in the GP brief."}
+                ? `${hrtMedications.filter((m) => m.isActive).map((m) => m.name).join(", ")} — will appear in Section 4 of your doctor brief.`
+                : "Add your medications in the HRT Tracker to include your treatment regimen in the doctor brief."}
             </p>
           </div>
           {hrtMedications.filter((m) => m.isActive).length === 0 && (
@@ -286,8 +286,8 @@ export default function EvidenceEngine() {
             </p>
             <p className="text-xs text-[#6b7a72] mt-0.5 leading-relaxed">
               {triggerAnalysis?.minimumDataMet
-                ? `${triggerAnalysis.dataPointsAnalysed} days analysed — trigger correlations will appear in Section 5 of your GP brief.`
-                : "Log triggers alongside symptoms for 14 days to unlock trigger analysis in your GP brief."}
+                ? `${triggerAnalysis.dataPointsAnalysed} days analysed — trigger correlations will appear in Section 5 of your doctor brief.`
+                : "Log triggers alongside symptoms for 14 days to unlock trigger analysis in your doctor brief."}
             </p>
           </div>
           {!triggerAnalysis?.minimumDataMet && (
@@ -315,8 +315,8 @@ export default function EvidenceEngine() {
                 {cycleEvents.length > 0
                   ? `${periodStarts.length} period start${periodStarts.length !== 1 ? "s" : ""}${
                       spottingCount > 0 ? `, ${spottingCount} spotting event${spottingCount !== 1 ? "s" : ""}` : ""
-                    } — cycle analysis will be included in Section 4 of your GP brief.`
-                  : "Log cycle events in the Cycle Calendar to include a menstrual cycle analysis in your GP brief."}
+                    } — cycle analysis will be included in Section 4 of your doctor brief.`
+                  : "Log cycle events in the Cycle Calendar to include a menstrual cycle analysis in your doctor brief."}
               </p>
             </div>
             {cycleEvents.length === 0 && (
@@ -341,7 +341,7 @@ export default function EvidenceEngine() {
           {isGenerating ? (
             <span className="flex items-center gap-2"><RefreshCw className="w-4 h-4 animate-spin" />Generating Clinical Brief…</span>
           ) : (
-            <span className="flex items-center gap-2"><FileText className="w-4 h-4" />Generate GP Appointment Brief</span>
+            <span className="flex items-center gap-2"><FileText className="w-4 h-4" />Generate Doctor Appointment Brief</span>
           )}
         </Button>
       )}
@@ -412,7 +412,7 @@ export default function EvidenceEngine() {
             {/* Content tabs */}
             <div className="flex gap-1 bg-[#f5f0ea] p-1 rounded-xl">
               {[
-                { id: "brief" as const, label: "GP Brief" },
+                { id: "brief" as const, label: "Doctor Brief" },
                 { id: "references" as const, label: "Clinical References" },
                 { id: "providers" as const, label: "Find a Provider" },
               ].map((tab) => (
@@ -442,7 +442,7 @@ export default function EvidenceEngine() {
                 <div className="ripple-card p-5 space-y-3">
                   <div className="flex items-center gap-2">
                     <FileText className="w-4 h-4 text-[#4a8a72]" />
-                    <p className="ripple-label">Clinical GP Brief</p>
+                    <p className="ripple-label">Clinical Doctor Brief</p>
                   </div>
                   <div className="prose prose-sm max-w-none text-[#3a3a32] text-xs leading-relaxed">
                     <Streamdown>{brief}</Streamdown>

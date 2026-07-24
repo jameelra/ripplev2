@@ -148,7 +148,7 @@ export const WIKI_TREATMENT_LINKS = {
   },
   doctorVisit: {
     url: `${WIKI_BASE}/#navigating-your-medical-appointment`,
-    label: "Navigating Your GP Appointment",
+    label: "Navigating Your Doctor Appointment",
     description: "How to ask for treatment, handle dismissal",
   },
 } as const;

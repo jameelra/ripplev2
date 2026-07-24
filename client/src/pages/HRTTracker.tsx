@@ -317,7 +317,7 @@ function TreatmentResponseView({ med, onClose }: { med: HRTMedication; onClose: 
 
           <div className="flex items-start gap-2 text-[10px] text-[#9a9490] bg-[#f5f0ea] rounded-xl p-3">
             <Info className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-            <p>Treatment response data is included in your Evidence Engine GP brief. Share it with your doctor at your next appointment.</p>
+            <p>Treatment response data is included in your Evidence Engine doctor brief. Share it with your doctor at your next appointment.</p>
           </div>
         </div>
       )}
@@ -561,7 +561,7 @@ export default function HRTTracker() {
               <div>
                 <p className="font-serif text-base font-bold text-[#1a2b22]">No medications logged yet</p>
                 <p className="text-xs text-[#6b7a72] max-w-sm mx-auto leading-relaxed mt-1">
-                  Add your HRT medications, supplements, and non-hormonal treatments. Your regimen will appear in your GP brief.
+                  Add your HRT medications, supplements, and non-hormonal treatments. Your regimen will appear in your doctor brief.
                 </p>
               </div>
               <Button onClick={() => setShowForm(true)} className="bg-[#4a8a72] hover:bg-[#3a7060] text-white font-mono text-xs font-bold px-6 py-3 rounded-xl">

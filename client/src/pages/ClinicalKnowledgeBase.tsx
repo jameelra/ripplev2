@@ -111,7 +111,7 @@ function EntryDetail({ entry, onClose }: { entry: ClinicalEntry; onClose: () => 
           {([
             { id: "overview" as const, label: "The Science" },
             { id: "treatments" as const, label: `Treatments (${entry.treatments.length})` },
-            { id: "gp_guide" as const, label: "GP Script" },
+            { id: "gp_guide" as const, label: "Doctor Script" },
           ]).map((tab) => (
             <button
               key={tab.id}
@@ -281,7 +281,7 @@ export default function ClinicalKnowledgeBase() {
       <div>
         <h1 className="ripple-section-title">Clinical Knowledge Base</h1>
         <p className="text-sm text-[#6b7a72] mt-1">
-          Original clinical entries — 10 symptoms explained with mechanisms, treatments, and GP scripts
+          Original clinical entries — 10 symptoms explained with mechanisms, treatments, and doctor scripts
         </p>
       </div>
 

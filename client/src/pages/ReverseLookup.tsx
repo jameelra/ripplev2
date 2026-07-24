@@ -99,7 +99,7 @@ function ResultCard({ result, query }: { result: SymptomResult; query: string })
           className="flex items-center gap-2 text-xs font-bold text-[#4a8a72] hover:text-[#3a7060] transition-colors"
         >
           <MessageSquare className="w-3.5 h-3.5" />
-          GP Conversation Script
+          Doctor Conversation Script
           {showScript ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
         </button>
 

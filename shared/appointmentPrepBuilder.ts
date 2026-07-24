@@ -86,7 +86,7 @@ export function buildPrepSheet(selections: PrepSheetSelections, generatedOn: Dat
   }
 
   lines.push("This is a personal prompt sheet, not a treatment plan or a medical document.");
-  lines.push("Bring it as a starting point for discussion with your GP or menopause specialist.");
+  lines.push("Bring it as a starting point for discussion with your doctor or menopause specialist.");
 
   return lines.join("\n");
 }
