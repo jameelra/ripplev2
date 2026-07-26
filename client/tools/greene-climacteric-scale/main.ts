@@ -194,3 +194,62 @@ form.addEventListener("submit", event => {
 
 printBtn.addEventListener("click", () => window.print());
 editBtn.addEventListener("click", () => form.scrollIntoView({ behavior: "smooth", block: "start" }));
+
+// ─── Email capture ────────────────────────────────────────────────────────────
+// The only network call this page ever makes. Sends exactly { email, source }
+// to the server proxy (server/_core/mailerliteProxy.ts) — no answer, score,
+// or subscale data is included. The honeypot field is never sent at all: if
+// it's filled, the request is skipped client-side rather than posted with a
+// flag for the server to check.
+const emailForm = document.querySelector<HTMLFormElement>("#greene-email-form")!;
+const emailInput = document.querySelector<HTMLInputElement>("#greene-email-input")!;
+const emailHoneypot = document.querySelector<HTMLInputElement>("#greene-email-website")!;
+const emailSubmitBtn = document.querySelector<HTMLButtonElement>("#greene-email-submit")!;
+const emailStatus = document.querySelector<HTMLElement>("#greene-email-status")!;
+
+const EMAIL_SUBMIT_LABEL = "Send me a reminder";
+let emailSubmitting = false;
+
+function setEmailStatus(kind: "success" | "error", message: string): void {
+  emailStatus.textContent = message;
+  emailStatus.className = `mt-2 text-xs ${kind === "success" ? "text-[#3d7460]" : "text-[#c07060]"}`;
+  emailStatus.classList.remove("hidden");
+}
+
+emailForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  if (emailSubmitting) return;
+
+  if (emailHoneypot.value.trim() !== "") {
+    // Likely a bot — never hit the network, just no-op as if it worked.
+    emailForm.reset();
+    setEmailStatus("success", "Check your inbox to confirm.");
+    return;
+  }
+
+  const email = emailInput.value.trim();
+  if (!email) return;
+
+  emailSubmitting = true;
+  emailSubmitBtn.disabled = true;
+  emailSubmitBtn.textContent = "Sending…";
+  emailStatus.classList.add("hidden");
+
+  try {
+    const response = await fetch("/api/greene-widget/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, source: "greene-widget" }),
+    });
+    if (!response.ok) throw new Error("subscribe failed");
+    emailForm.reset();
+    setEmailStatus("success", "Check your inbox to confirm.");
+  } catch {
+    // Form is left as-is on error — the typed email isn't cleared, so retrying is just clicking submit again.
+    setEmailStatus("error", "Something went wrong — please try again.");
+  } finally {
+    emailSubmitting = false;
+    emailSubmitBtn.disabled = false;
+    emailSubmitBtn.textContent = EMAIL_SUBMIT_LABEL;
+  }
+});
