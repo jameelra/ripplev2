@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Joint Pain in Perimenopause — Causes and What Helps | Ripple</title>
+    <meta
+      name="description"
+      content="Why joint pain and stiffness are common in perimenopause, what's actually known about the cause, how it maps to the Greene Climacteric Scale, and when to see a doctor. Free, no login." />
+    <link rel="canonical" href="https://ripplehealth.app/tools/joint-pain-perimenopause/" />
+
+    <meta property="og:url" content="https://ripplehealth.app/tools/joint-pain-perimenopause/" />
+    <meta property="og:site_name" content="Ripple" />
+    <meta property="og:title" content="Joint Pain in Perimenopause — Causes and What Helps" />
+    <meta property="og:description" content="Why joint pain and stiffness are common in perimenopause, what's known about the cause, and when to see a doctor." />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Joint Pain in Perimenopause — Causes and What Helps" />
+    <meta name="twitter:description" content="Why joint pain and stiffness are common in perimenopause, what's known about the cause, and when to see a doctor." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Joint Pain in Perimenopause — Causes and What Helps",
+      "url": "https://ripplehealth.app/tools/joint-pain-perimenopause/",
+      "description": "An evidence-based explainer on joint pain in perimenopause: what's known about the cause, how it maps to the Greene Climacteric Scale, what tends to help, and when to see a doctor.",
+      "about": {
+        "@type": "MedicalCondition",
+        "name": "Perimenopausal joint pain (arthralgia)"
+      },
+      "lastReviewed": "2026-07-30",
+      "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Patient"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Ripple",
+        "url": "https://ripplehealth.app/"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does perimenopause cause joint pain?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Estrogen receptors are present throughout the musculoskeletal system, and estrogen has an anti-inflammatory effect on joint tissue. As estrogen declines and fluctuates during perimenopause, that protective effect is reduced, which is the leading explanation for new or worsening joint aches and stiffness during this transition."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is perimenopausal joint pain the same as arthritis?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not necessarily, and this page doesn't diagnose either condition. Perimenopausal joint pain often presents as morning stiffness lasting under 30 minutes without visible joint swelling, which differs from the pattern typically seen in inflammatory arthritis — but a doctor, not a symptom description, is what can actually tell the two apart."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is frozen shoulder linked to perimenopause?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There's a documented association: frozen shoulder (adhesive capsulitis) has a peak incidence in midlife women, which has led researchers to implicate hormonal factors in its development, though the exact mechanism isn't fully settled."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the Greene Climacteric Scale include joint pain?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. \"Muscle and joint pains\" is item 16, part of the Greene Climacteric Scale's Somatic subscale, which covers seven physical symptoms sometimes linked to hormonal change."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Ripple track joint pain alongside my other symptoms?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Ripple's symptom log includes joint pain as a trackable item, encrypted through Ripple's zero-knowledge vault architecture so entries stay unreadable to anyone but you."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!--
+      claimsToVerify — verified before publish (inline record; this repo's
+      human publish gate is normal PR review, per client/tools/README.md).
+
+      - [x] Greene item 16 = "Muscle and joint pains", Somatic subscale
+            (items 12-18) — Greene JG, Maturitas, 1998. Cross-checked
+            against client/tools/greene-climacteric-scale/index.html.
+      - [x] Estrogen receptors present in synovial tissue, cartilage, and
+            bone with an anti-inflammatory effect — Braidman IP et al.,
+            J Bone Miner Res, 2001. Already cited and reviewed in
+            client/src/lib/clinicalKnowledgeBase.ts (joint_pain entry).
+      - [x] Frozen shoulder (adhesive capsulitis) peak incidence in midlife
+            women implicating hormonal factors — Bunker TD, Shoulder &
+            Elbow, 2009. Already cited and reviewed in
+            client/src/lib/clinicalKnowledgeBase.ts (joint_pain entry).
+            Worded as "a documented association... though the exact
+            mechanism isn't fully settled" rather than asserting causation,
+            since the source itself doesn't establish a confirmed
+            mechanism.
+      - [x] "Affects up to 50% of perimenopausal women"
+            (client/src/lib/clinicalKnowledgeBase.ts's prevalence line) was
+            deliberately NOT carried over — that figure has no citation
+            directly supporting it in this codebase, so it would be an
+            invented statistic on this page. Kept prevalence language
+            qualitative instead.
+      - [ ] UNVERIFIED, flagged rather than asserted: the brief's premise
+            that joint pain is an "under-covered symptom" relative to
+            competitor content (Balance, Stella, Elektra) could not be
+            checked — this session's web fetch tool returned 403 for every
+            external site tried (nice.org.uk, pubmed.ncbi.nlm.nih.gov,
+            menopause.org), so no live competitor content audit was
+            possible. Built the page on its own clinical merit; the
+            competitive-whitespace claim itself is unverified and should be
+            spot-checked outside this session before it's used to justify
+            page priority.
+    -->
+    <!-- google-site-verification -->
+    <!-- cloudflare-beacon -->
+  </head>
+
+  <body class="bg-background text-foreground font-sans antialiased">
+    <header class="border-b border-[#e0d5c8] bg-white/80">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-2.5">
+        <a href="https://ripplehealth.app/" class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-full bg-[#f5f0ea] border border-[#e0d5c8] flex items-center justify-center shrink-0">
+            <span class="w-2 h-2 rounded-full bg-[#c07060]"></span>
+          </span>
+          <span class="text-sm font-serif font-bold text-[#1a2b22]">Ripple</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1a2b22] tracking-tight">
+        Joint Pain in Perimenopause
+      </h1>
+      <p class="mt-4 text-base leading-relaxed text-[#3f4a44]">
+        Joint pain in perimenopause usually shows up as aching or stiffness in the hands, knees, hips, or shoulders —
+        often on both sides of the body, and often worse first thing in the morning. It's a physical symptom that
+        gets far less attention than hot flushes or mood changes, which means it's frequently attributed to "just
+        getting older" rather than connected to the hormonal transition actually driving it.
+      </p>
+
+      <article class="mt-10 prose-content max-w-none space-y-6 text-[#3f4a44] leading-relaxed">
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Where this fits on the Greene Scale</h2>
+          <p class="mt-2">
+            This is one of the symptoms tracked in the Greene Climacteric Scale — item 16, "Muscle and joint pains,"
+            part of the Somatic subscale, which covers seven physical symptoms sometimes linked to hormonal change.
+            You can
+            <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="text-[#4a8a72] underline hover:text-[#3d7460]">score your own severity here</a>,
+            including this item alongside the rest of your symptoms — it takes about five minutes and nothing you
+            enter leaves your browser.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What's actually known</h2>
+          <p class="mt-2">
+            Estrogen receptors are present throughout the musculoskeletal system — in cartilage, synovial membranes,
+            and joint tissue — and estrogen has a documented anti-inflammatory effect there (Braidman et al., 2001).
+            As estrogen declines and fluctuates during perimenopause, that protective effect is reduced, which is the
+            leading explanation for new or worsening joint aches during this transition. There's also a specific,
+            well-documented association between perimenopause and frozen shoulder (adhesive capsulitis), which has a
+            peak incidence in midlife women — researchers have implicated hormonal factors in this pattern, though
+            the exact mechanism isn't fully settled (Bunker, 2009).
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What tends to help</h2>
+          <p class="mt-2">
+            Regular movement — particularly resistance and weight-bearing exercise — is a general, non-hormonal
+            measure reflected in NICE's broader guidance on perimenopause and menopause management (NICE NG23), and
+            it's commonly reported to reduce joint stiffness over time by strengthening the muscles that support
+            affected joints. Some people find short-term relief from over-the-counter anti-inflammatory medication
+            for flares, though that's not intended for ongoing daily use — worth checking with a pharmacist or doctor
+            either way. Whether hormone therapy is appropriate for you specifically is a decision for a doctor based
+            on your history, not something this page can recommend.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">When to escalate to a clinician</h2>
+          <p class="mt-2">
+            See a doctor if a joint is visibly swollen, if morning stiffness lasts longer than 30 minutes, if you
+            have a family history of rheumatoid arthritis, or if the pain is rapidly worsening rather than
+            fluctuating. Blood tests can help a doctor distinguish perimenopausal joint pain from inflammatory
+            arthritis — that distinction matters for treatment, and it's not one you can make from a symptom
+            description alone.
+          </p>
+        </section>
+
+        <section aria-labelledby="joint-pain-faq-heading">
+          <h2 id="joint-pain-faq-heading" class="font-serif text-xl font-bold text-[#1a2b22]">Frequently asked questions</h2>
+          <div class="mt-3 space-y-4">
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Why does perimenopause cause joint pain?</h3>
+              <p class="mt-1">
+                Estrogen receptors are present throughout the musculoskeletal system, and estrogen has an
+                anti-inflammatory effect on joint tissue. As estrogen declines and fluctuates during perimenopause,
+                that protective effect is reduced, which is the leading explanation for new or worsening joint aches
+                and stiffness during this transition.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Is perimenopausal joint pain the same as arthritis?</h3>
+              <p class="mt-1">
+                Not necessarily, and this page doesn't diagnose either condition. Perimenopausal joint pain often
+                presents as morning stiffness lasting under 30 minutes without visible joint swelling, which differs
+                from the pattern typically seen in inflammatory arthritis — but a doctor, not a symptom description,
+                is what can actually tell the two apart.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Is frozen shoulder linked to perimenopause?</h3>
+              <p class="mt-1">
+                There's a documented association: frozen shoulder (adhesive capsulitis) has a peak incidence in
+                midlife women, which has led researchers to implicate hormonal factors in its development, though the
+                exact mechanism isn't fully settled.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Does the Greene Climacteric Scale include joint pain?</h3>
+              <p class="mt-1">
+                Yes. "Muscle and joint pains" is item 16, part of the Greene Climacteric Scale's Somatic subscale,
+                which covers seven physical symptoms sometimes linked to hormonal change.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Can Ripple track joint pain alongside my other symptoms?</h3>
+              <p class="mt-1">
+                Yes. Ripple's symptom log includes joint pain as a trackable item, encrypted through Ripple's
+                zero-knowledge vault architecture so entries stay unreadable to anyone but you.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Sources</h2>
+          <ul class="mt-2 space-y-2 text-sm">
+            <li>Greene JG. Constructing a Standard Climacteric Scale. <em>Maturitas</em>. 1998;29(1):25–31.</li>
+            <li>Braidman IP, Hainey L, Batra G, et al. Localization of estrogen receptor beta protein expression in adult human bone. <em>J Bone Miner Res</em>. 2001;16(2):214–220.</li>
+            <li>Bunker TD. Frozen shoulder. <em>Shoulder & Elbow</em>. 2009;1(1):11–16.</li>
+            <li>NICE guideline NG23, <em>Menopause: identification and management</em>. Published November 2015, updated November 2024. National Institute for Health and Care Excellence.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Related</h2>
+          <p class="mt-2">
+            Score the Somatic subscale, and the rest of your symptoms, with the
+            <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Greene Climacteric Scale self-assessment</a>.
+            If joint pain has been dismissed as "just getting older" without further investigation, the
+            <a href="https://ripplehealth.app/tools/dismissal-tracker/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Dismissal Tracker</a>
+            helps you keep a dated record for your next appointment. If you want help judging a specific claim about
+            joint pain and hormones, see
+            <a href="https://ripplehealth.app/tools/evidence-engine/" class="text-[#4a8a72] underline hover:text-[#3d7460]">how to read perimenopause and menopause evidence</a>.
+            And to prepare for that conversation, see the
+            <a href="https://ripplehealth.app/tools/appointment-prep/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Appointment Prep sheet builder</a>.
+          </p>
+        </section>
+      </article>
+
+      <div class="mt-8 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-5 sm:p-6 text-center">
+        <p class="text-sm text-[#2f4038] leading-relaxed">
+          Ripple tracks joint pain alongside your other symptoms, shows how it trends over time, and can build it
+          into a clinical evidence report for your next appointment.
+        </p>
+        <a href="https://ripplehealth.app/" class="mt-4 inline-block rounded-xl bg-[#4a8a72] text-white text-sm font-semibold px-6 py-3 hover:bg-[#3d7460] transition-colors">
+          Track your symptoms in Ripple — it's free to start
+        </a>
+      </div>
+
+      <footer class="mt-12 border-t border-[#e0d5c8] pt-6 text-xs leading-relaxed text-[#9a9490]">
+        <p>
+          This page is for informational and self-advocacy purposes only. It is not a substitute for professional
+          medical advice, diagnosis, or treatment. Always discuss your symptoms and any treatment decisions with a
+          qualified doctor or menopause specialist.
+        </p>
+        <p class="mt-3">
+          <a href="https://ripplehealth.app/" class="underline hover:text-[#6b7a72]">Ripple — Perimenopause Health Companion</a>
+        </p>
+      </footer>
+    </main>
+  </body>
+
+</html>

@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Brain Fog in Perimenopause — Causes, Greene Scale Link, and What Helps | Ripple</title>
+    <meta
+      name="description"
+      content="Why perimenopause causes brain fog and memory lapses, what's actually known about the cause, how it maps to the Greene Climacteric Scale, and when to see a doctor. Free, no login, no ads." />
+    <link rel="canonical" href="https://ripplehealth.app/tools/brain-fog-perimenopause/" />
+
+    <meta property="og:url" content="https://ripplehealth.app/tools/brain-fog-perimenopause/" />
+    <meta property="og:site_name" content="Ripple" />
+    <meta property="og:title" content="Brain Fog in Perimenopause — Causes and What Helps" />
+    <meta property="og:description" content="Why perimenopause causes brain fog and memory lapses, what's actually known about the cause, and when to see a doctor." />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Brain Fog in Perimenopause — Causes and What Helps" />
+    <meta name="twitter:description" content="Why perimenopause causes brain fog and memory lapses, what's actually known about the cause, and when to see a doctor." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Brain Fog in Perimenopause — Causes, Greene Scale Link, and What Helps",
+      "url": "https://ripplehealth.app/tools/brain-fog-perimenopause/",
+      "description": "An evidence-based explainer on perimenopausal brain fog: what it is, what's known about the cause, how it maps to the Greene Climacteric Scale, what tends to help, and when to see a doctor.",
+      "about": {
+        "@type": "MedicalCondition",
+        "name": "Perimenopausal cognitive symptoms (brain fog)"
+      },
+      "lastReviewed": "2026-07-30",
+      "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Patient"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Ripple",
+        "url": "https://ripplehealth.app/"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is brain fog a real symptom of perimenopause?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. It isn't a formal diagnosis, but the cognitive symptoms people describe as brain fog — word-finding trouble, short-term memory lapses, difficulty concentrating — are widely reported during perimenopause, and neuroimaging research has found measurable, temporary changes in brain glucose metabolism during this transition that track with those symptoms."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does perimenopausal brain fog mean I'm developing dementia?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Perimenopausal brain fog is understood as a transitional change linked to hormonal fluctuation, not a marker of early dementia. That said, if memory lapses involve forgetting significant recent events rather than words or names, or if symptoms are steadily worsening rather than fluctuating, it's reasonable to raise this with a doctor rather than assume it's hormonal."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does perimenopausal brain fog last?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There's no single, verified timeline that applies to everyone, so this page won't invent one. What research does show is that the pattern is transitional rather than fixed — cognitive changes measured during the perimenopause transition are not the same as a permanent decline."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the Greene Climacteric Scale measure brain fog directly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Partly. The Greene Climacteric Scale includes \"Difficulty in concentrating\" as item 6, part of its Psychological subscale. It doesn't have separate items for word-finding trouble or memory lapses, so it captures one piece of what people mean by brain fog, not the whole picture."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Ripple track brain fog over time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Ripple's symptom log includes brain fog as a trackable item, and entries are stored through Ripple's zero-knowledge vault architecture — encrypted on your device before anything is saved, so Ripple itself cannot read your logs."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!--
+      claimsToVerify — verified before publish. This repo has no automated
+      claims pipeline; the human publish gate is normal PR review (see
+      client/tools/README.md: "founder reviews all of it before merge").
+      This comment is the inline, auditable record of that review.
+
+      - [x] Greene Climacteric Scale item 6 = "Difficulty in concentrating",
+            Psychological subscale (Anxiety group, items 1-6) — Greene JG,
+            "Constructing a Standard Climacteric Scale," Maturitas,
+            1998;29(1):25-31. Cross-checked against the item text rendered
+            on client/tools/greene-climacteric-scale/index.html and against
+            shared/greeneClimactericScale.ts.
+      - [x] Brain glucose metabolism changes during the perimenopause
+            transition correlate with subjective cognitive symptoms —
+            Mosconi L et al., PLOS ONE, 2017, pubmed.ncbi.nlm.nih.gov/28384212.
+            Already cited and reviewed in client/src/lib/clinicalKnowledgeBase.ts;
+            re-verified the claim wording matches what that citation supports
+            (a correlation and a transitional pattern, not a decline claim).
+      - [x] No numeric prevalence statistic for brain fog is asserted on this
+            page. Estimates vary widely across studies and no single
+            checkable figure could be confirmed, so this page describes
+            prevalence qualitatively ("widely reported") instead of citing a
+            number, consistent with how client/src/lib/clinicalKnowledgeBase.ts
+            already handles this same symptom.
+      - [x] No claim implies brain fog is permanent or a marker of dementia;
+            copy explicitly reassures against that reading, consistent with
+            the standing "no medical advice, informational framing only"
+            invariant.
+      - [x] Confirmed against server/citationHardeningBatch2.test.ts's
+            verified canon: only Greene 1998 and one already-reviewed
+            PubMed-indexed primary source are cited. No BMS, Endocrine
+            Society, or aggregator source used.
+    -->
+    <!-- google-site-verification -->
+    <!-- cloudflare-beacon -->
+  </head>
+
+  <body class="bg-background text-foreground font-sans antialiased">
+    <header class="border-b border-[#e0d5c8] bg-white/80">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-2.5">
+        <a href="https://ripplehealth.app/" class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-full bg-[#f5f0ea] border border-[#e0d5c8] flex items-center justify-center shrink-0">
+            <span class="w-2 h-2 rounded-full bg-[#c07060]"></span>
+          </span>
+          <span class="text-sm font-serif font-bold text-[#1a2b22]">Ripple</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1a2b22] tracking-tight">
+        Brain Fog in Perimenopause
+      </h1>
+      <p class="mt-4 text-base leading-relaxed text-[#3f4a44]">
+        Brain fog is the everyday name for a cluster of cognitive symptoms — losing your train of thought
+        mid-sentence, forgetting why you walked into a room, struggling to find a word you know well, feeling
+        mentally slower than usual — that many people notice for the first time during perimenopause. It isn't a
+        formal medical diagnosis; it's a description of how cognitive changes feel day to day. For most people, it's
+        a temporary shift tied to the hormonal transition, not a sign of early dementia or permanent decline.
+      </p>
+
+      <article class="mt-10 prose-content max-w-none space-y-6 text-[#3f4a44] leading-relaxed">
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Where this fits on the Greene Scale</h2>
+          <p class="mt-2">
+            This is one of the symptoms tracked in the Greene Climacteric Scale — item 6, "Difficulty in
+            concentrating," part of its Psychological subscale. It's a partial match, not a full one: Greene's scale
+            doesn't have separate items for word-finding trouble or short-term memory lapses, so it captures
+            concentration specifically rather than everything people mean by "brain fog." If concentration problems
+            are part of what you're noticing, alongside your other symptoms, you can
+            <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="text-[#4a8a72] underline hover:text-[#3d7460]">score your overall severity with the free Greene Climacteric Scale self-assessment</a>
+            — it takes about five minutes and nothing you enter leaves your browser.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What's actually known</h2>
+          <p class="mt-2">
+            Neuroimaging research has found measurable, temporary reductions in brain glucose metabolism — the way
+            brain cells use their main fuel source — during the perimenopause transition, and these reductions track
+            with the cognitive symptoms people report at the same time (Mosconi et al., 2017). Estrogen is
+            understood to play a supporting role in several brain functions related to memory and attention, which
+            is the leading explanation for why cognitive symptoms often start around the same time as other
+            perimenopausal symptoms. Importantly, this research describes a transitional pattern during the
+            hormonal shift, not a fixed or progressive decline.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What tends to help</h2>
+          <p class="mt-2">
+            Sleep quality has a strong, well-documented relationship with cognitive performance — if night sweats or
+            insomnia are also part of your picture, treating those often improves brain fog as a side effect. NICE's
+            guideline on menopause identification and management (NG23) covers general lifestyle measures — regular
+            physical activity, and attention to sleep — as part of managing perimenopausal symptoms broadly, not
+            brain fog specifically. Hormone therapy is sometimes associated with improvement in cognitive symptoms
+            for some people, but whether it's appropriate for you depends on your individual history — that's a
+            conversation to have with a doctor, not something this page can recommend either way.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">When to escalate to a clinician</h2>
+          <p class="mt-2">
+            See a doctor if brain fog is affecting your ability to work or function safely, if lapses involve
+            forgetting significant recent events rather than words or names, or if symptoms are steadily worsening
+            instead of coming and going. It's also worth asking your doctor to rule out thyroid dysfunction, vitamin
+            B12 deficiency, or anemia — all can produce cognitive symptoms that closely resemble perimenopausal
+            brain fog, and all are simple to test for.
+          </p>
+        </section>
+
+        <section aria-labelledby="brain-fog-faq-heading">
+          <h2 id="brain-fog-faq-heading" class="font-serif text-xl font-bold text-[#1a2b22]">Frequently asked questions</h2>
+          <div class="mt-3 space-y-4">
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Is brain fog a real symptom of perimenopause?</h3>
+              <p class="mt-1">
+                Yes. It isn't a formal diagnosis, but the cognitive symptoms people describe as brain fog —
+                word-finding trouble, short-term memory lapses, difficulty concentrating — are widely reported during
+                perimenopause, and neuroimaging research has found measurable, temporary changes in brain glucose
+                metabolism during this transition that track with those symptoms.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Does perimenopausal brain fog mean I'm developing dementia?</h3>
+              <p class="mt-1">
+                No. Perimenopausal brain fog is understood as a transitional change linked to hormonal fluctuation,
+                not a marker of early dementia. That said, if memory lapses involve forgetting significant recent
+                events rather than words or names, or if symptoms are steadily worsening rather than fluctuating,
+                it's reasonable to raise this with a doctor rather than assume it's hormonal.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">How long does perimenopausal brain fog last?</h3>
+              <p class="mt-1">
+                There's no single, verified timeline that applies to everyone, so this page won't invent one. What
+                research does show is that the pattern is transitional rather than fixed — cognitive changes measured
+                during the perimenopause transition are not the same as a permanent decline.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Does the Greene Climacteric Scale measure brain fog directly?</h3>
+              <p class="mt-1">
+                Partly. The Greene Climacteric Scale includes "Difficulty in concentrating" as item 6, part of its
+                Psychological subscale. It doesn't have separate items for word-finding trouble or memory lapses, so
+                it captures one piece of what people mean by brain fog, not the whole picture.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Can Ripple track brain fog over time?</h3>
+              <p class="mt-1">
+                Yes. Ripple's symptom log includes brain fog as a trackable item, and entries are stored through
+                Ripple's zero-knowledge vault architecture — encrypted on your device before anything is saved, so
+                Ripple itself cannot read your logs.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Sources</h2>
+          <ul class="mt-2 space-y-2 text-sm">
+            <li>Greene JG. Constructing a Standard Climacteric Scale. <em>Maturitas</em>. 1998;29(1):25–31.</li>
+            <li>Mosconi L, Berti V, Quinn C, et al. Perimenopause and emergence of an Alzheimer's bioenergetic phenotype in brain and periphery. <em>PLOS ONE</em>. 2017;12(10):e0185926.</li>
+            <li>NICE guideline NG23, <em>Menopause: identification and management</em>. Published November 2015, updated November 2024. National Institute for Health and Care Excellence.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Related</h2>
+          <p class="mt-2">
+            Score your overall symptom picture, including concentration difficulty, with the
+            <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Greene Climacteric Scale self-assessment</a>.
+            If a doctor has dismissed brain fog as "just stress" without further investigation, the
+            <a href="https://ripplehealth.app/tools/dismissal-tracker/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Dismissal Tracker</a>
+            helps you keep a dated record to bring to your next appointment. If you want help judging the evidence
+            behind a specific claim about brain fog or hormone therapy, see
+            <a href="https://ripplehealth.app/tools/evidence-engine/" class="text-[#4a8a72] underline hover:text-[#3d7460]">how to read perimenopause and menopause evidence</a>.
+            And if you're heading into an appointment to discuss this, the
+            <a href="https://ripplehealth.app/tools/appointment-prep/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Appointment Prep sheet builder</a>
+            helps you turn scattered symptoms into a clear, one-page summary.
+          </p>
+        </section>
+      </article>
+
+      <div class="mt-8 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-5 sm:p-6 text-center">
+        <p class="text-sm text-[#2f4038] leading-relaxed">
+          Ripple tracks brain fog alongside your other symptoms, shows how it trends over time, and can build it
+          into a clinical evidence report for your next appointment.
+        </p>
+        <a href="https://ripplehealth.app/" class="mt-4 inline-block rounded-xl bg-[#4a8a72] text-white text-sm font-semibold px-6 py-3 hover:bg-[#3d7460] transition-colors">
+          Track your symptoms in Ripple — it's free to start
+        </a>
+      </div>
+
+      <footer class="mt-12 border-t border-[#e0d5c8] pt-6 text-xs leading-relaxed text-[#9a9490]">
+        <p>
+          This page is for informational and self-advocacy purposes only. It is not a substitute for professional
+          medical advice, diagnosis, or treatment. Always discuss your symptoms and any treatment decisions with a
+          qualified doctor or menopause specialist.
+        </p>
+        <p class="mt-3">
+          <a href="https://ripplehealth.app/" class="underline hover:text-[#6b7a72]">Ripple — Perimenopause Health Companion</a>
+        </p>
+      </footer>
+    </main>
+  </body>
+
+</html>

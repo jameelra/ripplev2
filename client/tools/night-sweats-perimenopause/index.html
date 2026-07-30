@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Night Sweats in Perimenopause — Causes, When They Stop, and What Helps | Ripple</title>
+    <meta
+      name="description"
+      content="What causes perimenopausal night sweats, what's actually known about how long they last, how they map to the Greene Climacteric Scale, and when to see a doctor. Free, no login." />
+    <link rel="canonical" href="https://ripplehealth.app/tools/night-sweats-perimenopause/" />
+
+    <meta property="og:url" content="https://ripplehealth.app/tools/night-sweats-perimenopause/" />
+    <meta property="og:site_name" content="Ripple" />
+    <meta property="og:title" content="Night Sweats in Perimenopause — Causes and What Helps" />
+    <meta property="og:description" content="What causes perimenopausal night sweats, what's actually known about how long they last, and when to see a doctor." />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Night Sweats in Perimenopause — Causes and What Helps" />
+    <meta name="twitter:description" content="What causes perimenopausal night sweats, what's actually known about how long they last, and when to see a doctor." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Night Sweats in Perimenopause — Causes, When They Stop, and What Helps",
+      "url": "https://ripplehealth.app/tools/night-sweats-perimenopause/",
+      "description": "An evidence-based explainer on perimenopausal night sweats: cause, how they map to the Greene Climacteric Scale, what tends to help, and when to see a doctor.",
+      "about": {
+        "@type": "MedicalCondition",
+        "name": "Perimenopausal night sweats (nocturnal vasomotor symptoms)"
+      },
+      "lastReviewed": "2026-07-30",
+      "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Patient"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Ripple",
+        "url": "https://ripplehealth.app/"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What causes night sweats in perimenopause?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Night sweats share the same underlying mechanism as daytime hot flushes: as estrogen fluctuates, the brain's temperature-regulation center becomes more sensitive to small changes in body temperature, triggering sudden heat and sweating. At night, this also disrupts sleep architecture, which is why night sweats are strongly linked to poor sleep quality."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When do perimenopausal night sweats stop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There's no single, reliably sourced timeline that applies to everyone, and this page won't invent one — duration varies significantly from person to person. What's well established is that night sweats are a vasomotor symptom tied to hormonal fluctuation during the menopause transition, and tracking your own pattern over time is more useful than a general average."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are night sweats one item on the Greene Climacteric Scale?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. \"Sweating at night\" is item 20, one of two items in the Greene Climacteric Scale's Vasomotor subscale, alongside item 19, \"Hot flushes.\""
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does alcohol make night sweats worse?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Alcohol is a vasodilator, meaning it widens blood vessels near the skin, which is part of the same mechanism that produces a hot flush or night sweat. Many people notice fewer or less severe episodes after reducing evening alcohol intake, though individual response varies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Ripple track my night sweats over time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Ripple's symptom log tracks night sweats alongside sleep quality and your other symptoms, encrypted through Ripple's zero-knowledge vault architecture so entries stay unreadable to anyone but you."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!--
+      claimsToVerify — verified before publish (inline record; this repo's
+      human publish gate is normal PR review, per client/tools/README.md).
+
+      - [x] Greene item 19 = "Hot flushes", item 20 = "Sweating at night",
+            both in the Vasomotor subscale — Greene JG, Maturitas, 1998.
+            Cross-checked against client/tools/greene-climacteric-scale/index.html.
+      - [x] Vasomotor symptoms are associated with objectively measured sleep
+            disruption and reduced slow-wave sleep — Kravitz HM et al.,
+            Sleep, 2008;31(7):979-990. Already cited and reviewed in
+            client/src/lib/clinicalKnowledgeBase.ts (night_sweats entry).
+      - [x] Deliberately did NOT assert a specific duration figure ("lasts
+            7-10 years" or similar) for how long night sweats persist. That
+            claim exists in client/src/lib/clinicalKnowledgeBase.ts's
+            hot_flashes entry but has no independently checkable citation
+            attached to it there either — so it was left out here rather
+            than repeated as if verified. Addressed the "when do they stop"
+            search intent honestly instead: variability is real, no single
+            number is claimed.
+      - [x] NAMS 2022 cited only for the general statement that hormone
+            therapy is the most-studied treatment for vasomotor symptoms,
+            matching the wording already used on
+            client/tools/evidence-engine/index.html — no new numeric
+            effectiveness figure (e.g. "75-90% reduction") was carried over
+            from clinicalKnowledgeBase.ts, since that figure isn't
+            independently sourced in this codebase.
+      - [x] Alcohol-as-vasodilator claim kept as basic, uncontroversial
+            physiology (no specific study cited) rather than attributing a
+            number to a source that wasn't verified.
+    -->
+    <!-- google-site-verification -->
+    <!-- cloudflare-beacon -->
+  </head>
+
+  <body class="bg-background text-foreground font-sans antialiased">
+    <header class="border-b border-[#e0d5c8] bg-white/80">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-2.5">
+        <a href="https://ripplehealth.app/" class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-full bg-[#f5f0ea] border border-[#e0d5c8] flex items-center justify-center shrink-0">
+            <span class="w-2 h-2 rounded-full bg-[#c07060]"></span>
+          </span>
+          <span class="text-sm font-serif font-bold text-[#1a2b22]">Ripple</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1a2b22] tracking-tight">
+        Night Sweats in Perimenopause
+      </h1>
+      <p class="mt-4 text-base leading-relaxed text-[#3f4a44]">
+        Night sweats are hot flushes that happen while you're asleep — a sudden rise in heat and sweating intense
+        enough to wake you, sometimes drenching enough that you need to change clothes or bedding. They're one of
+        the symptoms most classically associated with perimenopause, and because they interrupt sleep directly, they
+        often make other symptoms — fatigue, brain fog, irritability — feel worse than they would on their own.
+      </p>
+
+      <article class="mt-10 prose-content max-w-none space-y-6 text-[#3f4a44] leading-relaxed">
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Where this fits on the Greene Scale</h2>
+          <p class="mt-2">
+            This is one of the symptoms tracked in the Greene Climacteric Scale — item 20, "Sweating at night," one
+            of two items making up the scale's Vasomotor subscale, alongside item 19, "Hot flushes." You can
+            <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="text-[#4a8a72] underline hover:text-[#3d7460]">score your own severity here</a>,
+            including both vasomotor items, alongside the rest of your symptom picture — it takes about five minutes
+            and nothing you enter leaves your browser.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What's actually known</h2>
+          <p class="mt-2">
+            Night sweats share the same underlying mechanism as daytime hot flushes: as estrogen fluctuates during
+            perimenopause, the hypothalamus — the brain's temperature-regulation center — becomes more sensitive to
+            small changes in core body temperature, triggering an exaggerated heat-dissipation response. At night,
+            this is compounded by the fact that sleep itself already involves changes in thermoregulation, which is
+            part of why nocturnal episodes can feel more disruptive than daytime ones. Research using objective sleep
+            measurements has found that people with frequent vasomotor symptoms show measurably lower sleep
+            efficiency and less time in slow-wave (deep) sleep than those without them (Kravitz et al., 2008).
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What tends to help</h2>
+          <p class="mt-2">
+            Bedroom cooling — a cooler room temperature, moisture-wicking bedding, layered sleepwear — is a
+            straightforward, non-hormonal first step many people find helpful. Alcohol is a vasodilator, meaning it
+            widens blood vessels near the skin, and reducing evening alcohol intake is a commonly reported way to
+            lessen the frequency or intensity of episodes. Hormone therapy is the treatment most studied for
+            vasomotor symptoms generally, with the current position statement from The Menopause Society (published
+            under its former name, NAMS, in 2022) addressing its role for symptomatic people within the appropriate
+            age and treatment window — but whether it's right for you is a decision to make with a doctor based on
+            your history, not something this page can recommend either way.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">When to escalate to a clinician</h2>
+          <p class="mt-2">
+            See a doctor if night sweats are occurring most nights, disrupting sleep enough to affect your daytime
+            functioning, or accompanied by unexplained weight loss, fever, or symptoms outside the usual
+            perimenopausal pattern — those combinations are worth ruling out other causes for. It's reasonable to
+            bring a simple log of frequency and severity to that conversation rather than trying to describe it from
+            memory.
+          </p>
+        </section>
+
+        <section aria-labelledby="night-sweats-faq-heading">
+          <h2 id="night-sweats-faq-heading" class="font-serif text-xl font-bold text-[#1a2b22]">Frequently asked questions</h2>
+          <div class="mt-3 space-y-4">
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">What causes night sweats in perimenopause?</h3>
+              <p class="mt-1">
+                Night sweats share the same underlying mechanism as daytime hot flushes: as estrogen fluctuates, the
+                brain's temperature-regulation center becomes more sensitive to small changes in body temperature,
+                triggering sudden heat and sweating. At night, this also disrupts sleep architecture, which is why
+                night sweats are strongly linked to poor sleep quality.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">When do perimenopausal night sweats stop?</h3>
+              <p class="mt-1">
+                There's no single, reliably sourced timeline that applies to everyone, and this page won't invent
+                one — duration varies significantly from person to person. What's well established is that night
+                sweats are a vasomotor symptom tied to hormonal fluctuation during the menopause transition, and
+                tracking your own pattern over time is more useful than a general average.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Are night sweats one item on the Greene Climacteric Scale?</h3>
+              <p class="mt-1">
+                Yes. "Sweating at night" is item 20, one of two items in the Greene Climacteric Scale's Vasomotor
+                subscale, alongside item 19, "Hot flushes."
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Does alcohol make night sweats worse?</h3>
+              <p class="mt-1">
+                Alcohol is a vasodilator, meaning it widens blood vessels near the skin, which is part of the same
+                mechanism that produces a hot flush or night sweat. Many people notice fewer or less severe episodes
+                after reducing evening alcohol intake, though individual response varies.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Can Ripple track my night sweats over time?</h3>
+              <p class="mt-1">
+                Yes. Ripple's symptom log tracks night sweats alongside sleep quality and your other symptoms,
+                encrypted through Ripple's zero-knowledge vault architecture so entries stay unreadable to anyone but
+                you.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Sources</h2>
+          <ul class="mt-2 space-y-2 text-sm">
+            <li>Greene JG. Constructing a Standard Climacteric Scale. <em>Maturitas</em>. 1998;29(1):25–31.</li>
+            <li>Kravitz HM, Zhao X, Bromberger JT, et al. Sleep disturbance during the menopausal transition in a multi-ethnic community sample of women. <em>Sleep</em>. 2008;31(7):979–990.</li>
+            <li>The North American Menopause Society. The 2022 Hormone Therapy Position Statement of The North American Menopause Society. <em>Menopause</em>. 2022;29(7):767–794. The organisation is now named The Menopause Society.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Related</h2>
+          <p class="mt-2">
+            Score both vasomotor items, and the rest of your symptom picture, with the
+            <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Greene Climacteric Scale self-assessment</a>.
+            If you're on HRT and want to track how your regimen affects night sweats, the
+            <a href="https://ripplehealth.app/tools/hrt-tracker/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free HRT tracking log builder</a>
+            helps you organize symptoms and regimen notes for your next review. If a doctor has dismissed night sweats
+            without further investigation, the
+            <a href="https://ripplehealth.app/tools/dismissal-tracker/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Dismissal Tracker</a>
+            lets you log a dated record to bring to your next appointment. And if you're preparing for that
+            conversation, see the
+            <a href="https://ripplehealth.app/tools/appointment-prep/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Appointment Prep sheet builder</a>.
+          </p>
+        </section>
+      </article>
+
+      <div class="mt-8 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-5 sm:p-6 text-center">
+        <p class="text-sm text-[#2f4038] leading-relaxed">
+          Ripple tracks night sweats alongside sleep quality and your other symptoms, shows how they trend together
+          over time, and can build it into a clinical evidence report for your next appointment.
+        </p>
+        <a href="https://ripplehealth.app/" class="mt-4 inline-block rounded-xl bg-[#4a8a72] text-white text-sm font-semibold px-6 py-3 hover:bg-[#3d7460] transition-colors">
+          Track your symptoms in Ripple — it's free to start
+        </a>
+      </div>
+
+      <footer class="mt-12 border-t border-[#e0d5c8] pt-6 text-xs leading-relaxed text-[#9a9490]">
+        <p>
+          This page is for informational and self-advocacy purposes only. It is not a substitute for professional
+          medical advice, diagnosis, or treatment. Always discuss your symptoms and any treatment decisions with a
+          qualified doctor or menopause specialist.
+        </p>
+        <p class="mt-3">
+          <a href="https://ripplehealth.app/" class="underline hover:text-[#6b7a72]">Ripple — Perimenopause Health Companion</a>
+        </p>
+      </footer>
+    </main>
+  </body>
+
+</html>

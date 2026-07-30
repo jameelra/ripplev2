@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Anxiety and Mood Changes in Perimenopause — Causes and What Helps | Ripple</title>
+    <meta
+      name="description"
+      content="Why new or worsening anxiety and mood changes are common in perimenopause, what's actually known about the cause, how it maps to the Greene Climacteric Scale, and when to see a doctor. Free, no login." />
+    <link rel="canonical" href="https://ripplehealth.app/tools/anxiety-mood-changes-perimenopause/" />
+
+    <meta property="og:url" content="https://ripplehealth.app/tools/anxiety-mood-changes-perimenopause/" />
+    <meta property="og:site_name" content="Ripple" />
+    <meta property="og:title" content="Anxiety and Mood Changes in Perimenopause" />
+    <meta property="og:description" content="Why new or worsening anxiety and mood changes are common in perimenopause, what's known about the cause, and when to see a doctor." />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Anxiety and Mood Changes in Perimenopause" />
+    <meta name="twitter:description" content="Why new or worsening anxiety and mood changes are common in perimenopause, what's known about the cause, and when to see a doctor." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Anxiety and Mood Changes in Perimenopause — Causes and What Helps",
+      "url": "https://ripplehealth.app/tools/anxiety-mood-changes-perimenopause/",
+      "description": "An evidence-based, non-diagnostic explainer on anxiety and mood changes in perimenopause: what's known about the cause, how it maps to the Greene Climacteric Scale, what tends to help, and when to see a doctor.",
+      "about": {
+        "@type": "MedicalCondition",
+        "name": "Perimenopausal anxiety and mood changes"
+      },
+      "lastReviewed": "2026-07-30",
+      "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Patient"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Ripple",
+        "url": "https://ripplehealth.app/"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can perimenopause cause anxiety even without a prior history of it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, new-onset anxiety during perimenopause is commonly reported. Estrogen and progesterone both influence neurotransmitter systems involved in anxiety regulation, so hormonal fluctuation is a plausible contributor even for people with no previous anxiety history. This page describes a pattern — it isn't a diagnosis of your own experience."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will antidepressants fix perimenopausal anxiety?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on the cause. NICE guideline NG23 notes there is no clear evidence that antidepressants ease low mood or anxiety caused by menopause itself in people who haven't been diagnosed with depression, and that hormone therapy should be considered for depressive symptoms that don't meet the criteria for a depression diagnosis. Antidepressants remain an appropriate, evidence-based choice once depression or an anxiety disorder is actually diagnosed, or when hormone therapy isn't suitable or preferred — this is a conversation to have with a doctor, not a reason to distrust one."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which Greene Climacteric Scale items relate to anxiety and mood?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The scale's 11-item Psychological subscale splits into two groups: an Anxiety group (heart racing, feeling tense, sleep difficulty, feeling excitable, panic attacks, and difficulty concentrating) and a Depressed Mood group (fatigue, loss of interest, feeling unhappy, crying spells, and irritability)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is perimenopausal anxiety the same as a generalized anxiety disorder?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not necessarily. This page doesn't diagnose either condition. What's known is that hormonal fluctuation can produce or worsen anxiety symptoms during perimenopause, and that distinguishing a hormonally-driven pattern from a primary anxiety disorder is something a doctor is best placed to assess."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Ripple track anxiety and mood alongside my other symptoms?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Ripple's symptom log tracks anxiety and irritability alongside your other symptoms and cycle data, all encrypted through Ripple's zero-knowledge vault architecture so entries stay unreadable to anyone but you."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!--
+      claimsToVerify — verified before publish (inline record; this repo's
+      human publish gate is normal PR review, per client/tools/README.md).
+
+      - [x] Greene Psychological subscale = items 1-11, split into Anxiety
+            (items 1-6: heart racing, tense/nervous, sleep difficulty,
+            excitable, panic, concentrating) and Depressed Mood (items 7-11:
+            tired, loss of interest, unhappy, crying, irritability) —
+            Greene JG, Maturitas, 1998. Cross-checked against the item text
+            and grouping description on
+            client/tools/greene-climacteric-scale/index.html.
+      - [x] "No clear evidence that SSRIs/SNRIs ease low mood or anxiety
+            caused by menopause itself... hormone therapy should be
+            considered for depressive symptoms that don't meet the criteria
+            for a depression diagnosis" — NICE guideline NG23, recommendation
+            1.5.21. Verbatim wording matches the citation already reviewed
+            and shipped in client/src/lib/clinicalKnowledgeBase.ts (anxiety
+            entry) and follows the same framing used there.
+      - [x] Framed the NG23 point as context for a conversation with a
+            doctor, not as grounds to distrust a prescription already
+            given — checked against the standing invariant "never
+            adversarial toward clinicians" and the Track B tone guardrail
+            against "how to catch your doctor being wrong" framing, which
+            this page (though Track A) also follows given the sensitive
+            overlap the brief calls out.
+      - [x] No claim diagnoses the reader's own anxiety as hormonal in
+            origin; copy explicitly states it describes a pattern, not a
+            diagnosis, consistent with "no medical advice" invariant.
+      - [x] Confirmed no citation used outside the verified canon
+            (server/citationHardeningBatch2.test.ts) — only Greene 1998 and
+            NICE NG23 are cited on this page.
+    -->
+    <!-- google-site-verification -->
+    <!-- cloudflare-beacon -->
+  </head>
+
+  <body class="bg-background text-foreground font-sans antialiased">
+    <header class="border-b border-[#e0d5c8] bg-white/80">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-2.5">
+        <a href="https://ripplehealth.app/" class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-full bg-[#f5f0ea] border border-[#e0d5c8] flex items-center justify-center shrink-0">
+            <span class="w-2 h-2 rounded-full bg-[#c07060]"></span>
+          </span>
+          <span class="text-sm font-serif font-bold text-[#1a2b22]">Ripple</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1a2b22] tracking-tight">
+        Anxiety and Mood Changes in Perimenopause
+      </h1>
+      <p class="mt-4 text-base leading-relaxed text-[#3f4a44]">
+        Many people notice new or intensified anxiety, irritability, low mood, or tearfulness during perimenopause —
+        sometimes for the first time in their lives, sometimes as a worsening of something they've managed for
+        years. This page describes that pattern; it isn't diagnosing your own experience, and it isn't a substitute
+        for an assessment by a doctor if what you're feeling concerns you.
+      </p>
+
+      <article class="mt-10 prose-content max-w-none space-y-6 text-[#3f4a44] leading-relaxed">
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Where this fits on the Greene Scale</h2>
+          <p class="mt-2">
+            These are symptoms tracked in the Greene Climacteric Scale's 11-item Psychological subscale, which splits
+            into two groups: an Anxiety group (a racing heart, feeling tense or on edge, trouble sleeping, feeling
+            excitable, panic, and difficulty concentrating) and a Depressed Mood group (fatigue, loss of interest,
+            feeling unhappy, crying spells, and irritability). You can
+            <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="text-[#4a8a72] underline hover:text-[#3d7460]">score both groups, and the rest of your symptoms, here</a>
+            — it takes about five minutes and nothing you enter leaves your browser.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What's actually known</h2>
+          <p class="mt-2">
+            Estrogen and progesterone both influence the brain systems most involved in regulating anxiety and mood.
+            As these hormones fluctuate during perimenopause, that regulation can become less stable — which is the
+            leading explanation for why some people experience anxiety for the first time, or find existing anxiety
+            harder to manage, during this transition. Because perimenopausal anxiety can resemble a primary anxiety
+            disorder, it's sometimes treated the same way by default; NICE guideline NG23 notes there is no clear
+            evidence that antidepressants ease low mood or anxiety caused by menopause itself in people who haven't
+            been diagnosed with depression, and that hormone therapy should be considered for depressive symptoms
+            that don't meet the criteria for a depression diagnosis (NG23, recommendation 1.5.21).
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What tends to help</h2>
+          <p class="mt-2">
+            This is useful context for a conversation, not a reason to second-guess a prescription you've already
+            been given — antidepressants remain an appropriate, evidence-based option once depression or an anxiety
+            disorder is actually diagnosed, or when hormone therapy isn't suitable or preferred. Regular physical
+            activity and attention to sleep are general lifestyle measures reflected in NICE's broader guidance on
+            perimenopause management. Whether hormone therapy is appropriate for you specifically is a decision to
+            make with a doctor based on your history — this page can't and won't recommend it either way.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">When to escalate to a clinician</h2>
+          <p class="mt-2">
+            See a doctor if anxiety is significantly affecting your daily functioning, if you're experiencing panic
+            attacks, or if you're having thoughts of self-harm — the last of these warrants urgent attention,
+            regardless of what's causing it. It's also worth raising if what you're feeling doesn't seem to fit the
+            usual pattern you'd expect from your other perimenopausal symptoms, since that's a useful signal for a
+            doctor to investigate further rather than assume.
+          </p>
+        </section>
+
+        <section aria-labelledby="anxiety-faq-heading">
+          <h2 id="anxiety-faq-heading" class="font-serif text-xl font-bold text-[#1a2b22]">Frequently asked questions</h2>
+          <div class="mt-3 space-y-4">
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Can perimenopause cause anxiety even without a prior history of it?</h3>
+              <p class="mt-1">
+                Yes, new-onset anxiety during perimenopause is commonly reported. Estrogen and progesterone both
+                influence neurotransmitter systems involved in anxiety regulation, so hormonal fluctuation is a
+                plausible contributor even for people with no previous anxiety history. This page describes a
+                pattern — it isn't a diagnosis of your own experience.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Will antidepressants fix perimenopausal anxiety?</h3>
+              <p class="mt-1">
+                It depends on the cause. NICE guideline NG23 notes there is no clear evidence that antidepressants
+                ease low mood or anxiety caused by menopause itself in people who haven't been diagnosed with
+                depression, and that hormone therapy should be considered for depressive symptoms that don't meet
+                the criteria for a depression diagnosis. Antidepressants remain an appropriate, evidence-based
+                choice once depression or an anxiety disorder is actually diagnosed, or when hormone therapy isn't
+                suitable or preferred — this is a conversation to have with a doctor, not a reason to distrust one.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Which Greene Climacteric Scale items relate to anxiety and mood?</h3>
+              <p class="mt-1">
+                The scale's 11-item Psychological subscale splits into two groups: an Anxiety group (heart racing,
+                feeling tense, sleep difficulty, feeling excitable, panic attacks, and difficulty concentrating) and
+                a Depressed Mood group (fatigue, loss of interest, feeling unhappy, crying spells, and irritability).
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Is perimenopausal anxiety the same as a generalized anxiety disorder?</h3>
+              <p class="mt-1">
+                Not necessarily. This page doesn't diagnose either condition. What's known is that hormonal
+                fluctuation can produce or worsen anxiety symptoms during perimenopause, and that distinguishing a
+                hormonally-driven pattern from a primary anxiety disorder is something a doctor is best placed to
+                assess.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Can Ripple track anxiety and mood alongside my other symptoms?</h3>
+              <p class="mt-1">
+                Yes. Ripple's symptom log tracks anxiety and irritability alongside your other symptoms and cycle
+                data, all encrypted through Ripple's zero-knowledge vault architecture so entries stay unreadable to
+                anyone but you.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Sources</h2>
+          <ul class="mt-2 space-y-2 text-sm">
+            <li>Greene JG. Constructing a Standard Climacteric Scale. <em>Maturitas</em>. 1998;29(1):25–31.</li>
+            <li>NICE guideline NG23, <em>Menopause: identification and management</em>. Published November 2015, updated November 2024. National Institute for Health and Care Excellence. Recommendation 1.5.21.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Related</h2>
+          <p class="mt-2">
+            Score the Psychological subscale, and the rest of your symptoms, with the
+            <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Greene Climacteric Scale self-assessment</a>.
+            If a doctor has dismissed anxiety symptoms as "just stress" without discussing the hormonal context, the
+            <a href="https://ripplehealth.app/tools/dismissal-tracker/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Dismissal Tracker</a>
+            helps you keep a dated record for your next appointment. If you want help judging a specific claim about
+            perimenopause and mood, see
+            <a href="https://ripplehealth.app/tools/evidence-engine/" class="text-[#4a8a72] underline hover:text-[#3d7460]">how to read perimenopause and menopause evidence</a>.
+            And to prepare for that conversation, see the
+            <a href="https://ripplehealth.app/tools/appointment-prep/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Appointment Prep sheet builder</a>.
+          </p>
+        </section>
+      </article>
+
+      <div class="mt-8 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-5 sm:p-6 text-center">
+        <p class="text-sm text-[#2f4038] leading-relaxed">
+          Ripple tracks anxiety and mood alongside your other symptoms, shows how they trend together over time, and
+          can build it into a clinical evidence report for your next appointment.
+        </p>
+        <a href="https://ripplehealth.app/" class="mt-4 inline-block rounded-xl bg-[#4a8a72] text-white text-sm font-semibold px-6 py-3 hover:bg-[#3d7460] transition-colors">
+          Track your symptoms in Ripple — it's free to start
+        </a>
+      </div>
+
+      <footer class="mt-12 border-t border-[#e0d5c8] pt-6 text-xs leading-relaxed text-[#9a9490]">
+        <p>
+          This page is for informational and self-advocacy purposes only. It is not a substitute for professional
+          medical advice, diagnosis, or treatment. If you are having thoughts of self-harm, please contact a
+          doctor or local emergency services right away. Always discuss your symptoms and any treatment decisions
+          with a qualified doctor or menopause specialist.
+        </p>
+        <p class="mt-3">
+          <a href="https://ripplehealth.app/" class="underline hover:text-[#6b7a72]">Ripple — Perimenopause Health Companion</a>
+        </p>
+      </footer>
+    </main>
+  </body>
+
+</html>

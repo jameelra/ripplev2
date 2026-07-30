@@ -18,4 +18,18 @@ export const PUBLIC_TOOL_PAGES: PublicToolPage[] = [
   { slug: "hrt-tracker", changefreq: "monthly", priority: 0.9 },
   { slug: "balance-alternative", changefreq: "monthly", priority: 0.9 },
   { slug: "ripple-vs-balance", changefreq: "monthly", priority: 0.9 },
+
+  // Track A — un-gated per-symptom knowledge base pages
+  { slug: "brain-fog-perimenopause", changefreq: "monthly", priority: 0.8 },
+  { slug: "night-sweats-perimenopause", changefreq: "monthly", priority: 0.8 },
+  { slug: "anxiety-mood-changes-perimenopause", changefreq: "monthly", priority: 0.8 },
+  { slug: "irregular-periods-perimenopause", changefreq: "monthly", priority: 0.8 },
+  { slug: "joint-pain-perimenopause", changefreq: "monthly", priority: 0.8 },
+  { slug: "vaginal-dryness-perimenopause", changefreq: "monthly", priority: 0.8 },
+
+  // Track B — medical dismissal narrative content
+  { slug: "medical-dismissal-perimenopause", changefreq: "monthly", priority: 0.8 },
+  { slug: "prepare-for-dismissive-appointment", changefreq: "monthly", priority: 0.8 },
+  { slug: "why-we-built-the-dismissal-tracker", changefreq: "monthly", priority: 0.8 },
+  { slug: "perimenopause-taken-seriously", changefreq: "monthly", priority: 0.8 },
 ];

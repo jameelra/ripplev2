@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>What the Dismissal Tracker Does, and Why We Built It | Ripple</title>
+    <meta
+      name="description"
+      content="How Ripple's free Dismissal Tracker works, what it does and doesn't do, and why we built a dedicated record-keeping tool for a widely reported but rarely addressed experience." />
+    <link rel="canonical" href="https://ripplehealth.app/tools/why-we-built-the-dismissal-tracker/" />
+
+    <meta property="og:url" content="https://ripplehealth.app/tools/why-we-built-the-dismissal-tracker/" />
+    <meta property="og:site_name" content="Ripple" />
+    <meta property="og:title" content="What the Dismissal Tracker Does, and Why We Built It" />
+    <meta property="og:description" content="How Ripple's free Dismissal Tracker works, what it does and doesn't do, and why we built it." />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="What the Dismissal Tracker Does, and Why We Built It" />
+    <meta name="twitter:description" content="How Ripple's free Dismissal Tracker works, what it does and doesn't do, and why we built it." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "What the Dismissal Tracker Does, and Why We Built It",
+      "url": "https://ripplehealth.app/tools/why-we-built-the-dismissal-tracker/",
+      "description": "A product-explainer page for Ripple's free Dismissal Tracker: what it records, what it doesn't do, how its privacy architecture works, and why it exists.",
+      "about": {
+        "@type": "MedicalCondition",
+        "name": "Perimenopause"
+      },
+      "lastReviewed": "2026-07-30",
+      "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Patient"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Ripple",
+        "url": "https://ripplehealth.app/"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does the Dismissal Tracker actually record?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For each entry: the date, the clinic name, the clinician's name (optional), which symptoms you reported, what was said in response, and whether it was later resolved. It builds a plain, dated account rather than a diagnostic or clinical assessment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the Dismissal Tracker diagnose or judge whether I was dismissed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It's a record-keeping tool, not a diagnostic one. It doesn't assess your symptoms, suggest a diagnosis, or recommend treatment — it simply helps you keep an accurate, dated account of your own appointments to share with a clinician."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the Dismissal Tracker meant to be used against my doctor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It's built as a self-advocacy tool, not a confrontational one. Most dismissal traces back to short appointment slots and gaps in perimenopause training, not individual malice, and a factual record is meant to make the next conversation more productive, not adversarial."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Ripple's zero-knowledge vault architecture?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It means your data is encrypted on your own device before it's ever saved, using a key derived from your own PIN or device, so Ripple's servers never hold a readable copy. Ripple cannot read your dismissal records, symptom logs, or cycle data even if asked to."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why did Ripple build a dedicated tool for this instead of a general notes field?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because the fields that matter for this specific purpose — date, clinic, what was reported, what was said back, and resolution status — are different from a general symptom note, and a purpose-built structure makes the record more useful to bring into a future appointment."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!--
+      claimsToVerify — verified before publish (inline record; this repo's
+      human publish gate is normal PR review, per client/tools/README.md).
+
+      - [x] All field descriptions (date, clinic name, clinician name
+            optional, symptoms reported, response, resolved status) checked
+            directly against shared/dismissalLog.ts (DismissalLogEntryInput
+            interface and validateEntryInput) rather than described from
+            memory — this page describes the real, shipped feature.
+      - [x] "No account required / entries only live in the browser on this
+            free tool" checked against the header comment in
+            shared/dismissalLog.ts ("Nothing here touches the network —
+            entries only ever live in the browser") and against
+            client/tools/README.md's non-negotiable: "No login wall, no
+            email gate, nothing sent to a server for anything the visitor
+            enters."
+      - [x] "Zero-knowledge vault" description (client-side encryption, key
+            derived from PIN/device, server never holds a readable copy)
+            checked against the existing in-app copy at
+            client/src/pages/Settings.tsx:366 ("We cannot read your health
+            data — zero-knowledge architecture") and the vault setup
+            features listed in todo.md (Ambient Mode / PIN Mode, PBKDF2 key
+            derivation, AES-GCM). Kept to two sentences, factual, not a
+            sales pitch, per the brief's cross-cutting privacy guidance.
+      - [x] Did NOT assert "no competitor has an equivalent feature" as a
+            verified fact. The brief's Manus finding motivating this page
+            could not be independently checked — WebFetch returned 403 for
+            every external site attempted in this session. Softened to
+            "tools built specifically for this are hard to find" and
+            flagged the stronger claim as unverified rather than repeating
+            Manus's report as a citable fact, per the standing instruction
+            that Manus's findings define what to write about, not what to
+            cite.
+      - [x] Framed throughout as a self-advocacy tool, never as a tool "for"
+            or "against" a clinician — checked against the standing
+            invariant "never adversarial toward clinicians" and the Track B
+            guardrail against implying a reader should distrust or
+            preemptively confront their doctor.
+    -->
+    <!-- google-site-verification -->
+    <!-- cloudflare-beacon -->
+  </head>
+
+  <body class="bg-background text-foreground font-sans antialiased">
+    <header class="border-b border-[#e0d5c8] bg-white/80">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-2.5">
+        <a href="https://ripplehealth.app/" class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-full bg-[#f5f0ea] border border-[#e0d5c8] flex items-center justify-center shrink-0">
+            <span class="w-2 h-2 rounded-full bg-[#c07060]"></span>
+          </span>
+          <span class="text-sm font-serif font-bold text-[#1a2b22]">Ripple</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1a2b22] tracking-tight">
+        What the Dismissal Tracker Does, and Why We Built It
+      </h1>
+      <p class="mt-4 text-base leading-relaxed text-[#3f4a44]">
+        The Dismissal Tracker is a free, no-account tool for keeping a plain, dated record of appointments where a
+        symptom you reported didn't get the response you expected. It isn't a diagnostic tool, and it isn't built to
+        be used against anyone — it exists because this experience is widely reported, and there weren't many
+        purpose-built ways to keep track of it.
+      </p>
+
+      <article class="mt-10 prose-content max-w-none space-y-6 text-[#3f4a44] leading-relaxed">
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What it actually records</h2>
+          <p class="mt-2">
+            Each entry captures five things: the date, the clinic or practice name, the clinician's name (optional),
+            which symptoms you reported, and what was said in response — plus whether it was later resolved. That's
+            it. It doesn't score your symptoms, suggest a diagnosis, or draft a complaint. It's closer to a personal
+            appointment log than a clinical instrument, built to be easy to fill in right after a visit while the
+            details are still fresh.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What it deliberately doesn't do</h2>
+          <p class="mt-2">
+            It doesn't judge whether a given appointment counts as "dismissal" — that's a call only you can make
+            about your own experience, and the tool doesn't attempt it for you. It also isn't framed as evidence
+            against a clinician; most of what gets described as dismissal traces back to short appointment slots and
+            gaps in perimenopause-specific training, not individual malice, and the record is meant to make your next
+            conversation clearer, not to build a case.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Why we built it</h2>
+          <p class="mt-2">
+            Feeling dismissed during a perimenopause appointment is a widely reported experience, but purpose-built
+            tools for keeping track of it are hard to find — most symptom trackers have a general notes field at
+            best, which isn't structured for this specific purpose. We built a dedicated tool because the fields
+            that actually matter here (date, clinic, what was reported, what was said back, and resolution status)
+            are different from a general symptom note, and having them in a consistent structure makes the resulting
+            record more useful to bring into a future appointment.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">How it protects your privacy</h2>
+          <p class="mt-2">
+            The free version of this tool runs entirely in your browser — nothing you enter is sent to a server. If
+            you use it inside the full Ripple app to keep records over time, entries are protected by Ripple's
+            zero-knowledge vault architecture: data is encrypted on your own device, using a key derived from your
+            PIN or device, before it's ever saved. Ripple's servers never hold a readable copy of your dismissal
+            records, symptom logs, or cycle data — not even Ripple can read them.
+          </p>
+        </section>
+
+        <section aria-labelledby="tracker-faq-heading">
+          <h2 id="tracker-faq-heading" class="font-serif text-xl font-bold text-[#1a2b22]">Frequently asked questions</h2>
+          <div class="mt-3 space-y-4">
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">What does the Dismissal Tracker actually record?</h3>
+              <p class="mt-1">
+                For each entry: the date, the clinic name, the clinician's name (optional), which symptoms you
+                reported, what was said in response, and whether it was later resolved. It builds a plain, dated
+                account rather than a diagnostic or clinical assessment.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Does the Dismissal Tracker diagnose or judge whether I was dismissed?</h3>
+              <p class="mt-1">
+                No. It's a record-keeping tool, not a diagnostic one. It doesn't assess your symptoms, suggest a
+                diagnosis, or recommend treatment — it simply helps you keep an accurate, dated account of your own
+                appointments to share with a clinician.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Is the Dismissal Tracker meant to be used against my doctor?</h3>
+              <p class="mt-1">
+                No. It's built as a self-advocacy tool, not a confrontational one. Most dismissal traces back to
+                short appointment slots and gaps in perimenopause training, not individual malice, and a factual
+                record is meant to make the next conversation more productive, not adversarial.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">What is Ripple's zero-knowledge vault architecture?</h3>
+              <p class="mt-1">
+                It means your data is encrypted on your own device before it's ever saved, using a key derived from
+                your own PIN or device, so Ripple's servers never hold a readable copy. Ripple cannot read your
+                dismissal records, symptom logs, or cycle data even if asked to.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Why did Ripple build a dedicated tool for this instead of a general notes field?</h3>
+              <p class="mt-1">
+                Because the fields that matter for this specific purpose — date, clinic, what was reported, what was
+                said back, and resolution status — are different from a general symptom note, and a purpose-built
+                structure makes the record more useful to bring into a future appointment.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Related</h2>
+          <p class="mt-2">
+            Try the
+            <a href="https://ripplehealth.app/tools/dismissal-tracker/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Dismissal Tracker</a>
+            itself, or read about
+            <a href="https://ripplehealth.app/tools/medical-dismissal-perimenopause/" class="text-[#4a8a72] underline hover:text-[#3d7460]">why perimenopause symptoms get dismissed as "just stress" or "just aging"</a>
+            and
+            <a href="https://ripplehealth.app/tools/prepare-for-dismissive-appointment/" class="text-[#4a8a72] underline hover:text-[#3d7460]">how to prepare for a dismissive appointment before it happens</a>.
+            To describe your overall symptom severity for that appointment, try the
+            <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Greene Climacteric Scale self-assessment</a>.
+          </p>
+        </section>
+      </article>
+
+      <div class="mt-8 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-5 sm:p-6 text-center">
+        <p class="text-sm text-[#2f4038] leading-relaxed">
+          In the full Ripple app, your dismissal records, symptom log, and cycle data live together in one
+          zero-knowledge vault — and can build into a clinical evidence report for your next appointment.
+        </p>
+        <a href="https://ripplehealth.app/" class="mt-4 inline-block rounded-xl bg-[#4a8a72] text-white text-sm font-semibold px-6 py-3 hover:bg-[#3d7460] transition-colors">
+          Get started with Ripple — it's free to start
+        </a>
+      </div>
+
+      <footer class="mt-12 border-t border-[#e0d5c8] pt-6 text-xs leading-relaxed text-[#9a9490]">
+        <p>
+          This page is for informational purposes only and is not a substitute for professional medical advice,
+          diagnosis, or treatment. The Dismissal Tracker is a record-keeping tool, not a diagnostic one, and does not
+          assess or diagnose any specific appointment or clinician. Always discuss your symptoms and any treatment
+          decisions with a qualified doctor or menopause specialist.
+        </p>
+        <p class="mt-3">
+          <a href="https://ripplehealth.app/" class="underline hover:text-[#6b7a72]">Ripple — Perimenopause Health Companion</a>
+        </p>
+      </footer>
+    </main>
+  </body>
+
+</html>
