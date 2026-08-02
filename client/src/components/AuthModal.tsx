@@ -31,8 +31,9 @@ function friendlyAuthError(message: string): string {
 }
 
 export function AuthModal() {
-  const { isAuthModalOpen, closeAuthModal, signIn, signUp } = useAuth();
+  const { isAuthModalOpen, closeAuthModal, signIn, signUp, resetPassword } = useAuth();
   const [mode, setMode] = useState<"signIn" | "signUp">("signIn");
+  const [view, setView] = useState<"credentials" | "forgotPassword">("credentials");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -45,6 +46,7 @@ export function AuthModal() {
     setError(null);
     setNotice(null);
     setSubmitting(false);
+    setView("credentials");
   };
 
   const handleOpenChange = (open: boolean) => {
@@ -80,6 +82,30 @@ export function AuthModal() {
     reset();
   };
 
+  const handleForgotPasswordSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setNotice(null);
+    setSubmitting(true);
+
+    const result = await resetPassword(email);
+
+    setSubmitting(false);
+
+    if (result.error) {
+      setError(friendlyAuthError(result.error));
+      return;
+    }
+
+    setNotice("If an account exists for that email, we've sent a link to reset your password.");
+  };
+
+  const handleBackToCredentials = () => {
+    setView("credentials");
+    setError(null);
+    setNotice(null);
+  };
+
   return (
     <Dialog open={isAuthModalOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-[400px] bg-white rounded-2xl border border-[#e0d5c8] p-0 gap-0 overflow-hidden">
@@ -88,52 +114,28 @@ export function AuthModal() {
             <ShieldCheck className="w-6 h-6 text-[#4a8a72]" />
           </div>
           <DialogTitle className="font-serif text-xl font-bold text-[#1a2b22]">
-            {mode === "signIn" ? "Welcome back" : "Create your account"}
+            {view === "forgotPassword" ? "Reset your password" : mode === "signIn" ? "Welcome back" : "Create your account"}
           </DialogTitle>
           <DialogDescription className="text-sm text-[#6b7a72]">
-            Your Ripple account handles sign-in only — your symptom data stays encrypted on this device.
+            {view === "forgotPassword"
+              ? "Enter your email and we'll send you a link to reset your password."
+              : "Your Ripple account handles sign-in only — your symptom data stays encrypted on this device."}
           </DialogDescription>
         </div>
 
-        <Tabs
-          value={mode}
-          onValueChange={(v) => {
-            setMode(v as "signIn" | "signUp");
-            setError(null);
-            setNotice(null);
-          }}
-          className="p-6 pt-5"
-        >
-          <TabsList className="w-full grid grid-cols-2 mb-4">
-            <TabsTrigger value="signIn">Log In</TabsTrigger>
-            <TabsTrigger value="signUp">Sign Up</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value={mode} forceMount className="m-0">
-            <form onSubmit={handleSubmit} className="space-y-4">
+        {view === "forgotPassword" ? (
+          <div className="p-6 pt-5">
+            <form onSubmit={handleForgotPasswordSubmit} className="space-y-4">
               <div className="space-y-1.5">
-                <Label htmlFor="auth-email">Email</Label>
+                <Label htmlFor="auth-forgot-email">Email</Label>
                 <Input
-                  id="auth-email"
+                  id="auth-forgot-email"
                   type="email"
                   autoComplete="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="auth-password">Password</Label>
-                <Input
-                  id="auth-password"
-                  type="password"
-                  autoComplete={mode === "signIn" ? "current-password" : "new-password"}
-                  required
-                  minLength={6}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
                 />
               </div>
 
@@ -148,24 +150,112 @@ export function AuthModal() {
                 </p>
               )}
 
-              <DialogFooter className="pt-1">
+              <DialogFooter className="pt-1 flex-col gap-2 sm:flex-col">
                 <Button
                   type="submit"
                   disabled={submitting}
                   className="w-full h-10 bg-[#1a2b22] hover:bg-[#1a2b22]/90 text-white rounded-xl text-sm font-medium"
                 >
-                  {submitting ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : mode === "signIn" ? (
-                    "Log In"
-                  ) : (
-                    "Create Account"
-                  )}
+                  {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : "Send Reset Link"}
                 </Button>
+                <button
+                  type="button"
+                  onClick={handleBackToCredentials}
+                  className="w-full text-xs text-[#6b7a72] hover:text-[#1a2b22] hover:underline text-center"
+                >
+                  Back to log in
+                </button>
               </DialogFooter>
             </form>
-          </TabsContent>
-        </Tabs>
+          </div>
+        ) : (
+          <Tabs
+            value={mode}
+            onValueChange={(v) => {
+              setMode(v as "signIn" | "signUp");
+              setError(null);
+              setNotice(null);
+            }}
+            className="p-6 pt-5"
+          >
+            <TabsList className="w-full grid grid-cols-2 mb-4">
+              <TabsTrigger value="signIn">Log In</TabsTrigger>
+              <TabsTrigger value="signUp">Sign Up</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value={mode} forceMount className="m-0">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="space-y-1.5">
+                  <Label htmlFor="auth-email">Email</Label>
+                  <Input
+                    id="auth-email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="auth-password">Password</Label>
+                    {mode === "signIn" && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setView("forgotPassword");
+                          setError(null);
+                          setNotice(null);
+                        }}
+                        className="text-xs text-[#4a8a72] hover:underline"
+                      >
+                        Forgot password?
+                      </button>
+                    )}
+                  </div>
+                  <Input
+                    id="auth-password"
+                    type="password"
+                    autoComplete={mode === "signIn" ? "current-password" : "new-password"}
+                    required
+                    minLength={6}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                  />
+                </div>
+
+                {error && (
+                  <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+                    {error}
+                  </p>
+                )}
+                {notice && (
+                  <p className="text-xs text-[#4a8a72] bg-[#eef4f1] border border-[#c8d8d0] rounded-lg px-3 py-2">
+                    {notice}
+                  </p>
+                )}
+
+                <DialogFooter className="pt-1">
+                  <Button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full h-10 bg-[#1a2b22] hover:bg-[#1a2b22]/90 text-white rounded-xl text-sm font-medium"
+                  >
+                    {submitting ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : mode === "signIn" ? (
+                      "Log In"
+                    ) : (
+                      "Create Account"
+                    )}
+                  </Button>
+                </DialogFooter>
+              </form>
+            </TabsContent>
+          </Tabs>
+        )}
       </DialogContent>
     </Dialog>
   );

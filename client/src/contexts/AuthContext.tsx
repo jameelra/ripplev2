@@ -8,6 +8,7 @@ import {
 } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
+import { buildResetRedirectUrl } from "../lib/passwordReset";
 
 type AuthResult = { error: string | null; needsEmailConfirmation?: boolean };
 
@@ -21,6 +22,8 @@ type AuthContextValue = {
   signUp: (email: string, password: string) => Promise<AuthResult>;
   signIn: (email: string, password: string) => Promise<AuthResult>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<AuthResult>;
+  updatePassword: (password: string) => Promise<AuthResult>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -66,6 +69,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await supabase.auth.signOut();
   }, []);
 
+  const resetPassword = useCallback(async (email: string): Promise<AuthResult> => {
+    if (!supabase) return { error: "Password reset is temporarily unavailable. Please try again later." };
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: buildResetRedirectUrl(window.location.origin),
+    });
+    return { error: error?.message ?? null };
+  }, []);
+
+  const updatePassword = useCallback(async (password: string): Promise<AuthResult> => {
+    if (!supabase) return { error: "Password reset is temporarily unavailable. Please try again later." };
+    const { error } = await supabase.auth.updateUser({ password });
+    return { error: error?.message ?? null };
+  }, []);
+
   const openAuthModal = useCallback(() => setIsAuthModalOpen(true), []);
   const closeAuthModal = useCallback(() => setIsAuthModalOpen(false), []);
 
@@ -81,6 +98,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signUp,
         signIn,
         signOut,
+        resetPassword,
+        updatePassword,
       }}
     >
       {children}
