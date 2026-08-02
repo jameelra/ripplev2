@@ -6,4 +6,3 @@ tmp
 .env.local
 *.log
 coverage
-*** End Patch
