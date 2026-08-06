@@ -84,25 +84,37 @@ describe("Cycle Change Tracker (fr-CA) — static page markup", () => {
     expect(html).not.toMatch(/sur \d+/i);
   });
 
-  it("states the mandatory honesty caveat without a percentage figure, since no cited source for one survives in-session verification", () => {
+  it("states the mandatory honesty caveat with the canon-verified 12-25% figure", () => {
     expect(normalized).toContain("Les changements du cycle ne sont qu'un signal parmi d'autres.");
+    expect(normalized).toContain("Entre 12 % et 25 % des femmes");
     expect(normalized).toContain("donc un cycle stable n'exclut pas la transition.");
-    expect(html).not.toMatch(/\d+\s*%/);
     const mainTs = fs.readFileSync(
       path.resolve(import.meta.dirname, "../client/fr/outils/changements-du-cycle/main.ts"),
       "utf-8"
     );
-    expect(mainTs).toContain("Certaines femmes constatent peu ou pas de");
-    expect(mainTs).not.toMatch(/\d+\s*%/);
+    expect(mainTs).toContain("Entre 12 % et 25 % des femmes ne constatent");
   });
 
-  it("carries no bibliography — every citation tried failed in-session PubMed/publisher verification and was removed", () => {
-    expect(html).not.toContain(">Sources<");
-    expect(html).not.toContain("doi:10.1016");
-    expect(html).not.toMatch(/PMID/);
-    expect(html).not.toContain("Harlow SD");
-    expect(html).not.toContain("Greene JG");
-    expect(html).not.toContain("Goldstein S.");
+  it("carries a Sources section limited to docs/citation-canon.md entries, attributing 12-25% to Harlow 2018 only", () => {
+    const sources = html.slice(html.indexOf(">Sources<"), html.indexOf("</section>", html.indexOf(">Sources<")));
+    expect(sources).toContain("Harlow SD, Gass M, Hall JE");
+    expect(sources).toContain("PMID 22344196");
+    expect(sources).toContain("Harlow SD. Menstrual cycle changes as women approach the final menses");
+    expect(sources).toContain("PMID 30401545");
+    expect(sources).toContain("Source de l'estimation selon laquelle 12 % à 25 %");
+    expect(sources).toContain("Greene JG");
+    expect(sources).toContain("Goldstein S");
+    // Harlow & Paramsothy 2011 is dropped per canon guidance (superseded by Harlow 2018).
+    expect(sources).not.toContain("Paramsothy");
+    expect(sources).not.toContain("2011;38(3)");
+  });
+
+  it("carries no citation outside docs/citation-canon.md", () => {
+    const canon = fs.readFileSync(path.resolve(import.meta.dirname, "../docs/citation-canon.md"), "utf-8");
+    for (const pmid of ["22344196", "30401545"]) {
+      expect(canon, `PMID ${pmid} should be a canon entry`).toContain(pmid);
+      expect(html, `PMID ${pmid} appears on the page`).toContain(pmid);
+    }
   });
 
   it("states the item-7 persistent-flag panel text, positioned above the gated/classified branches", () => {

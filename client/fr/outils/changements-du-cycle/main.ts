@@ -39,9 +39,9 @@ const item7Checkboxes = Array.from(form.querySelectorAll<HTMLInputElement>('inpu
 const item7None = item7Checkboxes.find(cb => cb.value === FLAG_NONE)!;
 
 const HONESTY_CAVEAT =
-  "Les changements du cycle ne sont qu'un signal parmi d'autres. Certaines femmes constatent peu ou pas de " +
-  "changement dans la longueur du cycle avant leurs dernières règles, donc un cycle stable n'exclut pas la " +
-  "transition.";
+  "Les changements du cycle ne sont qu'un signal parmi d'autres. Entre 12 % et 25 % des femmes ne constatent " +
+  "que peu ou pas de changement dans la longueur du cycle avant leurs dernières règles, donc un cycle stable " +
+  "n'exclut pas la transition.";
 
 const GATE_MESSAGE =
   "Les traitements hormonaux modifient directement le profil de saignement, donc le moment du cycle ne peut pas " +
