@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { PUBLIC_TOOL_PAGES } from "../shared/publicPages";
+import { PUBLIC_LOCALE_PAGES, PUBLIC_TOOL_PAGES } from "../shared/publicPages";
 
 // Regenerated on every `npm run build` from shared/publicPages.ts — add a new
 // public tool page there and it appears here automatically. Never hand-edit
@@ -19,6 +19,11 @@ const urls: SitemapUrl[] = [
   { loc: `${SITE_URL}/`, changefreq: "monthly", priority: 1.0 },
   ...PUBLIC_TOOL_PAGES.map(page => ({
     loc: `${SITE_URL}/tools/${page.slug}/`,
+    changefreq: page.changefreq,
+    priority: page.priority,
+  })),
+  ...PUBLIC_LOCALE_PAGES.map(page => ({
+    loc: `${SITE_URL}/${page.urlPath}/`,
     changefreq: page.changefreq,
     priority: page.priority,
   })),

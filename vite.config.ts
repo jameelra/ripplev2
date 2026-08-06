@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { defineConfig, type Plugin } from "vite";
-import { PUBLIC_TOOL_PAGES } from "./shared/publicPages";
+import { PUBLIC_LOCALE_PAGES, PUBLIC_TOOL_PAGES } from "./shared/publicPages";
 import { buildCloudflareBeaconTag, buildGoogleSiteVerificationTag } from "./shared/publicPageHead";
 
 // Replaces the `<!-- google-site-verification -->` and `<!-- cloudflare-beacon -->`
@@ -52,6 +52,12 @@ export default defineConfig({
           PUBLIC_TOOL_PAGES.map(page => [
             page.slug,
             path.resolve(import.meta.dirname, "client", "tools", page.slug, "index.html"),
+          ])
+        ),
+        ...Object.fromEntries(
+          PUBLIC_LOCALE_PAGES.map(page => [
+            page.dir.replace(/\//g, "-"),
+            path.resolve(import.meta.dirname, "client", page.dir, "index.html"),
           ])
         ),
       },

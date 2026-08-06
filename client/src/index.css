@@ -148,4 +148,8 @@
   .greene-print-summary h1 { font-size: 18px; margin-bottom: 4px; }
   .greene-print-summary h2 { font-size: 13px; margin-top: 16px; margin-bottom: 4px; }
   .greene-print-summary p { font-size: 11px; }
+
+  .cycle-print-summary h1 { font-size: 18px; margin-bottom: 4px; }
+  .cycle-print-summary h2 { font-size: 13px; margin-top: 16px; margin-bottom: 4px; }
+  .cycle-print-summary p { font-size: 11px; margin-top: 4px; }
 }

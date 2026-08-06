@@ -5,18 +5,28 @@ import { nanoid } from "nanoid";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
-import { PUBLIC_TOOL_PAGES } from "../../shared/publicPages";
+import { PUBLIC_LOCALE_PAGES, PUBLIC_TOOL_PAGES } from "../../shared/publicPages";
 
 // Public static tool pages (e.g. /tools/greene-climacteric-scale) are separate
 // Vite build entries, not part of the SPA. Match a request path to the source
 // HTML file that should be transformed and served for it, so dev mode mirrors
 // the production multi-entry build instead of always falling back to the SPA.
 function resolvePublicToolTemplatePath(urlPath: string): string | undefined {
-  const match = PUBLIC_TOOL_PAGES.find(
+  const toolMatch = PUBLIC_TOOL_PAGES.find(
     page => urlPath === `/tools/${page.slug}` || urlPath === `/tools/${page.slug}/`
   );
-  if (!match) return undefined;
-  return path.resolve(import.meta.dirname, "../..", "client", "tools", match.slug, "index.html");
+  if (toolMatch) {
+    return path.resolve(import.meta.dirname, "../..", "client", "tools", toolMatch.slug, "index.html");
+  }
+
+  const localeMatch = PUBLIC_LOCALE_PAGES.find(
+    page => urlPath === `/${page.urlPath}` || urlPath === `/${page.urlPath}/`
+  );
+  if (localeMatch) {
+    return path.resolve(import.meta.dirname, "../..", "client", localeMatch.dir, "index.html");
+  }
+
+  return undefined;
 }
 
 export async function setupVite(app: Express, server: Server) {

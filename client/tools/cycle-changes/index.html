@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Cycle Change Tracker — Free Perimenopause Cycle Pattern Check | Ripple</title>
+    <meta
+      name="description"
+      content="Answer 8 quick questions about your cycle to see which menopause-transition pattern it matches, based on the STRAW+10 staging framework. Free, private, and instant — nothing is scored, nothing leaves your browser." />
+    <link rel="canonical" href="https://ripplehealth.app/tools/cycle-changes/" />
+    <link rel="alternate" hreflang="en-CA" href="https://ripplehealth.app/tools/cycle-changes/" />
+    <link rel="alternate" hreflang="fr-CA" href="https://ripplehealth.app/fr/outils/changements-du-cycle/" />
+    <link rel="alternate" hreflang="x-default" href="https://ripplehealth.app/tools/cycle-changes/" />
+
+    <meta property="og:url" content="https://ripplehealth.app/tools/cycle-changes/" />
+    <meta property="og:site_name" content="Ripple" />
+    <meta property="og:title" content="Cycle Change Tracker — Free Perimenopause Cycle Pattern Check" />
+    <meta property="og:description" content="Answer 8 quick questions about your cycle to see which menopause-transition pattern it matches, based on the STRAW+10 staging framework. No score, no account, nothing leaves your browser." />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Cycle Change Tracker — Free Perimenopause Cycle Pattern Check" />
+    <meta name="twitter:description" content="Answer 8 quick questions about your cycle to see which menopause-transition pattern it matches, based on the STRAW+10 staging framework. No score, no account." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Cycle Change Tracker — Free Perimenopause Cycle Pattern Check",
+      "url": "https://ripplehealth.app/tools/cycle-changes/",
+      "description": "A free, private, client-side tool that matches your described cycle changes to a menopause-transition pattern based on the STRAW+10 staging framework. Original content written by Ripple — not a scored or licensed instrument.",
+      "about": {
+        "@type": "MedicalCondition",
+        "name": "Perimenopause"
+      },
+      "lastReviewed": "2026-08-06",
+      "audience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Patient"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Ripple",
+        "url": "https://ripplehealth.app/"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Cycle Change Tracker",
+      "url": "https://ripplehealth.app/tools/cycle-changes/",
+      "description": "Free tool that matches 8 quick answers about your cycle to a menopause-transition pattern based on the STRAW+10 staging framework. Produces a pattern description, not a score. Answers are held only in the browser — nothing is sent to a server.",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any (web browser)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the Cycle Change Tracker?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Cycle Change Tracker is a free, original tool from Ripple that asks 8 quick questions about your menstrual cycle — length variability, skipped cycles, flow, duration, and predictability — and matches your answers to a menopause-transition pattern based on the STRAW+10 staging framework. It produces a pattern description, not a score or a diagnosis."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this the same kind of tool as the Greene Climacteric Scale?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The Greene Climacteric Scale is a validated, licensed research instrument that scores symptom severity. The Cycle Change Tracker is original content written by Ripple, grounded in the STRAW+10 consensus staging criteria, and it never produces a number or a total — only a plain-language pattern description. The two tools are meant to complement each other, not replace one another."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is STRAW+10?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "STRAW+10 (Stages of Reproductive Aging Workshop +10) is a consensus staging framework, published by Harlow and colleagues in 2012, that describes the menopause transition in stages using menstrual bleeding patterns as the primary marker — things like persistent cycle-length variability, 60-day-or-longer gaps between periods, and 12 consecutive months without a period."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this tool diagnose menopause or perimenopause?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It describes which STRAW+10-informed bleeding pattern your answers most closely match. It doesn't diagnose perimenopause or menopause, estimate how much time is left before your final period, or replace a conversation with a clinician about your specific situation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if I'm using hormonal birth control or a hormonal IUD?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The first question asks about this directly, because hormonal contraception and hormonal IUDs change bleeding patterns on their own — that makes cycle timing an unreliable signal for staging while you're using them. If you answer yes, the tool skips pattern classification entirely rather than giving you a misleading result, and points you to symptom-based tools instead."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does one question ask about bleeding after sex or between periods?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "That question exists separately from the pattern classification and carries no scoring weight. Some bleeding patterns — spotting between periods, bleeding after sex, any bleeding after 12 or more months without a period, or unusually heavy bleeding — are usually worth a clinician's attention promptly rather than watched over time, regardless of where you are in the transition. Selecting any of these surfaces a note about that; it isn't a diagnosis of anything serious, just a prompt to raise it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this tool store or send my answers anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Every answer and every classification is calculated in your browser using JavaScript running on your own device. Nothing is transmitted to Ripple's servers, stored, or logged, and this tool doesn't save your answers between visits — refreshing the page clears everything, since there's no vault or history storage in this version."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does Ripple do with the Cycle Change Tracker?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nothing, on this page — your answers stay on your device unless you print or save your results yourself. This free tool doesn't require an account to use."
+          }
+        }
+      ]
+    }
+    </script>
+    <!-- google-site-verification -->
+    <!-- cloudflare-beacon -->
+  </head>
+
+  <body class="bg-background text-foreground font-sans antialiased">
+    <a href="#cycle-form" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:px-3 focus:py-2 focus:rounded-lg focus:border focus:border-[#e0d5c8]">
+      Skip to the questionnaire
+    </a>
+
+    <header class="no-print border-b border-[#e0d5c8] bg-white/80">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-2.5">
+        <a href="https://ripplehealth.app/" class="flex items-center gap-2.5">
+          <span class="w-7 h-7 rounded-full bg-[#f5f0ea] border border-[#e0d5c8] flex items-center justify-center shrink-0">
+            <span class="w-2 h-2 rounded-full bg-[#c07060]"></span>
+          </span>
+          <span class="text-sm font-serif font-bold text-[#1a2b22]">Ripple</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <!-- ─── Hero ──────────────────────────────────────────────────────── -->
+      <div class="no-print">
+        <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1a2b22] tracking-tight">
+          Cycle Change Tracker
+        </h1>
+        <p class="mt-4 text-base leading-relaxed text-[#3f4a44]">
+          Cycle change is the primary way clinicians stage the menopause transition — more so than any single
+          symptom. This free tool asks 8 quick questions about your cycle and matches your answers to a
+          menopause-transition pattern based on the STRAW+10 staging framework. It's original content written by
+          Ripple, not a licensed or validated instrument, and it never produces a score or a number — only a
+          plain-language pattern description. It takes about two minutes.
+        </p>
+        <div class="mt-4 flex items-start gap-2.5 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-4 text-sm text-[#2f4038]">
+          <span aria-hidden="true">🔒</span>
+          <p class="leading-relaxed">
+            <strong>Private by design.</strong> Every answer and every classification is calculated on your own
+            device. Nothing you enter here is sent to, or stored on, any server — not even Ripple's. This tool
+            doesn't save your answers between visits either: refreshing the page clears everything, since there's
+            no history or vault storage in this version.
+          </p>
+        </div>
+      </div>
+
+      <!-- ─── Questionnaire ─────────────────────────────────────────────── -->
+      <form id="cycle-form" class="no-print mt-8" novalidate>
+        <div id="cycle-missing-warning" class="hidden mt-4 rounded-xl border border-[#e8d8d0] bg-[#faf5f3] p-3 text-sm text-[#8a4a35]" role="alert"></div>
+
+        <!-- Item 0 — confounder gate -->
+        <section aria-labelledby="cycle-group-gate" class="mt-6">
+          <h2 id="cycle-group-gate" class="ripple-label text-[#6b7a72]">Before we start</h2>
+          <div class="mt-3 rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="0">
+            <p id="cycle-label-0" class="text-sm font-semibold text-[#1a2b22] px-0.5">
+              Are you currently using hormonal contraception, a hormonal IUD, or any other treatment that changes
+              your bleeding pattern?
+            </p>
+            <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2" role="radiogroup" aria-labelledby="cycle-label-0">
+              <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                <input type="radio" name="item0" value="yes" class="accent-[#4a8a72]" required>
+                Yes
+              </label>
+              <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                <input type="radio" name="item0" value="no" class="accent-[#4a8a72]">
+                No
+              </label>
+              <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                <input type="radio" name="item0" value="not-sure" class="accent-[#4a8a72]">
+                Not sure
+              </label>
+            </div>
+          </div>
+          <p id="cycle-gate-note" class="hidden mt-2 text-xs text-[#6b7a72] leading-relaxed px-0.5">
+            Since you're using a hormonal treatment, the questions below won't give a meaningful pattern — you can
+            skip straight to "See my results."
+          </p>
+        </section>
+
+        <!-- Items 1-6 — cycle pattern classification -->
+        <section id="cycle-classification-section" aria-labelledby="cycle-group-pattern" class="mt-8 transition-opacity">
+          <h2 id="cycle-group-pattern" class="ripple-label text-[#6b7a72]">Your cycle</h2>
+          <p class="mt-1 text-sm text-[#6b7a72]">These questions look at timing, not severity.</p>
+          <div class="mt-3 space-y-3">
+            <div class="cycle-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="1">
+              <p id="cycle-label-1" class="text-sm font-semibold text-[#1a2b22] px-0.5">
+                Thinking about the gap from the start of one period to the start of the next: has that gap changed
+                by a week or more compared with your usual pattern?
+              </p>
+              <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2" role="radiogroup" aria-labelledby="cycle-label-1">
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item1" value="multiple" class="accent-[#4a8a72]" required>
+                  Yes, more than once recently
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item1" value="once" class="accent-[#4a8a72]">
+                  Yes, once
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item1" value="no" class="accent-[#4a8a72]">
+                  No
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item1" value="not-sure" class="accent-[#4a8a72]">
+                  Not sure
+                </label>
+              </div>
+            </div>
+
+            <div class="cycle-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="2">
+              <p id="cycle-label-2" class="text-sm font-semibold text-[#1a2b22] px-0.5">
+                In the last 12 months, have you gone 60 days or more without a period?
+              </p>
+              <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2" role="radiogroup" aria-labelledby="cycle-label-2">
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item2" value="yes" class="accent-[#4a8a72]" required>
+                  Yes
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item2" value="no" class="accent-[#4a8a72]">
+                  No
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item2" value="not-sure" class="accent-[#4a8a72]">
+                  Not sure
+                </label>
+              </div>
+            </div>
+
+            <div class="cycle-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="3">
+              <p id="cycle-label-3" class="text-sm font-semibold text-[#1a2b22] px-0.5">
+                Have you gone 12 consecutive months or more without a period?
+              </p>
+              <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2" role="radiogroup" aria-labelledby="cycle-label-3">
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item3" value="yes" class="accent-[#4a8a72]" required>
+                  Yes
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item3" value="no" class="accent-[#4a8a72]">
+                  No
+                </label>
+              </div>
+            </div>
+
+            <div class="cycle-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="4">
+              <p id="cycle-label-4" class="text-sm font-semibold text-[#1a2b22] px-0.5">
+                Has your flow changed noticeably — heavier, lighter, or less predictable than it used to be?
+              </p>
+              <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-labelledby="cycle-label-4">
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item4" value="heavier" class="accent-[#4a8a72]" required>
+                  Heavier
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item4" value="lighter" class="accent-[#4a8a72]">
+                  Lighter
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item4" value="varies" class="accent-[#4a8a72]">
+                  Varies a lot
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item4" value="no-change" class="accent-[#4a8a72]">
+                  No real change
+                </label>
+              </div>
+            </div>
+
+            <div class="cycle-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="5">
+              <p id="cycle-label-5" class="text-sm font-semibold text-[#1a2b22] px-0.5">
+                Have your periods become noticeably longer or shorter in the number of days they last?
+              </p>
+              <div class="mt-3 grid grid-cols-2 gap-2" role="radiogroup" aria-labelledby="cycle-label-5">
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item5" value="longer" class="accent-[#4a8a72]" required>
+                  Longer
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item5" value="shorter" class="accent-[#4a8a72]">
+                  Shorter
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item5" value="varies" class="accent-[#4a8a72]">
+                  Varies a lot
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item5" value="no-change" class="accent-[#4a8a72]">
+                  No real change
+                </label>
+              </div>
+            </div>
+
+            <div class="cycle-item rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="6">
+              <p id="cycle-label-6" class="text-sm font-semibold text-[#1a2b22] px-0.5">
+                Can you still roughly predict when your next period will start?
+              </p>
+              <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2" role="radiogroup" aria-labelledby="cycle-label-6">
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item6" value="usually" class="accent-[#4a8a72]" required>
+                  Usually yes
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item6" value="sometimes" class="accent-[#4a8a72]">
+                  Sometimes
+                </label>
+                <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                  <input type="radio" name="item6" value="rarely" class="accent-[#4a8a72]">
+                  Rarely or never
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Item 7 — always asked, independent of the gate and of classification -->
+        <section aria-labelledby="cycle-group-flags" class="mt-8">
+          <h2 id="cycle-group-flags" class="ripple-label text-[#6b7a72]">Patterns to raise promptly</h2>
+          <p class="mt-1 text-sm text-[#6b7a72]">
+            This question always applies, even if you answered "Yes" above. It carries no weight in the pattern
+            above — it's checked on its own.
+          </p>
+          <div class="mt-3 rounded-xl border border-[#e0d5c8] bg-white p-4" data-item-id="7">
+            <p id="cycle-label-7" class="text-sm font-semibold text-[#1a2b22] px-0.5">
+              Have you had any of the following? Select all that apply.
+            </p>
+            <div class="mt-3 space-y-2" role="group" aria-labelledby="cycle-label-7" id="cycle-item-7-group">
+              <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#c07060] has-[:checked]:bg-[#faf5f3] has-[:checked]:text-[#1a2b22] transition-colors">
+                <input type="checkbox" name="item7" value="spotting-between-periods" class="accent-[#c07060] shrink-0">
+                Bleeding or spotting between periods
+              </label>
+              <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#c07060] has-[:checked]:bg-[#faf5f3] has-[:checked]:text-[#1a2b22] transition-colors">
+                <input type="checkbox" name="item7" value="bleeding-after-sex" class="accent-[#c07060] shrink-0">
+                Bleeding after sex
+              </label>
+              <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#c07060] has-[:checked]:bg-[#faf5f3] has-[:checked]:text-[#1a2b22] transition-colors">
+                <input type="checkbox" name="item7" value="bleeding-after-12-months" class="accent-[#c07060] shrink-0">
+                Any bleeding after 12 or more months without a period
+              </label>
+              <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#c07060] has-[:checked]:bg-[#faf5f3] has-[:checked]:text-[#1a2b22] transition-colors">
+                <input type="checkbox" name="item7" value="heavy-bleeding" class="accent-[#c07060] shrink-0">
+                Bleeding heavy enough to soak through protection hourly, or that stops you doing normal things
+              </label>
+              <label class="cycle-option flex items-center gap-2 rounded-lg border border-[#e0d5c8] px-3 py-2.5 text-xs text-[#3f4a44] cursor-pointer has-[:checked]:border-[#4a8a72] has-[:checked]:bg-[#eef4f1] has-[:checked]:text-[#1a2b22] transition-colors">
+                <input type="checkbox" name="item7" value="none" class="accent-[#4a8a72] shrink-0">
+                None of these
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <div class="mt-8 flex justify-end">
+          <button type="submit" class="rounded-xl bg-[#1a2b22] text-white text-sm font-semibold px-6 py-3 hover:bg-[#2a3b32] transition-colors">
+            See my results
+          </button>
+        </div>
+      </form>
+
+      <!-- ─── Results (hidden until classified) ────────────────────────── -->
+      <section id="cycle-results" class="hidden mt-10 scroll-mt-6" aria-live="polite">
+        <!-- Persistent, visually distinct panel — independent of the gate and the pattern below it -->
+        <div id="cycle-flag-panel" class="no-print hidden rounded-2xl border border-[#e8d8d0] bg-[#faf5f3] p-4 sm:p-5 mb-4 text-sm text-[#5c3a2e] leading-relaxed">
+          <p class="font-semibold text-[#8a4a35]">Worth raising with a clinician soon</p>
+          <p class="mt-1.5">
+            Some of what you've described is worth raising with a clinician sooner rather than later — not because
+            it's necessarily serious, but because these are patterns that are usually checked rather than watched.
+            Bleeding after 12 months without a period in particular is something clinicians want to know about
+            promptly.
+          </p>
+        </div>
+
+        <div class="no-print ripple-card p-5 sm:p-6">
+          <h2 class="font-serif text-2xl font-bold text-[#1a2b22]">Your pattern</h2>
+
+          <!-- Gated branch -->
+          <div id="cycle-gated-result" class="hidden">
+            <p class="mt-2 text-sm leading-relaxed text-[#3f4a44]">
+              Hormonal treatments change bleeding patterns directly, so cycle timing can't tell you much about
+              where you are in the transition while you're using them. The symptom-based tools below may be more
+              useful, and this is worth raising with your clinician.
+            </p>
+            <div class="mt-4 flex flex-col sm:flex-row gap-3">
+              <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="flex-1 text-center rounded-xl border border-[#e0d5c8] text-[#1a2b22] text-sm font-semibold px-5 py-3 hover:bg-[#f5f0ea] transition-colors">
+                Greene Climacteric Scale
+              </a>
+              <a href="https://ripplehealth.app/tools/appointment-prep/" class="flex-1 text-center rounded-xl border border-[#e0d5c8] text-[#1a2b22] text-sm font-semibold px-5 py-3 hover:bg-[#f5f0ea] transition-colors">
+                Appointment Prep
+              </a>
+            </div>
+          </div>
+
+          <!-- Classified branch -->
+          <div id="cycle-pattern-result" class="hidden">
+            <p id="cycle-pattern-heading" class="mt-2 text-lg font-semibold text-[#1a2b22]"></p>
+            <p id="cycle-pattern-body" class="mt-1.5 text-sm leading-relaxed text-[#3f4a44]"></p>
+            <p id="cycle-pattern-notes" class="hidden mt-3 text-sm leading-relaxed text-[#3f4a44]"></p>
+
+            <div class="mt-4 rounded-xl border border-[#e0d5c8] bg-[#f5f0ea] p-4 text-xs leading-relaxed text-[#6b7a72]">
+              This is a pattern description, not a diagnosis or a score — there's no number here and nothing to
+              add up. STRAW+10 describes population-level bleeding patterns; your own experience can vary, and a
+              clinician is the one who can put this in the context of your full history.
+            </div>
+
+            <p class="mt-4 text-sm leading-relaxed text-[#3f4a44]">
+              Cycle changes are only one signal. Some women see little or no change in cycle length before their
+              final menses, so a steady cycle doesn't rule out the transition.
+            </p>
+          </div>
+
+          <div class="no-print mt-6 flex flex-col sm:flex-row gap-3">
+            <button type="button" id="cycle-print-btn" class="flex-1 rounded-xl border border-[#e0d5c8] text-[#1a2b22] text-sm font-semibold px-5 py-3 hover:bg-[#f5f0ea] transition-colors">
+              Print / save my results
+            </button>
+            <button type="button" id="cycle-edit-btn" class="flex-1 rounded-xl border border-transparent text-[#6b7a72] text-sm font-semibold px-5 py-3 hover:bg-[#f5f0ea] transition-colors">
+              Edit my answers
+            </button>
+          </div>
+        </div>
+
+        <!-- Print-only summary — a sibling of the no-print card above, never nested inside it -->
+        <div id="cycle-print-summary" class="print-only hidden cycle-print-summary"></div>
+
+        <div class="no-print mt-6 rounded-2xl border border-[#c8d8d0] bg-[#eef4f1] p-5 sm:p-6 text-center">
+          <p class="text-sm text-[#2f4038] leading-relaxed">
+            Ripple tracks cycle changes over time alongside your symptoms, so patterns like these emerge from your
+            own data instead of a one-time check-in.
+          </p>
+          <a href="https://ripplehealth.app/" class="mt-4 inline-block rounded-xl bg-[#4a8a72] text-white text-sm font-semibold px-6 py-3 hover:bg-[#3d7460] transition-colors">
+            Track your cycle in Ripple — it's free to start
+          </a>
+        </div>
+      </section>
+
+      <!-- ─── SEO body content ──────────────────────────────────────────── -->
+      <article class="no-print mt-14 prose-content max-w-none space-y-6 text-[#3f4a44] leading-relaxed">
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Why cycle change matters more than any single symptom</h2>
+          <p class="mt-2">
+            Hot flashes, sleep trouble, and mood changes get most of the attention when people talk about
+            perimenopause — and Ripple's own Greene Climacteric Scale measures exactly those. But the STRAW+10
+            consensus staging framework, the framework researchers and clinicians use to describe where someone is
+            in the menopause transition, is built primarily on menstrual bleeding patterns, not symptom severity.
+            Persistent cycle-length variability, gaps of 60 days or more, and 12 consecutive months without a
+            period are the markers that actually define each stage. This tool exists to cover that gap directly.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">What this tool is, and what it isn't</h2>
+          <p class="mt-2">
+            The Cycle Change Tracker is original content written by Ripple, grounded in the STRAW+10 consensus
+            framework — it is not a translation, adaptation, or reproduction of any licensed instrument, and it
+            carries no licensing restriction. It is also not a scored or validated instrument: there's no total,
+            no cutoff, and no severity number anywhere on this page. It produces a plain-language pattern
+            description based on the timing you describe, in this priority order — a 12-month absence of periods
+            first, then a 60-day-or-longer gap, then repeated cycle-length shifts of a week or more, then a single
+            such shift, and otherwise no cycle marker detected. Flow, duration, and predictability are reflected
+            back descriptively because they're common real experiences during the transition, but they don't
+            change which pattern you're matched to.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">If you're using hormonal contraception or a hormonal IUD</h2>
+          <p class="mt-2">
+            The first question asks about this directly, and it's a hard gate, not a suggestion: hormonal
+            contraception, a hormonal IUD, and some other treatments change bleeding patterns on their own, which
+            makes cycle timing an unreliable — sometimes meaningless — signal for staging while you're using them.
+            Answering "Yes" skips the pattern classification entirely rather than producing a result that looks
+            informative but isn't. Symptom-based tools like the Greene Climacteric Scale, and preparing for a
+            direct conversation with a clinician, are more useful starting points in that situation.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Patterns worth raising with a clinician promptly</h2>
+          <p class="mt-2">
+            One question on this page stands apart from the rest: spotting between periods, bleeding after sex,
+            any bleeding after 12 or more months without a period, and unusually heavy bleeding. These carry no
+            scoring weight and don't feed into the pattern above — they're checked independently, and they apply
+            whether or not the hormonal-treatment question gated your result. Flagging any of them surfaces a note
+            recommending you raise it with a clinician sooner rather than later. That's a routine, sensible step
+            for these specific patterns — not a sign that anything is necessarily wrong, and not a substitute for
+            a full clinical evaluation.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">How this tool protects your privacy</h2>
+          <p class="mt-2">
+            This page runs the entire questionnaire and pattern classification in your browser. No answer or
+            result is ever sent to a server, stored in a database, or logged anywhere — you can verify this
+            yourself by opening your browser's developer tools and watching the network tab while you complete
+            it. This version also doesn't save your answers between visits: everything lives in the page's memory
+            only, so refreshing or closing the tab clears it. If you'd like to keep a copy, print or save your
+            results before you navigate away.
+          </p>
+        </section>
+
+        <section aria-labelledby="cycle-mq6-heading">
+          <h2 id="cycle-mq6-heading" class="font-serif text-xl font-bold text-[#1a2b22]">Preparing to talk to your doctor</h2>
+          <p class="mt-2">
+            The Menopause Quick 6 is a short set of questions developed by Dr. Susan Goldstein and published in
+            <em>Canadian Family Physician</em>, designed to help start a conversation about menopause in a primary
+            care appointment. It's supported by the Canadian Menopause Society and is free to use.
+          </p>
+          <ul class="mt-2 space-y-1">
+            <li>→ <a href="https://mq6.ca/mq6-assessment-tool/" class="text-[#4a8a72] underline hover:text-[#3d7460]">MQ6 assessment tool (mq6.ca)</a></li>
+            <li>→ <a href="https://mq6.ca/fr/outil-devaluation-mq6/" class="text-[#4a8a72] underline hover:text-[#3d7460]">Outil d'évaluation MQ6 — en français</a></li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="cycle-faq-heading">
+          <h2 id="cycle-faq-heading" class="font-serif text-xl font-bold text-[#1a2b22]">Frequently asked questions</h2>
+          <div class="mt-3 space-y-4">
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">What is the Cycle Change Tracker?</h3>
+              <p class="mt-1">
+                The Cycle Change Tracker is a free, original tool from Ripple that asks 8 quick questions about
+                your menstrual cycle — length variability, skipped cycles, flow, duration, and predictability —
+                and matches your answers to a menopause-transition pattern based on the STRAW+10 staging
+                framework. It produces a pattern description, not a score or a diagnosis.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Is this the same kind of tool as the Greene Climacteric Scale?</h3>
+              <p class="mt-1">
+                No. The Greene Climacteric Scale is a validated, licensed research instrument that scores symptom
+                severity. The Cycle Change Tracker is original content written by Ripple, grounded in the
+                STRAW+10 consensus staging criteria, and it never produces a number or a total — only a
+                plain-language pattern description. The two tools are meant to complement each other, not replace
+                one another.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">What is STRAW+10?</h3>
+              <p class="mt-1">
+                STRAW+10 (Stages of Reproductive Aging Workshop +10) is a consensus staging framework, published
+                by Harlow and colleagues in 2012, that describes the menopause transition in stages using
+                menstrual bleeding patterns as the primary marker — things like persistent cycle-length
+                variability, 60-day-or-longer gaps between periods, and 12 consecutive months without a period.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Does this tool diagnose menopause or perimenopause?</h3>
+              <p class="mt-1">
+                No. It describes which STRAW+10-informed bleeding pattern your answers most closely match. It
+                doesn't diagnose perimenopause or menopause, estimate how much time is left before your final
+                period, or replace a conversation with a clinician about your specific situation.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">What if I'm using hormonal birth control or a hormonal IUD?</h3>
+              <p class="mt-1">
+                The first question asks about this directly, because hormonal contraception and hormonal IUDs
+                change bleeding patterns on their own — that makes cycle timing an unreliable signal for staging
+                while you're using them. If you answer yes, the tool skips pattern classification entirely rather
+                than giving you a misleading result, and points you to symptom-based tools instead.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Why does one question ask about bleeding after sex or between periods?</h3>
+              <p class="mt-1">
+                That question exists separately from the pattern classification and carries no scoring weight.
+                Some bleeding patterns — spotting between periods, bleeding after sex, any bleeding after 12 or
+                more months without a period, or unusually heavy bleeding — are usually worth a clinician's
+                attention promptly rather than watched over time, regardless of where you are in the transition.
+                Selecting any of these surfaces a note about that; it isn't a diagnosis of anything serious, just
+                a prompt to raise it.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">Does this tool store or send my answers anywhere?</h3>
+              <p class="mt-1">
+                No. Every answer and every classification is calculated in your browser using JavaScript running
+                on your own device. Nothing is transmitted to Ripple's servers, stored, or logged, and this tool
+                doesn't save your answers between visits — refreshing the page clears everything, since there's
+                no vault or history storage in this version.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-semibold text-[#1a2b22]">What does Ripple do with the Cycle Change Tracker?</h3>
+              <p class="mt-1">
+                Nothing, on this page — your answers stay on your device unless you print or save your results
+                yourself. This free tool doesn't require an account to use.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Sources</h2>
+          <ul class="mt-2 space-y-2 text-sm">
+            <li>Harlow SD, Gass M, Hall JE, et al. Executive summary of the Stages of Reproductive Aging Workshop +10: addressing the unfinished agenda of staging reproductive aging. <em>J Clin Endocrinol Metab</em>. 2012;97(4):1159–1168. (Published simultaneously in <em>Menopause</em>. 2012;19(4):387–395.)</li>
+            <li>Greene JG. Constructing a standard climacteric scale. <em>Maturitas</em>. 1998;29(1):25–31.</li>
+            <li>Goldstein S. An efficient tool for the primary care management of menopause. <em>Can Fam Physician</em>. 2017;63(4):295–298.</li>
+            <li>Harlow SD, Paramsothy P. Menstruation and the menopausal transition. <em>Obstet Gynecol Clin North Am</em>. 2011;38(3):595–607. Cited for general context on cycle changes near the final menstrual period.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-serif text-xl font-bold text-[#1a2b22]">Related</h2>
+          <p class="mt-2">
+            If you'd like a symptom-severity picture alongside this cycle pattern, see the
+            <a href="https://ripplehealth.app/tools/greene-climacteric-scale/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Greene Climacteric Scale self-assessment</a>.
+            To turn either result into a prep sheet for your next appointment, see the
+            <a href="https://ripplehealth.app/tools/appointment-prep/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Appointment Prep sheet builder</a>.
+            If a clinician has dismissed or minimized symptoms you've raised, the
+            <a href="https://ripplehealth.app/tools/dismissal-tracker/" class="text-[#4a8a72] underline hover:text-[#3d7460]">free Dismissal Tracker</a>
+            keeps a dated record, entirely in your browser.
+          </p>
+        </section>
+      </article>
+
+      <footer class="no-print mt-12 border-t border-[#e0d5c8] pt-6 text-xs leading-relaxed text-[#9a9490]">
+        <p>
+          This tool is for informational and self-tracking purposes only. It is not a substitute for professional
+          medical advice, diagnosis, or treatment. The Cycle Change Tracker describes a bleeding pattern based on
+          your answers — it does not diagnose perimenopause or menopause. Always discuss your results with a
+          qualified doctor or menopause specialist.
+        </p>
+        <p class="mt-3">
+          <a href="https://ripplehealth.app/" class="underline hover:text-[#6b7a72]">Ripple — Perimenopause Health Companion</a>
+        </p>
+      </footer>
+    </main>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+
+</html>
