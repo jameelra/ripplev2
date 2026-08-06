@@ -1,6 +1,13 @@
 # Dependencies
 **/node_modules
 .pnpm-store/
+# This repo doesn't commit a lockfile (none existed before); ignore one if
+# generated locally rather than leaving it untracked. Note: package.json's
+# patchedDependencies pins wouter@3.7.1 exactly, but a lockfile generated
+# without also pinning wouter's version range to 3.7.1 will re-resolve to a
+# newer version and fail pnpm's patch-apply step — a pre-existing mismatch,
+# unrelated to this change.
+pnpm-lock.yaml
 
 # Build outputs
 dist/
