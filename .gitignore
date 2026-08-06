@@ -1,6 +1,11 @@
 # Dependencies
 **/node_modules
 .pnpm-store/
+# This repo tracks package-lock.json and builds/installs via `npm ci`
+# (see Dockerfile). pnpm-lock.yaml is not tracked — it's only a local
+# byproduct of using pnpm as a dev convenience, and isn't part of the
+# actual install/build path.
+pnpm-lock.yaml
 
 # Build outputs
 dist/
