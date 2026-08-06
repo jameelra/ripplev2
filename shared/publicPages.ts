@@ -32,6 +32,11 @@ export interface PublicLocalePage {
   priority: number;
 }
 
-// Populated once each locale page's HTML actually exists — see
-// client/fr/outils/changements-du-cycle/ (added alongside the French draft).
-export const PUBLIC_LOCALE_PAGES: PublicLocalePage[] = [];
+export const PUBLIC_LOCALE_PAGES: PublicLocalePage[] = [
+  {
+    urlPath: "fr/outils/changements-du-cycle",
+    dir: "fr/outils/changements-du-cycle",
+    changefreq: "monthly",
+    priority: 0.9,
+  },
+];
