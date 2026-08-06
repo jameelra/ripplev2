@@ -37,8 +37,8 @@ const item7Checkboxes = Array.from(form.querySelectorAll<HTMLInputElement>('inpu
 const item7None = item7Checkboxes.find(cb => cb.value === FLAG_NONE)!;
 
 const HONESTY_CAVEAT =
-  "Cycle changes are only one signal. Between 12% and 25% of women see little or no change in cycle length " +
-  "before their final menses, so a steady cycle doesn't rule out the transition.";
+  "Cycle changes are only one signal. Some women see little or no change in cycle length before their final " +
+  "menses, so a steady cycle doesn't rule out the transition.";
 
 const GATE_MESSAGE =
   "Hormonal treatments change bleeding patterns directly, so cycle timing can't tell you much about where you " +

@@ -129,26 +129,27 @@ describe("Cycle Change Tracker — static page markup", () => {
     expect(flagPanelIndex).toBeLessThan(gatedIndex);
   });
 
-  it("states the mandatory honesty caveat with the verified 12-25% figure", () => {
+  it("states the mandatory honesty caveat without a percentage figure, since no cited source for one survives in-session verification", () => {
     expect(html).toContain("Cycle changes are only one signal.");
-    expect(html).toContain("Between 12% and 25% of women see little or no change in cycle");
     expect(html).toContain("so a steady cycle doesn't rule out the transition.");
+    expect(html).not.toMatch(/\d+%/);
+    expect(html).not.toMatch(/between \d+ and \d+ percent/i);
     // Same sentence must appear in both the static markup and the print-summary builder.
     const mainTs = fs.readFileSync(
       path.resolve(import.meta.dirname, "../client/tools/cycle-changes/main.ts"),
       "utf-8"
     );
-    expect(mainTs).toContain("Between 12% and 25% of women see little or no change in cycle length");
+    expect(mainTs).toContain("Some women see little or no change in cycle length before their final");
+    expect(mainTs).not.toMatch(/\d+%/);
   });
 
-  it("cites Harlow 2018 with a full, non-re-derivable reference for the 12-25% figure", () => {
-    expect(html).toContain(
-      "Harlow SD. Menstrual cycle changes as women approach the final menses: what matters?"
-    );
-    expect(html).toContain("Obstet Gynecol Clin North Am</em>. 2018;45(4):599–611");
-    expect(html).toContain("doi:10.1016/j.ogc.2018.07.003");
-    expect(html).toContain("PMID: 30401545");
-    expect(html).toContain("Source for the estimate that 12–25% of women show little or no change");
+  it("carries no bibliography — every citation tried failed in-session PubMed/publisher verification and was removed", () => {
+    expect(html).not.toContain(">Sources<");
+    expect(html).not.toContain("doi:10.1016");
+    expect(html).not.toMatch(/PMID/);
+    expect(html).not.toContain("Harlow SD");
+    expect(html).not.toContain("Greene JG");
+    expect(html).not.toContain("Goldstein S.");
   });
 
   it("does not reproduce MQ6 questions, graphic, or logo — link only, both languages listed", () => {
@@ -190,16 +191,6 @@ describe("Cycle Change Tracker — static page markup", () => {
     const article = html.slice(html.indexOf("<article"), html.indexOf("</article>"));
     expect(article).toContain("https://ripplehealth.app/tools/greene-climacteric-scale/");
     expect(article).toContain("https://ripplehealth.app/tools/appointment-prep/");
-  });
-
-  it("cites Harlow 2012 (STRAW+10), Greene 1998, and Goldstein 2017 in the Sources section", () => {
-    const sources = html.slice(html.indexOf(">Sources<"), html.indexOf("</section>", html.indexOf(">Sources<")));
-    expect(sources).toContain("Harlow SD, Gass M, Hall JE");
-    expect(sources).toContain("J Clin Endocrinol Metab");
-    expect(sources).toContain("Greene JG");
-    expect(sources).toContain("Maturitas");
-    expect(sources).toContain("Goldstein S");
-    expect(sources).toContain("Can Fam Physician");
   });
 
   it("carries the beacon and Google Search Console marker comments like the other tool pages", () => {

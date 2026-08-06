@@ -84,24 +84,25 @@ describe("Cycle Change Tracker (fr-CA) — static page markup", () => {
     expect(html).not.toMatch(/sur \d+/i);
   });
 
-  it("states the mandatory honesty caveat with the verified 12-25% figure", () => {
+  it("states the mandatory honesty caveat without a percentage figure, since no cited source for one survives in-session verification", () => {
     expect(normalized).toContain("Les changements du cycle ne sont qu'un signal parmi d'autres.");
-    expect(normalized).toContain("Entre 12 % et 25 % des femmes");
     expect(normalized).toContain("donc un cycle stable n'exclut pas la transition.");
+    expect(html).not.toMatch(/\d+\s*%/);
     const mainTs = fs.readFileSync(
       path.resolve(import.meta.dirname, "../client/fr/outils/changements-du-cycle/main.ts"),
       "utf-8"
     );
-    expect(mainTs).toContain("Entre 12 % et 25 % des femmes ne constatent");
+    expect(mainTs).toContain("Certaines femmes constatent peu ou pas de");
+    expect(mainTs).not.toMatch(/\d+\s*%/);
   });
 
-  it("cites Harlow 2018 with a full, non-re-derivable reference for the 12-25% figure", () => {
-    expect(html).toContain(
-      "Harlow SD. Menstrual cycle changes as women approach the final menses: what matters?"
-    );
-    expect(html).toContain("Obstet Gynecol Clin North Am</em>. 2018;45(4):599–611");
-    expect(html).toContain("doi:10.1016/j.ogc.2018.07.003");
-    expect(html).toContain("PMID : 30401545");
+  it("carries no bibliography — every citation tried failed in-session PubMed/publisher verification and was removed", () => {
+    expect(html).not.toContain(">Sources<");
+    expect(html).not.toContain("doi:10.1016");
+    expect(html).not.toMatch(/PMID/);
+    expect(html).not.toContain("Harlow SD");
+    expect(html).not.toContain("Greene JG");
+    expect(html).not.toContain("Goldstein S.");
   });
 
   it("states the item-7 persistent-flag panel text, positioned above the gated/classified branches", () => {
