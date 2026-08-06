@@ -129,14 +129,26 @@ describe("Cycle Change Tracker — static page markup", () => {
     expect(flagPanelIndex).toBeLessThan(gatedIndex);
   });
 
-  it("states the mandatory honesty caveat without inventing a percentage figure", () => {
+  it("states the mandatory honesty caveat with the verified 12-25% figure", () => {
     expect(html).toContain("Cycle changes are only one signal.");
+    expect(html).toContain("Between 12% and 25% of women see little or no change in cycle");
     expect(html).toContain("so a steady cycle doesn't rule out the transition.");
-    // The 12-25% figure could not be independently verified against the primary
-    // source in this environment, so per the brief's own fallback instruction,
-    // the page ships the non-numeric version instead of an unconfirmed number.
-    expect(html).not.toMatch(/\d+%/);
-    expect(html).not.toMatch(/between \d+ and \d+ percent/i);
+    // Same sentence must appear in both the static markup and the print-summary builder.
+    const mainTs = fs.readFileSync(
+      path.resolve(import.meta.dirname, "../client/tools/cycle-changes/main.ts"),
+      "utf-8"
+    );
+    expect(mainTs).toContain("Between 12% and 25% of women see little or no change in cycle length");
+  });
+
+  it("cites Harlow 2018 with a full, non-re-derivable reference for the 12-25% figure", () => {
+    expect(html).toContain(
+      "Harlow SD. Menstrual cycle changes as women approach the final menses: what matters?"
+    );
+    expect(html).toContain("Obstet Gynecol Clin North Am</em>. 2018;45(4):599–611");
+    expect(html).toContain("doi:10.1016/j.ogc.2018.07.003");
+    expect(html).toContain("PMID: 30401545");
+    expect(html).toContain("Source for the estimate that 12–25% of women show little or no change");
   });
 
   it("does not reproduce MQ6 questions, graphic, or logo — link only, both languages listed", () => {
