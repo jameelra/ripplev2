@@ -1,6 +1,7 @@
 // ─── Ripple v2 — Stripe Webhook Handler ──────────────────────────────────────
 import { Request, Response } from "express";
 import Stripe from "stripe";
+import { ENV } from "../_core/env";
 import {
   upsertStripeCustomer,
   upsertSubscription,
@@ -13,29 +14,42 @@ import { getPriceConfigByPriceId } from "./products";
 function getStripe(): Stripe | null {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) return null;
-  return new Stripe(key, { apiVersion: "2026-06-24.dahlia" });
+  return new Stripe(key, { apiVersion: "2026-07-29.dahlia" });
 }
 
 export async function handleStripeWebhook(req: Request, res: Response): Promise<void> {
+  // Checked before any body handling — this endpoint has no other gate, so a
+  // disabled-payments deployment must never even look at the request body.
+  if (!ENV.paymentsEnabled) {
+    res.status(503).json({ error: "Payments are not enabled." });
+    return;
+  }
+
   const stripe = getStripe();
   if (!stripe) {
-    console.warn("[Webhook] Stripe not configured — ignoring event");
-    res.json({ received: true });
+    console.warn("[Webhook] Stripe not configured — refusing event");
+    res.status(503).json({ error: "Stripe is not configured." });
     return;
   }
 
   const sig = req.headers["stripe-signature"] as string;
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
+  // No unsigned fallback: without a webhook secret there is no way to tell a
+  // genuine Stripe event from an arbitrary POST, so we refuse to parse the
+  // body at all rather than trust it. Local testing should use the signing
+  // secret the Stripe CLI prints for `stripe listen --forward-to ...`, not a
+  // parse-without-verifying code path.
+  if (!webhookSecret) {
+    console.error("[Webhook] STRIPE_WEBHOOK_SECRET is not set — refusing to process the event unsigned.");
+    res.status(503).json({ error: "Webhook signing secret is not configured." });
+    return;
+  }
+
   let event: Stripe.Event;
 
   try {
-    if (!webhookSecret) {
-      // No webhook secret — parse raw body directly (dev/test only)
-      event = JSON.parse(req.body.toString()) as Stripe.Event;
-    } else {
-      event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
-    }
+    event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
   } catch (err) {
     console.error("[Webhook] Signature verification failed:", err);
     res.status(400).json({ error: "Webhook signature verification failed" });
@@ -64,9 +78,17 @@ export async function handleStripeWebhook(req: Request, res: Response): Promise<
           break;
         }
 
-        // Save Stripe customer ID
+        // Save Stripe customer ID — refuse the whole event if it would
+        // reassign an existing customer ID to a different one, rather than
+        // silently overwriting it (see upsertStripeCustomer in ./db).
         if (session.customer) {
-          await upsertStripeCustomer(userId, session.customer as string);
+          const customerResult = await upsertStripeCustomer(userId, session.customer as string);
+          if (!customerResult.ok) {
+            console.error(
+              `[Webhook] Rejecting checkout.session.completed for user ${userId}: ${customerResult.reason}`
+            );
+            break;
+          }
         }
 
         // Retrieve the full subscription to get price details
