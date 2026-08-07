@@ -6,6 +6,7 @@ import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerMailerliteProxy } from "./mailerliteProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
+import { ENV } from "./env";
 import { serveStatic, setupVite } from "./vite";
 import { handleStripeWebhook } from "../billing/webhook";
 
@@ -29,6 +30,18 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 }
 
 async function startServer() {
+  // Without a webhook signing secret, the Stripe webhook endpoint has no way
+  // to tell a genuine Stripe event from an arbitrary POST (see
+  // server/billing/webhook.ts) — refuse to boot with payments live rather
+  // than silently exposing that endpoint unsigned.
+  if (ENV.paymentsEnabled && !process.env.STRIPE_WEBHOOK_SECRET) {
+    throw new Error(
+      "PAYMENTS_ENABLED is true but STRIPE_WEBHOOK_SECRET is not set. Refusing to start: " +
+        "without it, the Stripe webhook endpoint cannot verify request signatures. " +
+        "Set STRIPE_WEBHOOK_SECRET before enabling payments."
+    );
+  }
+
   const app = express();
   const server = createServer(app);
 
@@ -76,4 +89,7 @@ async function startServer() {
   });
 }
 
-startServer().catch(console.error);
+startServer().catch(err => {
+  console.error(err);
+  process.exit(1);
+});

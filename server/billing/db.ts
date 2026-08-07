@@ -23,13 +23,32 @@ export async function getStripeCustomerId(userId: number): Promise<string | null
   return rows[0]?.stripeCustomerId ?? null;
 }
 
-export async function upsertStripeCustomer(userId: number, stripeCustomerId: string): Promise<void> {
+export type UpsertStripeCustomerResult = { ok: true } | { ok: false; reason: string };
+
+// Refuses to reassign an existing, different customer ID rather than
+// overwriting it. A webhook event that tries to do so is either stale,
+// malformed, or forged — silently accepting it would let one account's
+// Stripe identity be swapped onto another's.
+export async function upsertStripeCustomer(
+  userId: number,
+  stripeCustomerId: string
+): Promise<UpsertStripeCustomerResult> {
   const db = await getDb();
-  if (!db) return;
+  if (!db) return { ok: true };
+
+  const existing = await getStripeCustomerId(userId);
+  if (existing && existing !== stripeCustomerId) {
+    console.error(
+      `[Billing] Refusing to reassign stripeCustomerId for user ${userId}: existing=${existing} incoming=${stripeCustomerId}`
+    );
+    return { ok: false, reason: "stripeCustomerId is already assigned to a different value" };
+  }
+
   await db
     .insert(stripeCustomers)
     .values({ userId, stripeCustomerId })
     .onDuplicateKeyUpdate({ set: { stripeCustomerId } });
+  return { ok: true };
 }
 
 // ─── Subscriptions ────────────────────────────────────────────────────────────
@@ -108,6 +127,12 @@ export async function getUserByStripeCustomerId(stripeCustomerId: string) {
 export async function syncUserLicenseTier(userId: number): Promise<"Free" | "Pro" | "Premier"> {
   const db = await getDb();
   if (!db) return "Free";
+
+  const userRows = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+  if (!userRows[0]) {
+    console.warn(`[Billing] syncUserLicenseTier: no user found for id ${userId} — skipping update`);
+    return "Free";
+  }
 
   const activeSubs = await getActiveSubscriptions(userId);
   const activePlanIds = activeSubs.map((s) => s.planId as PlanId);

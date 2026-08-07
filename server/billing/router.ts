@@ -26,7 +26,7 @@ function getStripe(): Stripe | null {
     console.warn("[Billing] STRIPE_SECRET_KEY not set — billing unavailable");
     return null;
   }
-  return new Stripe(key, { apiVersion: "2026-06-24.dahlia" });
+  return new Stripe(key, { apiVersion: "2026-07-29.dahlia" });
 }
 
 // ─── Billing Router ───────────────────────────────────────────────────────────
